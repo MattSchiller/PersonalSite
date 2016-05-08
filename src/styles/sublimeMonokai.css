@@ -1,0 +1,44 @@
+html {
+  font-family: Inconsolata, sans-serif;
+  background: #2D3B45;
+  color: #E6E6E5;
+  font-weight: bold;
+}
+
+.simType {
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  white-space: pre;
+}
+
+.func {
+  color: #66D9EF;
+  font-style: italic;
+}
+
+.funcName {
+  color: #A6E22E;
+}
+
+.comment {
+  color: #75715E;
+}
+
+.key {
+  color: #F92672;
+}
+
+.str {
+  color: #E6DB74;
+}
+
+.indent1 {
+  text-indent: 20px;
+}
+
+.indent2 {
+  text-indent: 40px;
+}
