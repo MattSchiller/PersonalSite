@@ -55,19 +55,31 @@
 
 	var React = __webpack_require__(2);
 	var SimType = __webpack_require__(159);
-	//var Menu    = require('./menu.jsx');
+	var Menu = __webpack_require__(161);
 
 	var App = React.createClass({
 	  displayName: 'App',
 
+	  getInitialState: function getInitialState() {
+	    return { menuIndex: 0 };
+	  },
+
+	  menuClick: function menuClick(index) {
+	    console.log("translate this into an effect for index:", index);
+	  },
 
 	  render: function render() {
 	    var content = "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " name   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "simType.jsx" + "~q-~" + ";" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
 	     + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller@gmail.com" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}";
 
+	    var items = ["Apple.js", "Banana.jpg", "Orange.orange"];
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(Menu, {
+	        items: items,
+	        clicked: this.menuClick
+	      }),
 	      React.createElement(SimType, { content: content })
 	    );
 	  }
@@ -19942,6 +19954,72 @@
 	};
 
 	module.exports = TypedBucket;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(2);
+
+	var Menu = React.createClass({
+	  displayName: "Menu",
+
+	  getInitialState: function getInitialState() {
+	    return { current: 0 };
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      items: []
+	    };
+	  },
+
+	  makeCurrent: function makeCurrent(i) {
+	    this.setState({ current: i });
+	  },
+
+	  formatItems: function formatItems() {
+	    var myItems = this.props.items.map(function (item, i) {
+	      return React.createElement(
+	        "li",
+	        { key: i,
+	          onClick: function () {
+	            this.makeCurrent(i);
+	            this.props.clicked(i);
+	          }.bind(this),
+	          className: i == this.state.current ? "current" : ""
+	        },
+	        React.createElement(
+	          "span",
+	          null,
+	          item
+	        )
+	      );
+	    }.bind(this));
+
+	    return React.createElement(
+	      "ul",
+	      null,
+	      myItems
+	    );
+	  },
+
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      { className: "tabs" },
+	      React.createElement(
+	        "nav",
+	        null,
+	        this.formatItems()
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Menu;
 
 /***/ }
 /******/ ]);
