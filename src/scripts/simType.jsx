@@ -184,7 +184,10 @@ var SimType = React.createClass({
       if (onOrOff == '+') {
         this._quoting = true;
         typed.push( new TypedBucket( this._qChar + this._qChar, this._str ));
-      } else this._quoting = false;
+      } else {
+        this._quoting = false;
+        typed.push( new TypedBucket );
+      }
       
       this.setState({ typed, contentPos });
       
@@ -216,6 +219,7 @@ var SimType = React.createClass({
             key = { j }
               >
             { lineContents }
+            <br />
           </div>
           )
       } else {

@@ -10,8 +10,18 @@ html {
   flex-direction: column;
 }
 
-span {
+div {
+  overflow-wrap: normal;
+}
+
+.simType span.line {
   white-space: pre;
+}
+
+.tabs span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .func {
@@ -33,6 +43,10 @@ span {
 
 .str {
   color: #E6DB74;
+}
+
+.tabs span.line {
+  white-space: pre;
 }
 
 .indent1 {
@@ -145,3 +159,23 @@ nav {
   -webkit-transform: translate3d(0,1px,0);
   transform: translate3d(0,0,0) height 100%;
 }
+
+/*Fallback styling*/
+.no-flexbox nav ul {
+  display: block;
+}
+
+.no-flexbox nav ul li {
+  min-width: 15%;
+  display: inline-block;
+}
+
+/*@media handheld {*/
+/*  html {*/
+/*    font-size: 2em;*/
+/*  }*/
+  
+/*  .tabs nav li:before {*/
+/*    margin-right: 0;*/
+/*  }*/
+/*}*/
