@@ -68,7 +68,7 @@
 	    return {
 	      menuIndex: 0,
 	      menuItems: ["index.html", "projects.js", "personal.css"],
-	      content: [SimTypeIndex, About, Personal]
+	      content: [SimTypeIndex, { stub: "", writing: "" }, { stub: "", writing: "" }]
 	    };
 	  },
 
@@ -97,10 +97,19 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Menu, {
-	        items: this.state.menuItems,
-	        clicked: this.menuClick
-	      }),
+	      React.createElement(
+	        'div',
+	        { id: 'header' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'Matt Schiller'
+	        ),
+	        React.createElement(Menu, {
+	          items: this.state.menuItems,
+	          clicked: this.menuClick
+	        })
+	      ),
 	      pages
 	    );
 	  }
@@ -19728,7 +19737,9 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      content: "",
+	      content: {
+	        stub: "",
+	        writing: "" },
 	      options: {
 	        animate: true //NEED TO ADD ANIMATE TOGGLE, maybe
 	        , show: false }
@@ -19744,7 +19755,20 @@
 	    this._indent = "indent";
 	    this._str = "str";
 
+	    this.formatStub();
+
 	    this.updateTyped();
+	  },
+
+	  formatStub: function formatStub() {
+	    var typed = this.state.typed,
+	        stub = this.props.content.stub,
+	        stubPos = 0;
+
+	    while (stubPos < stub.length) {
+
+	      stubPos++;
+	    }
 	  },
 
 	  componentDidUpdate: function componentDidUpdate() {
@@ -19754,19 +19778,19 @@
 	  updateTyped: function updateTyped() {
 	    if (!this.props.options.show) return;
 
-	    if (this.state.contentPos >= this.props.content.length - 1) return;
+	    if (this.state.contentPos >= this.props.content.writing.length - 1) return;
 
 	    if (this._backspacing) return;
 
 	    var contentPos = this.state.contentPos + 1,
-	        nextChar = this.props.content[contentPos];
+	        nextChar = this.props.content.writing[contentPos];
 
 	    if (nextChar == this._escape) {
 	      //Let's attempt to execute the action command
-	      if (contentPos + 1 < this.props.content.length) {
+	      if (contentPos + 1 < this.props.content.writing.length) {
 	        contentPos++;
 
-	        var actionChar = this.props.content[contentPos];
+	        var actionChar = this.props.content.writing[contentPos];
 	        this.attemptAction(actionChar, contentPos);
 	      }
 
@@ -19791,6 +19815,8 @@
 	  },
 
 	  attemptAction: function attemptAction(action, contentPos) {
+	    var contentType = arguments.length <= 2 || arguments[2] === undefined ? "writing" : arguments[2];
+
 	    //Backspace: ~b#, # = number of backspaces
 	    //Pause:     ~p#, # = time in ms to wait
 	    if (this.escapedActions[action]) {
@@ -19799,12 +19825,12 @@
 	          digits = value.toString().length;
 
 	      contentPos += digits;
-	      this.escapedActions[action].call(this, value, contentPos);
+	      this.escapedActions[action].call(this, value, contentPos, contentType);
 	    }
 	  },
 
 	  getValue: function getValue(contentPos) {
-	    var str = this.props.content.substring(contentPos, this.props.content.length),
+	    var str = this.props.content.writing.substring(contentPos, this.props.content.writing.length),
 	        val = str.match(/[^~]+/);
 
 	    if (val.length == 0) return false;
@@ -19813,7 +19839,11 @@
 
 	  escapedActions: {
 	    b: function b(iterations, contentPos) {
+	      //No content type, is only used in writing
 	      //Backspace, a negative number indicates no timeout should be used
+
+	      //FOR NEGATIVE NUMBERS, SHOULD GO RIGHT TO THE NEXT CHARACTER
+
 	      var typed = this.state.typed,
 	          typedPos = typed.length - 1;
 
@@ -19846,6 +19876,7 @@
 	    },
 
 	    p: function p(timeout, contentPos) {
+	      //No content type, is only used in writing
 	      //Pause
 	      var self = this;
 
@@ -19856,7 +19887,7 @@
 	      }, timeout);
 	    },
 
-	    c: function c(classVal, contentPos) {
+	    c: function c(classVal, contentPos, contentType) {
 	      //Creates a new typedBucket for this new piece of text and applies the class immediately
 	      var typed = this.state.typed,
 	          typedPos = typed.length;
@@ -19866,7 +19897,7 @@
 	      this.setState({ typed: typed, contentPos: contentPos });
 	    },
 
-	    C: function C(classVal, contentPos) {
+	    C: function C(classVal, contentPos, contentType) {
 	      //Closes the current typedBucket and applies the given class
 	      var typed = this.state.typed,
 	          typedPos = typed.length - 1;
@@ -19877,7 +19908,7 @@
 	      this.setState({ typed: typed, contentPos: contentPos });
 	    },
 
-	    l: function l(immaterial, contentPos) {
+	    l: function l(immaterial, contentPos, contentType) {
 	      //Inserts the number of line breaks specified
 	      var typed = this.state.typed,
 	          typedPos = typed.length;
@@ -19893,6 +19924,7 @@
 	    },
 
 	    q: function q(onOrOff, contentPos) {
+	      //No contentType, only used in writing
 	      //Adds a double quotes and conveys that there is a trailing quotation mark
 	      var typed = this.state.typed;
 
@@ -19907,7 +19939,7 @@
 	      this.setState({ typed: typed, contentPos: contentPos });
 	    },
 
-	    a: function a(link, contentPos) {
+	    a: function a(link, contentPos, contentType) {
 	      //Overloads the current TypedBucket with a link value for toSpan to recognize
 	      var typed = this.state.typed;
 
@@ -20074,9 +20106,12 @@
 
 	"use strict";
 
-	var SimTypeIndex = "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + "~l0~" + "~p350~" + "~Cindent2~" + ", " + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + "~l0~" + "~p350~" + "~Cindent3~" + ", " + " text " + "~ckey~" + "= " + "~q+~" + "~p350~" + "JUST SOME TEST, YO" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
-	 + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller(at)gmail(dot)com" + "~amailto:matt.s.schiller@gmail.com~" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
-	 + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}";
+	var SimTypeIndex = {
+	  stub: "~ccomment~" + "//This is just some sample comments" + "~l0~",
+	  writing: "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + "~l0~" + "~p350~" + "~Cindent2~" + ", " + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + "~l0~" + "~p350~" + "~Cindent3~" + ", " + " text " + "~ckey~" + "= " + "~q+~" + "~p350~" + "JUST SOME TEST, YO" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
+	   + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller(at)gmail(dot)com" + "~amailto:matt.s.schiller@gmail.com~" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
+	   + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}"
+	};
 
 	module.exports = SimTypeIndex;
 

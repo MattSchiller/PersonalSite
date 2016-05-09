@@ -13,7 +13,9 @@ var SimType = React.createClass({
   
   getDefaultProps: function() {
     return {
-        content: ""
+        content: {
+            stub: ""
+          , writing: "" }
       , options: {
             animate: true             //NEED TO ADD ANIMATE TOGGLE, maybe
           , show:    false }
@@ -28,8 +30,28 @@ var SimType = React.createClass({
     this._newLine     = "line";
     this._indent      = "indent";
     this._str         = "str";
+    this._contentWrt  = "writing";
+    this._contentStb  = "stub";
+    
+    this.formatStub();
     
     this.updateTyped();
+  },
+  
+  formatStub: function() {
+    let typed   = this.state.typed
+      , stub    = this.props.content.stub
+      , stubPos = 0;
+      
+    while (stubPos < stub.length) {
+      
+      
+      stubPos++;
+    }
+    
+    
+    
+    
   },
   
   componentDidUpdate: function() {
@@ -39,19 +61,19 @@ var SimType = React.createClass({
   updateTyped: function() {
     if (!this.props.options.show) return;
     
-    if (this.state.contentPos >= this.props.content.length - 1) return;
+    if (this.state.contentPos >= this.props.content.writing.length - 1) return;
     
     if (this._backspacing) return;
     
     var contentPos  = this.state.contentPos + 1
-      , nextChar    = this.props.content[contentPos];
+      , nextChar    = this.props.content.writing[contentPos];
         
     if (nextChar == this._escape) {
     //Let's attempt to execute the action command
-      if (contentPos + 1 < this.props.content.length) {
+      if (contentPos + 1 < this.props.content.writing.length) {
         contentPos ++;
         
-        let actionChar = this.props.content[ contentPos ];
+        let actionChar = this.props.content.writing[ contentPos ];
         this.attemptAction( actionChar, contentPos );
       }
       
@@ -76,7 +98,7 @@ var SimType = React.createClass({
       }, self._charTimeout * Math.random() );
   },
   
-  attemptAction: function(action, contentPos) {
+  attemptAction: function(action, contentPos, contentType = this._contentWrt) {
     //Backspace: ~b#, # = number of backspaces
     //Pause:     ~p#, # = time in ms to wait
     if (this.escapedActions[ action ]) {
@@ -85,12 +107,12 @@ var SimType = React.createClass({
         , digits  = value.toString().length;
       
       contentPos += digits;
-      this.escapedActions[ action ].call( this, value, contentPos );
+      this.escapedActions[ action ].call( this, value, contentPos, contentType );
     }
   },
   
   getValue: function(contentPos) {
-    let str = this.props.content.substring( contentPos,  this.props.content.length)
+    let str = this.props.content.writing.substring( contentPos,  this.props.content.writing.length)
       , val = str.match( /[^~]+/ );
       
     if (val.length == 0) return false;
@@ -98,8 +120,13 @@ var SimType = React.createClass({
   },
   
   escapedActions: {
-    b: function( iterations, contentPos ) {
+    b: function( iterations, contentPos ) {   //No content type, is only used in writing
       //Backspace, a negative number indicates no timeout should be used
+      
+      //FOR NEGATIVE NUMBERS, SHOULD GO RIGHT TO THE NEXT CHARACTER
+      
+      
+      
       let typed    = this.state.typed
         , typedPos = typed.length - 1;
       
@@ -135,7 +162,7 @@ var SimType = React.createClass({
       this.setState({ typed, contentPos });
     },
   
-    p: function( timeout, contentPos ) {
+    p: function( timeout, contentPos ) {  //No content type, is only used in writing
       //Pause
       var self = this;
       
@@ -146,17 +173,17 @@ var SimType = React.createClass({
         }, timeout)
     },
     
-    c: function( classVal, contentPos ) {
+    c: function( classVal, contentPos, contentType ) {
       //Creates a new typedBucket for this new piece of text and applies the class immediately
       let typed = this.state.typed
         , typedPos = typed.length;
         
       typed.push( new TypedBucket( "", classVal ) );
       
-      this.setState({ typed, contentPos});
+      if (contentType == this._contentWrt) this.setState({ typed, contentPos});
     },
     
-    C: function( classVal, contentPos ) {
+    C: function( classVal, contentPos, contentType ) {
       //Closes the current typedBucket and applies the given class
       let typed = this.state.typed
         , typedPos = typed.length - 1;
@@ -167,7 +194,7 @@ var SimType = React.createClass({
       this.setState({ typed, contentPos });
     },
     
-    l: function( immaterial, contentPos) {
+    l: function( immaterial, contentPos, contentType ) {
       //Inserts the number of line breaks specified
       let typed = this.state.typed
         , typedPos = typed.length;
@@ -182,7 +209,7 @@ var SimType = React.createClass({
         }, self._charTimeout);
     },
     
-    q: function( onOrOff, contentPos ) {
+    q: function( onOrOff, contentPos ) {    //No contentType, only used in writing
       //Adds a double quotes and conveys that there is a trailing quotation mark
       let typed = this.state.typed;
       
@@ -198,7 +225,7 @@ var SimType = React.createClass({
       
     },
     
-    a: function( link, contentPos ) {
+    a: function( link, contentPos, contentType ) {
       //Overloads the current TypedBucket with a link value for toSpan to recognize
       let typed = this.state.typed;
       

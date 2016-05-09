@@ -15,8 +15,8 @@ var App = React.createClass({
                    , "projects.js"
                    , "personal.css" ]
       , content:   [ SimTypeIndex
-                   , About
-                   , Personal]
+                   , {stub: "", writing: ""}
+                   , {stub: "", writing: ""}]
     }
   },
   
@@ -46,10 +46,13 @@ var App = React.createClass({
     
     return (
       <div>
-        <Menu
-          items   = { this.state.menuItems }
-          clicked = { this.menuClick }
-          />
+        <div id = "header">
+          <h1>Matt Schiller</h1>
+          <Menu
+            items   = { this.state.menuItems }
+            clicked = { this.menuClick }
+            />
+        </div>
         { pages }
       </div>
       )

@@ -3,11 +3,22 @@ html {
   background: #2D3B45;
   color: #E6E6E5;
   font-weight: bold;
+  font-size: 1.5em;
+}
+
+h1 {
+  margin-right: 0.5em;
+}
+
+#header {
+  display: flex;
+  flex-direction: row;
 }
 
 .simType {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 div {
@@ -59,15 +70,15 @@ a {
 }
 
 .indent1 {
-  text-indent: 20px;
+  text-indent: 1em;
 }
 
 .indent2 {
-  text-indent: 36px;
+  text-indent: 2em;
 }
 
 .indent3 {
-  text-indent: 52px;
+  text-indent: 3em;
 }
 
 nav {
