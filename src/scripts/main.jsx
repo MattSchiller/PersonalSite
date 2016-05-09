@@ -2,46 +2,57 @@ var React   = require('react');
 var SimType = require('./simType.jsx');
 var Menu    = require('./menu.jsx');
 
+var About         = "";
+var SimTypeIndex  = require('./simTypeIndex.js');
+var Personal      = require('./personal.js');
+
+
 var App = React.createClass({
   getInitialState: function() {
-    return { menuIndex: 0 }
+    return {
+        menuIndex: 0
+      , menuItems: [ "index.html"
+                   , "projects.js"
+                   , "personal.css" ]
+      , content:   [ SimTypeIndex
+                   , About
+                   , Personal]
+    }
   },
   
-  menuClick: function(index) {
-    console.log("translate this into an effect for index:", index);
+  componentWillMount: function() {
+    this._alreadyPlayed = [];
+    for (let i = 0; i < this.state.menuItems.length; i++) {
+      this._alreadyPlayed.push(false);
+    }
+  },
+  
+  menuClick: function(menuIndex) {
+    this._alreadyPlayed[ this.state.menuIndex ] = true;
+    this.setState({ menuIndex });
   },
   
   render: function() {
-    let content = "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {"  + "~l0~"
-    + "~p350~" + "~Cindent1~"
-                    + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + ";" + "~l0~"
-    + "~p350~" + "~Cindent1~"
-                    + "var" + "~Cfunc~" + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + ";" + "~l0~"
-                + "~Cindent0~" + "}" + "~l0~"
-                + "~Cindent0~" + " " + "~l0~" //Dummy line
-                + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {"  + "~l0~"
-    + "~p350~" + "~Cindent1~"
-                    + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller@gmail.com" + "~q-~" + ";" + "~l0~"
-                + "~Cindent0~" + "}" + "~l0~" //Dummy line
-                + "~Cindent0~" + " " + "~l0~" //Dummy line
-                + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {"  + "~l0~"
-    + "~p350~" + "~Cindent1~"
-                    + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still"
-                    + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~"
-                + "~Cindent0~" + "}";
-               
+    let pages = this.state.content.map( function(content, i) {
+        return (
+            <SimType content    = { content }
+                     options    = { {
+                                      animate:  this._alreadyPlayed[i]
+                                    , show:     i == this.state.menuIndex } }
+                     key        = { i }
+              />
+          )
+      }.bind(this) );
     
-    let items = ["Menu1.js", "Menu2.jpg", "Menu3.orange"];
     return (
       <div>
         <Menu
-          items   = { items }
+          items   = { this.state.menuItems }
           clicked = { this.menuClick }
           />
-        <SimType content = { content } />
+        { pages }
       </div>
       )
-
   }
 
 });

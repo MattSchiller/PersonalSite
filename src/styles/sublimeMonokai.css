@@ -14,8 +14,17 @@ div {
   overflow-wrap: normal;
 }
 
+a {
+  color: #D947FF;
+  
+}
+
 .simType span.line {
   white-space: pre;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .tabs span {
@@ -45,8 +54,8 @@ div {
   color: #E6DB74;
 }
 
-.tabs span.line {
-  white-space: pre;
+.arg {
+  color: #FD971F;
 }
 
 .indent1 {
@@ -54,11 +63,11 @@ div {
 }
 
 .indent2 {
-  text-indent: 40px;
+  text-indent: 36px;
 }
 
 .indent3 {
-  text-indent: 60px;
+  text-indent: 52px;
 }
 
 nav {

@@ -57,32 +57,51 @@
 	var SimType = __webpack_require__(159);
 	var Menu = __webpack_require__(161);
 
+	var About = "";
+	var SimTypeIndex = __webpack_require__(162);
+	var Personal = __webpack_require__(163);
+
 	var App = React.createClass({
 	  displayName: 'App',
 
 	  getInitialState: function getInitialState() {
-	    return { menuIndex: 0 };
+	    return {
+	      menuIndex: 0,
+	      menuItems: ["index.html", "projects.js", "personal.css"],
+	      content: [SimTypeIndex, About, Personal]
+	    };
 	  },
 
-	  menuClick: function menuClick(index) {
-	    console.log("translate this into an effect for index:", index);
+	  componentWillMount: function componentWillMount() {
+	    this._alreadyPlayed = [];
+	    for (var i = 0; i < this.state.menuItems.length; i++) {
+	      this._alreadyPlayed.push(false);
+	    }
+	  },
+
+	  menuClick: function menuClick(menuIndex) {
+	    this._alreadyPlayed[this.state.menuIndex] = true;
+	    this.setState({ menuIndex: menuIndex });
 	  },
 
 	  render: function render() {
-	    var content = "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src    " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + ";" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
-	     + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller@gmail.com" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" //Dummy line
-	     + "~Cindent0~" + " " + "~l0~" //Dummy line
-	     + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}";
+	    var pages = this.state.content.map(function (content, i) {
+	      return React.createElement(SimType, { content: content,
+	        options: {
+	          animate: this._alreadyPlayed[i],
+	          show: i == this.state.menuIndex },
+	        key: i
+	      });
+	    }.bind(this));
 
-	    var items = ["Menu1.js", "Menu2.jpg", "Menu3.orange"];
 	    return React.createElement(
 	      'div',
 	      null,
 	      React.createElement(Menu, {
-	        items: items,
+	        items: this.state.menuItems,
 	        clicked: this.menuClick
 	      }),
-	      React.createElement(SimType, { content: content })
+	      pages
 	    );
 	  }
 
@@ -19709,7 +19728,10 @@
 
 	  getDefaultProps: function getDefaultProps() {
 	    return {
-	      content: ""
+	      content: "",
+	      options: {
+	        animate: true //NEED TO ADD ANIMATE TOGGLE, maybe
+	        , show: false }
 	    };
 	  },
 
@@ -19730,6 +19752,8 @@
 	  },
 
 	  updateTyped: function updateTyped() {
+	    if (!this.props.options.show) return;
+
 	    if (this.state.contentPos >= this.props.content.length - 1) return;
 
 	    if (this._backspacing) return;
@@ -19797,7 +19821,7 @@
 
 	      if (Number.isInteger(iterations)) {
 
-	        if (this._quoting) typed[typedPos].text = typed[typedPos].text.slice(0, -2) + this._qChar;else typed[typedPos].text = typed[typedPos].text.slice(0, -1) + this._qChar;
+	        if (this._quoting) typed[typedPos].text = typed[typedPos].text.slice(0, -2) + this._qChar;else typed[typedPos].text = typed[typedPos].text.slice(0, -1);
 
 	        //RIGHT NOW WE LIMIT BEHAVIOR TO NEVER ALLOW BACKSPACING MORE THAN THE CURRENT TEXT BUCKET
 
@@ -19805,17 +19829,17 @@
 	        if (typed[typedPos].text.length == 0 || iterations == 1) {
 	          //We're done backspacing after this call
 	          this._backspacing = false;
-	          if (typed[typedPos].text.length != 0) typed.push[new TypedBucket()];
+	          //if (typed[ typedPos ].text.length != 0) typed.push[ new TypedBucket ];
 	        } else {
-	          this._backspacing = true;
+	            this._backspacing = true;
 
-	          var self = this,
-	              nextIterations = iterations - 1;
+	            var self = this,
+	                nextIterations = iterations - 1;
 
-	          setTimeout(function () {
-	            self.escapedActions.b.call(self, nextIterations, contentPos);
-	          }, self._backTimeout);
-	        }
+	            setTimeout(function () {
+	              self.escapedActions.b.call(self, nextIterations, contentPos);
+	            }, self._backTimeout);
+	          }
 	      }
 
 	      this.setState({ typed: typed, contentPos: contentPos });
@@ -19881,6 +19905,15 @@
 	      }
 
 	      this.setState({ typed: typed, contentPos: contentPos });
+	    },
+
+	    a: function a(link, contentPos) {
+	      //Overloads the current TypedBucket with a link value for toSpan to recognize
+	      var typed = this.state.typed;
+
+	      typed[typed.length - 1].link = link;
+
+	      this.setState({ typed: typed, contentPos: contentPos });
 	    }
 
 	  },
@@ -19923,11 +19956,17 @@
 	  },
 
 	  toSpan: function toSpan(segment, j) {
-	    //Handles the conversion of the TypedBuckets into spans
-	    return React.createElement(
+	    //Handles the conversion of the TypedBuckets into spans/a hrefs
+	    return segment.link == "" ? React.createElement(
 	      'span',
 	      {
 	        className: segment.className,
+	        key: j },
+	      segment.text
+	    ) : React.createElement(
+	      'a',
+	      { href: segment.link,
+	        target: '_blank',
 	        key: j },
 	      segment.text
 	    );
@@ -19937,7 +19976,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'simType' },
-	      this.convertTyped()
+	      this.props.options.show ? this.convertTyped() : null
 	    );
 	  }
 
@@ -19954,9 +19993,11 @@
 	var TypedBucket = function TypedBucket() {
 	  var text = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
 	  var className = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
+	  var link = arguments.length <= 2 || arguments[2] === undefined ? "" : arguments[2];
 
 	  this.text = text;
 	  this.className = className;
+	  this.link = link;
 	};
 
 	module.exports = TypedBucket;
@@ -19983,9 +20024,6 @@
 	  },
 
 	  makeCurrent: function makeCurrent(i) {
-
-	    //BOX IS NOT FILLING UP THE WHOLE THING, PROBABLY IN TRANSFORM3D
-
 	    this.setState({ current: i });
 	  },
 
@@ -20029,6 +20067,28 @@
 	});
 
 	module.exports = Menu;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var SimTypeIndex = "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + "~l0~" + "~p350~" + "~Cindent2~" + ", " + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + "~l0~" + "~p350~" + "~Cindent3~" + ", " + " text " + "~ckey~" + "= " + "~q+~" + "~p350~" + "JUST SOME TEST, YO" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
+	 + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller(at)gmail(dot)com" + "~amailto:matt.s.schiller@gmail.com~" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
+	 + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}";
+
+	module.exports = SimTypeIndex;
+
+/***/ },
+/* 163 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var Personal = "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "1" + "~p400~" + "~b1~" + "2" + "~p200~" + "~b1~" + "3" + "~p200~" + "~b1~" + "4" + "~p200~" + "~b1~" + "5" + "~p200~" + "~b1~" + "6" + "~p100~" + "~b1~" + "7" + "~p100~" + "~b1~" + "8" + "~p100~" + "~b1~" + "9" + "~p100~" + "~b1~" + "10" + "~p100~" + "~b1~" + "1" + "~p100~" + "~b1~" + "2" + "~p75~" + "~b1~" + "3" + "~p75~" + "~b1~" + "4" + "~p75~" + "~b1~" + "5" + "~p75~" + "~b1~" + "6" + "~p75~" + "~b1~" + "7" + "~p75~" + "~b1~" + "8" + "~p75~" + "~b1~" + "9" + "~p75~" + "~b2~" + "20" + "~p100~" + "~b1~" + "1" + "~p150~" + "~b1~" + "2" + "~p250~" + "~b1~" + "3" + "~p300  ~" + "~b1~" + "4" + "~p200~" + "yr" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "}";
+
+	module.exports = Personal;
 
 /***/ }
 /******/ ]);

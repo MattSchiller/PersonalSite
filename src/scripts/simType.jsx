@@ -14,6 +14,9 @@ var SimType = React.createClass({
   getDefaultProps: function() {
     return {
         content: ""
+      , options: {
+            animate: true             //NEED TO ADD ANIMATE TOGGLE, maybe
+          , show:    false }
     }
   },
   
@@ -34,6 +37,8 @@ var SimType = React.createClass({
   },
   
   updateTyped: function() {
+    if (!this.props.options.show) return;
+    
     if (this.state.contentPos >= this.props.content.length - 1) return;
     
     if (this._backspacing) return;
@@ -105,7 +110,7 @@ var SimType = React.createClass({
         if (this._quoting)
           typed[ typedPos ].text = typed[ typedPos ].text.slice(0, -2) + this._qChar;
         else
-          typed[ typedPos ].text = typed[ typedPos ].text.slice(0, -1) + this._qChar;
+          typed[ typedPos ].text = typed[ typedPos ].text.slice(0, -1);
         
   //RIGHT NOW WE LIMIT BEHAVIOR TO NEVER ALLOW BACKSPACING MORE THAN THE CURRENT TEXT BUCKET
         
@@ -113,7 +118,7 @@ var SimType = React.createClass({
         if (typed[ typedPos ].text.length == 0 || iterations == 1) {
           //We're done backspacing after this call
           this._backspacing = false;
-          if (typed[ typedPos ].text.length != 0) typed.push[ new TypedBucket ];
+          //if (typed[ typedPos ].text.length != 0) typed.push[ new TypedBucket ];
         
         } else {
           this._backspacing = true;
@@ -193,6 +198,15 @@ var SimType = React.createClass({
       
     },
     
+    a: function( link, contentPos ) {
+      //Overloads the current TypedBucket with a link value for toSpan to recognize
+      let typed = this.state.typed;
+      
+      typed[ typed.length - 1].link = link;
+      
+      this.setState({ typed, contentPos });
+    }
+    
   },
 
   convertTyped: function() {
@@ -233,18 +247,26 @@ var SimType = React.createClass({
   },
   
   toSpan: function(segment, j) {
-    //Handles the conversion of the TypedBuckets into spans
-    return <span
-              className = { segment.className }
-              key = { j } >
-                { segment.text }
-           </span>
+    //Handles the conversion of the TypedBuckets into spans/a hrefs
+    return (segment.link == "" ?
+                                <span
+                                    className = { segment.className }
+                                    key       = { j } >
+                                      { segment.text }
+                                 </span>
+                               :
+                                <a  href    = { segment.link }
+                                    target  = "_blank"
+                                    key     = { j } >
+                                     { segment.text }
+                                </a>
+          )
   },
   
   render: function() {
     return (
       <div className = "simType" >
-        { this.convertTyped() }
+        { this.props.options.show ? this.convertTyped() : null }
       </div>
       )
   }

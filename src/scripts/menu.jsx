@@ -12,12 +12,6 @@ var Menu = React.createClass({
   },
   
   makeCurrent: function(i) {
-    
-    
-    //BOX IS NOT FILLING UP THE WHOLE THING, PROBABLY IN TRANSFORM3D
-    
-    
-    
     this.setState({ current: i });
   },
   
@@ -28,7 +22,7 @@ var Menu = React.createClass({
             onClick   = { function() {
                                       this.makeCurrent( i );
                                       this.props.clicked( i );
-                                     }.bind(this) }
+                                  }.bind(this) }
             className = { i == this.state.current ? "current" : "" }
           >
           <span>{ item }</span>
