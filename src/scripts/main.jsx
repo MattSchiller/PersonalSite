@@ -1,10 +1,10 @@
 var React   = require('react');
-var SimType = require('./simType.jsx');
+var SimType = require('./SimType/simType.jsx');
 var Menu    = require('./menu.jsx');
 
-var About         = "";
-var SimTypeIndex  = require('./simTypeIndex.js');
-var Personal      = require('./personal.js');
+var About     = "";
+var mainPage  = require('./pages/mainPage.js');
+var Personal  = require('./pages/personal.js');
 
 
 var App = React.createClass({
@@ -14,7 +14,7 @@ var App = React.createClass({
       , menuItems: [ "index.html"
                    , "projects.js"
                    , "personal.css" ]
-      , content:   [ SimTypeIndex
+      , content:   [ mainPage
                    , {stub: "", writing: ""}
                    , {stub: "", writing: ""}]
     }

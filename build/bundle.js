@@ -58,7 +58,7 @@
 	var Menu = __webpack_require__(161);
 
 	var About = "";
-	var SimTypeIndex = __webpack_require__(162);
+	var mainPage = __webpack_require__(162);
 	var Personal = __webpack_require__(163);
 
 	var App = React.createClass({
@@ -68,7 +68,7 @@
 	    return {
 	      menuIndex: 0,
 	      menuItems: ["index.html", "projects.js", "personal.css"],
-	      content: [SimTypeIndex, { stub: "", writing: "" }, { stub: "", writing: "" }]
+	      content: [mainPage, { stub: "", writing: "" }, { stub: "", writing: "" }]
 	    };
 	  },
 
@@ -19720,6 +19720,8 @@
 
 	'use strict';
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var React = __webpack_require__(2);
 	var TypedBucket = __webpack_require__(160);
 
@@ -19754,83 +19756,119 @@
 	    this._newLine = "line";
 	    this._indent = "indent";
 	    this._str = "str";
+	    this._contentWrt = "writing";
+	    this._contentStb = "stub";
 
-	    this.formatStub();
+	    this.updateTyped(this._contentStb);
 
-	    this.updateTyped();
-	  },
-
-	  formatStub: function formatStub() {
-	    var typed = this.state.typed,
-	        stub = this.props.content.stub,
-	        stubPos = 0;
-
-	    while (stubPos < stub.length) {
-
-	      stubPos++;
-	    }
+	    //this.updateTyped( this._contentWrt );
 	  },
 
 	  componentDidUpdate: function componentDidUpdate() {
-	    this.updateTyped();
+	    this.updateTyped(this._contentWrt);
 	  },
 
-	  updateTyped: function updateTyped() {
+	  updateTyped: function updateTyped(contentType) {
 	    if (!this.props.options.show) return;
 
-	    if (this.state.contentPos >= this.props.content.writing.length - 1) return;
+	    var textSrc = void 0;
+	    if (contentType == this._contentWrt) textSrc = this.props.content.writing;else if (contentType == this._contentStb) textSrc = this.props.content.stub;
 
-	    if (this._backspacing) return;
+	    var contentPos = this.state.contentPos,
+	        typed = void 0,
+	        timeout = void 0,
+	        loopLen = contentType == this._contentStb ? textSrc.length : contentPos + 1;
 
-	    var contentPos = this.state.contentPos + 1,
-	        nextChar = this.props.content.writing[contentPos];
+	    while (contentPos < loopLen) {
+	      var _singleChar = this.singleChar(textSrc, contentPos);
+
+	      var _singleChar2 = _slicedToArray(_singleChar, 3);
+
+	      typed = _singleChar2[0];
+	      contentPos = _singleChar2[1];
+	      timeout = _singleChar2[2];
+	    }
+
+	    if (typed == false) return;
+
+	    if (contentType == this._contentStb) //Reset contentPos
+	      contentPos = this.getInitialState().contentPos;
+
+	    var self = this;
+	    if (timeout) {
+	      setTimeout(function () {
+	        self.setState({ typed: typed, contentPos: contentPos });
+	      }, timeout);
+	    } else //To avoid any race conditions with backspace and so on
+	      this.setState({ typed: typed, contentPos: contentPos });
+	  },
+
+	  singleChar: function singleChar(textSrc, contentPos) {
+	    //Given the marked up source, returns the variables needed to create the next state
+	    var nullifyCall = [false, contentPos + 1, false];
+
+	    if (this.state.contentPos >= textSrc.length - 1) return nullifyCall;
+
+	    if (this._backspacing) return nullifyCall;
+
+	    contentPos++;
+
+	    var nextChar = textSrc[contentPos],
+	        typed = this.state.typed,
+	        timeout = 0;
 
 	    if (nextChar == this._escape) {
 	      //Let's attempt to execute the action command
-	      if (contentPos + 1 < this.props.content.writing.length) {
+	      if (contentPos + 1 < textSrc.length) {
 	        contentPos++;
 
-	        var actionChar = this.props.content.writing[contentPos];
-	        this.attemptAction(actionChar, contentPos);
+	        var actionChar = textSrc[contentPos];
+
+	        var _attemptAction = this.attemptAction(actionChar, contentPos, textSrc);
+
+	        var _attemptAction2 = _slicedToArray(_attemptAction, 3);
+
+	        typed = _attemptAction2[0];
+	        contentPos = _attemptAction2[1];
+	        timeout = _attemptAction2[2];
+
+
+	        if (actionChar == "b") return nullifyCall; //Backspace handles its own looping
+	      }
+	    } else {
+	        //We're appending a regular character or an errored escape char
+
+	        if (this._quoting) {
+	          //Insert next char before trailing space
+	          var text = typed[typed.length - 1].text,
+	              len = text.length;
+
+	          typed[typed.length - 1].text = text.slice(0, -1) + nextChar + text.slice(len - 1);
+	        } else typed[typed.length - 1].text += nextChar;
+
+	        timeout = this._charTimeout * Math.random();
 	      }
 
-	      return;
-	    }
-
-	    //We're appending a regular character or an errored escape char
-	    var typed = this.state.typed,
-	        self = this;
-
-	    if (this._quoting) {
-	      //Insert next char befor trailing space
-	      var text = typed[typed.length - 1].text,
-	          len = text.length;
-
-	      typed[typed.length - 1].text = text.slice(0, -1) + nextChar + text.slice(len - 1);
-	    } else typed[typed.length - 1].text += nextChar;
-
-	    setTimeout(function () {
-	      self.setState({ typed: typed, contentPos: contentPos });
-	    }, self._charTimeout * Math.random());
+	    return [typed, contentPos, timeout];
 	  },
 
-	  attemptAction: function attemptAction(action, contentPos) {
-	    var contentType = arguments.length <= 2 || arguments[2] === undefined ? "writing" : arguments[2];
-
+	  attemptAction: function attemptAction(action, contentPos, textSrc) {
 	    //Backspace: ~b#, # = number of backspaces
 	    //Pause:     ~p#, # = time in ms to wait
 	    if (this.escapedActions[action]) {
 	      contentPos++;
-	      var value = this.getValue(contentPos),
+	      var value = this.getValue(contentPos, textSrc),
 	          digits = value.toString().length;
 
 	      contentPos += digits;
-	      this.escapedActions[action].call(this, value, contentPos, contentType);
+
+	      //We call the respective action, returning the values necessary for processing
+	      return this.escapedActions[action].call(this, value, contentPos);
 	    }
 	  },
 
-	  getValue: function getValue(contentPos) {
-	    var str = this.props.content.writing.substring(contentPos, this.props.content.writing.length),
+	  getValue: function getValue(contentPos, textSrc) {
+	    var str = textSrc.substring(contentPos, textSrc.length),
 	        val = str.match(/[^~]+/);
 
 	    if (val.length == 0) return false;
@@ -19839,10 +19877,9 @@
 
 	  escapedActions: {
 	    b: function b(iterations, contentPos) {
-	      //No content type, is only used in writing
 	      //Backspace, a negative number indicates no timeout should be used
 
-	      //FOR NEGATIVE NUMBERS, SHOULD GO RIGHT TO THE NEXT CHARACTER
+	      //FOR NEGATIVE NUMBERS, SHOULD GO RIGHT TO THE NEXT CHARACTER, omit timeout entirely?
 
 	      var typed = this.state.typed,
 	          typedPos = typed.length - 1;
@@ -19873,31 +19910,26 @@
 	      }
 
 	      this.setState({ typed: typed, contentPos: contentPos });
+
+	      return [false, false, false];
 	    },
 
 	    p: function p(timeout, contentPos) {
-	      //No content type, is only used in writing
 	      //Pause
-	      var self = this;
-
-	      timeout = parseInt(timeout);
-
-	      setTimeout(function () {
-	        self.setState({ contentPos: contentPos });
-	      }, timeout);
+	      return [this.state.typed, contentPos, parseInt(timeout)];
 	    },
 
-	    c: function c(classVal, contentPos, contentType) {
+	    c: function c(classVal, contentPos) {
 	      //Creates a new typedBucket for this new piece of text and applies the class immediately
 	      var typed = this.state.typed,
 	          typedPos = typed.length;
 
 	      typed.push(new TypedBucket("", classVal));
 
-	      this.setState({ typed: typed, contentPos: contentPos });
+	      return [typed, contentPos];
 	    },
 
-	    C: function C(classVal, contentPos, contentType) {
+	    C: function C(classVal, contentPos) {
 	      //Closes the current typedBucket and applies the given class
 	      var typed = this.state.typed,
 	          typedPos = typed.length - 1;
@@ -19905,26 +19937,21 @@
 	      typed[typedPos].className += typed[typedPos].className == "" ? classVal : " " + classVal;
 	      typed.push(new TypedBucket());
 
-	      this.setState({ typed: typed, contentPos: contentPos });
+	      return [typed, contentPos];
 	    },
 
-	    l: function l(immaterial, contentPos, contentType) {
+	    l: function l(immaterialVar, contentPos) {
 	      //Inserts the number of line breaks specified
-	      var typed = this.state.typed,
-	          typedPos = typed.length;
+	      var typed = this.state.typed;
 
 	      typed.push(new TypedBucket());
-	      typed[typedPos].className = this._newLine;
+	      typed[typed.length - 1].className = this._newLine;
 	      typed.push(new TypedBucket());
 
-	      var self = this;
-	      setTimeout(function () {
-	        self.setState({ typed: typed, contentPos: contentPos });
-	      }, self._charTimeout);
+	      return [typed, contentPos, self._charTimeout];
 	    },
 
 	    q: function q(onOrOff, contentPos) {
-	      //No contentType, only used in writing
 	      //Adds a double quotes and conveys that there is a trailing quotation mark
 	      var typed = this.state.typed;
 
@@ -19936,16 +19963,16 @@
 	        typed.push(new TypedBucket());
 	      }
 
-	      this.setState({ typed: typed, contentPos: contentPos });
+	      return [typed, contentPos];
 	    },
 
-	    a: function a(link, contentPos, contentType) {
+	    a: function a(link, contentPos) {
 	      //Overloads the current TypedBucket with a link value for toSpan to recognize
 	      var typed = this.state.typed;
 
 	      typed[typed.length - 1].link = link;
 
-	      this.setState({ typed: typed, contentPos: contentPos });
+	      return [typed, contentPos];
 	    }
 
 	  },
@@ -20107,7 +20134,7 @@
 	"use strict";
 
 	var SimTypeIndex = {
-	  stub: "~ccomment~" + "//This is just some sample comments" + "~l0~",
+	  stub: "~Cindent0~" + "~ccomment~" + "//This is just some sample comments" + "~l0~",
 	  writing: "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + "~l0~" + "~p350~" + "~Cindent2~" + ", " + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + "~l0~" + "~p350~" + "~Cindent3~" + ", " + " text " + "~ckey~" + "= " + "~q+~" + "~p350~" + "JUST SOME TEST, YO" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
 	   + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller(at)gmail(dot)com" + "~amailto:matt.s.schiller@gmail.com~" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
 	   + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}"
