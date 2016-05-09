@@ -19813,7 +19813,7 @@
 
 	  escapedActions: {
 	    b: function b(iterations, contentPos) {
-	      //Backspace
+	      //Backspace, a negative number indicates no timeout should be used
 	      var typed = this.state.typed,
 	          typedPos = typed.length - 1;
 
@@ -19826,7 +19826,7 @@
 	        //RIGHT NOW WE LIMIT BEHAVIOR TO NEVER ALLOW BACKSPACING MORE THAN THE CURRENT TEXT BUCKET
 
 	        //Check if this text bucket is empty
-	        if (typed[typedPos].text.length == 0 || iterations == 1) {
+	        if (typed[typedPos].text.length == 0 || Math.abs(iterations) == 1) {
 	          //We're done backspacing after this call
 	          this._backspacing = false;
 	          //if (typed[ typedPos ].text.length != 0) typed.push[ new TypedBucket ];
@@ -19834,11 +19834,11 @@
 	            this._backspacing = true;
 
 	            var self = this,
-	                nextIterations = iterations - 1;
+	                nextIterations = iterations > 0 ? iterations - 1 : iterations + 1;
 
 	            setTimeout(function () {
 	              self.escapedActions.b.call(self, nextIterations, contentPos);
-	            }, self._backTimeout);
+	            }, iterations > 0 ? self._backTimeout : 0);
 	          }
 	      }
 
@@ -20086,7 +20086,7 @@
 
 	"use strict";
 
-	var Personal = "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "1" + "~p400~" + "~b1~" + "2" + "~p200~" + "~b1~" + "3" + "~p200~" + "~b1~" + "4" + "~p200~" + "~b1~" + "5" + "~p200~" + "~b1~" + "6" + "~p100~" + "~b1~" + "7" + "~p100~" + "~b1~" + "8" + "~p100~" + "~b1~" + "9" + "~p100~" + "~b1~" + "10" + "~p100~" + "~b1~" + "1" + "~p100~" + "~b1~" + "2" + "~p75~" + "~b1~" + "3" + "~p75~" + "~b1~" + "4" + "~p75~" + "~b1~" + "5" + "~p75~" + "~b1~" + "6" + "~p75~" + "~b1~" + "7" + "~p75~" + "~b1~" + "8" + "~p75~" + "~b1~" + "9" + "~p75~" + "~b2~" + "20" + "~p100~" + "~b1~" + "1" + "~p150~" + "~b1~" + "2" + "~p250~" + "~b1~" + "3" + "~p300  ~" + "~b1~" + "4" + "~p200~" + "yr" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "}";
+	var Personal = "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "1" + "~p400~" + "~b-1~" + "2" + "~p200~" + "~b-1~" + "3" + "~p200~" + "~b-1~" + "4" + "~p200~" + "~b-1~" + "5" + "~p200~" + "~b-1~" + "6" + "~p100~" + "~b-1~" + "7" + "~p100~" + "~b-1~" + "8" + "~p100~" + "~b-1~" + "9" + "~p100~" + "~b-1~" + "10" + "~p100~" + "~b-1~" + "1" + "~p100~" + "~b-1~" + "2" + "~p75~" + "~b-1~" + "3" + "~p75~" + "~b-1~" + "4" + "~p75~" + "~b-1~" + "5" + "~p75~" + "~b-1~" + "6" + "~p75~" + "~b-1~" + "7" + "~p75~" + "~b-1~" + "8" + "~p75~" + "~b-1~" + "9" + "~p75~" + "~b-2~" + "20" + "~p100~" + "~b-1~" + "1" + "~p150~" + "~b-1~" + "2" + "~p250~" + "~b-1~" + "3" + "~p300  ~" + "~b-1~" + "4" + "~p200~" + "yr" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "}";
 
 	module.exports = Personal;
 

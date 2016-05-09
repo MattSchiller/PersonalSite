@@ -99,7 +99,7 @@ var SimType = React.createClass({
   
   escapedActions: {
     b: function( iterations, contentPos ) {
-      //Backspace
+      //Backspace, a negative number indicates no timeout should be used
       let typed    = this.state.typed
         , typedPos = typed.length - 1;
       
@@ -115,7 +115,7 @@ var SimType = React.createClass({
   //RIGHT NOW WE LIMIT BEHAVIOR TO NEVER ALLOW BACKSPACING MORE THAN THE CURRENT TEXT BUCKET
         
         //Check if this text bucket is empty
-        if (typed[ typedPos ].text.length == 0 || iterations == 1) {
+        if (typed[ typedPos ].text.length == 0 || Math.abs(iterations) == 1) {
           //We're done backspacing after this call
           this._backspacing = false;
           //if (typed[ typedPos ].text.length != 0) typed.push[ new TypedBucket ];
@@ -124,11 +124,11 @@ var SimType = React.createClass({
           this._backspacing = true;
           
           var self = this
-            , nextIterations = iterations - 1;
+            , nextIterations = iterations > 0 ? iterations - 1 : iterations + 1;
             
           setTimeout(function() {
               self.escapedActions.b.call( self, nextIterations, contentPos )
-            }, self._backTimeout)
+            }, (iterations > 0 ? self._backTimeout : 0) )
         }
       }
       
