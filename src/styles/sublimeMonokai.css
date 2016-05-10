@@ -21,6 +21,7 @@ h2 {
   z-index: 5;
   width: 95%;
   overflow: hidden;
+  height: 5em;
 }
 
 #codePages {
