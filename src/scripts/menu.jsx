@@ -16,12 +16,18 @@ var Menu = React.createClass({
   },
   
   formatItems: function() {
+    let resumeURL = "./assets/MattSchillerCV.pdf";
     let myItems = this.props.items.map(function(item, i) {
       return (
         <li key       = { i }
+            id        = { "menu" + i }
             onClick   = { function() {
-                                      this.makeCurrent( i );
-                                      this.props.clicked( i );
+                                      if (item == this.props.resume) {
+                                        window.open(resumeURL, "_blank");
+                                      } else {
+                                        this.makeCurrent( i );
+                                        this.props.clicked( i );
+                                      }
                                   }.bind(this) }
             className = { i == this.state.current ? "current" : "" }
           >

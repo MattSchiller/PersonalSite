@@ -9,6 +9,8 @@ html {
 h2 {
   margin-right: 0.5em;
   margin-left: 3px;
+  cursor: pointer;
+  color: #7db14a;
 }
 
 #header {
@@ -27,6 +29,8 @@ h2 {
 #codePages {
   margin-top: 5em;
   overflow: auto;
+  max-width: 35em;
+  margin-left: .5em;
 }
 
 .wholeLine {
@@ -82,7 +86,7 @@ a:focus {
 }
 
 .title {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   font-weight: 600;
 }
 
@@ -96,6 +100,10 @@ a:focus {
 
 .arg {
   color: #FD971F;
+}
+
+.space {
+  white-space: pre;
 }
 
 .indent1 {
@@ -123,7 +131,7 @@ nav {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 2vw;
+  font-size: 1.8vw;
   font-weight: 600;
 }
 
@@ -169,11 +177,6 @@ nav {
   transition: color 0.3s;
   -webkit-transition: color 0.3s;
   transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
-}
-
-.tabs nav li:hover,
-.tabs nav li:focus {
-  color: #2CC185;
 }
 
 .tabs nav li::after {

@@ -1,4 +1,4 @@
-var Personal = {
+var Hobbies = {
     stub: "~Cindent0~" + "~ccomment~/* So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~"
         + "~Cindent0~" + "~l0~"
         + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums. */" + "~l0~"
@@ -13,4 +13,4 @@ var Personal = {
               + "~Cindent0~" + "}"
 };
 
-module.exports = Personal;
+module.exports = Hobbies;

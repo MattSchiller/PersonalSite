@@ -2,36 +2,35 @@ var React   = require('react');
 var SimType = require('./SimType/simType.jsx');
 var Menu    = require('./menu.jsx');
 
-var About  = require('./pages/about.js');
-var Personal  = require('./pages/personal.js');
+var About     = require('./pages/about.js');
+var Hobbies   = require('./pages/hobbies.js');
 var Projects  = require('./pages/projects.js');
-
+var Contact   = require('./pages/contact.js');
 
 var App = React.createClass({
   getInitialState: function() {
     return {
         menuIndex: 0
       , menuItems: [ "about.html"
-                   , "resume.pdf"
                    , "projects.js"
-                   , "personal.css" ]
+                   , "resume.pdf"
+                   , "hobbies.css"
+                   , "contact.json"]
       , content:   [ [ About ]
-                   , [ {stub: "", writing: ""} ]
                    , Projects
-                   , [ Personal ] ]
-    }
-  },
-  
-  componentWillMount: function() {
-    this._alreadyPlayed = [];
-    for (let i = 0; i < this.state.menuItems.length; i++) {
-      this._alreadyPlayed.push(false);
+                   , [ {stub: "", writing: ""} ]
+                   , [ Hobbies ]
+                   , [ Contact ]
+                   ]
     }
   },
   
   menuClick: function(menuIndex) {
-    this._alreadyPlayed[ this.state.menuIndex ] = true;
+    // let resumeIndex = 2;
+    // if (menuIndex != resumeIndex)
     this.setState({ menuIndex });
+    // else
+    //   document.getElementById("menu0").click();
   },
   
   render: function() {
@@ -41,8 +40,7 @@ var App = React.createClass({
           myElements.push(
               <SimType content    = { eachContent }
                        options    = { {
-                                        animate:  this._alreadyPlayed[i]
-                                      , show:     i == this.state.menuIndex } }
+                                        show:     i == this.state.menuIndex } }
                        key        = { i + myElements.length }
                 />
             )
@@ -53,10 +51,13 @@ var App = React.createClass({
     return (
       <div>
         <div id = "header">
-          <h2>Matt Schiller</h2>
+          <h2 onClick = { function() {
+              this.menuClick(0) }.bind(this) }
+            >Matt Schiller</h2>
           <Menu
             items   = { this.state.menuItems }
             clicked = { this.menuClick }
+            resume  = { this.state.menuItems[2] }
             />
         </div>
         <div id = "codePages">

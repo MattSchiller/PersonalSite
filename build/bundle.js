@@ -58,8 +58,9 @@
 	var Menu = __webpack_require__(161);
 
 	var About = __webpack_require__(162);
-	var Personal = __webpack_require__(163);
+	var Hobbies = __webpack_require__(163);
 	var Projects = __webpack_require__(164);
+	var Contact = __webpack_require__(165);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -67,21 +68,17 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      menuIndex: 0,
-	      menuItems: ["about.html", "resume.pdf", "projects.js", "personal.css"],
-	      content: [[About], [{ stub: "", writing: "" }], Projects, [Personal]]
+	      menuItems: ["about.html", "projects.js", "resume.pdf", "hobbies.css", "contact.json"],
+	      content: [[About], Projects, [{ stub: "", writing: "" }], [Hobbies], [Contact]]
 	    };
 	  },
 
-	  componentWillMount: function componentWillMount() {
-	    this._alreadyPlayed = [];
-	    for (var i = 0; i < this.state.menuItems.length; i++) {
-	      this._alreadyPlayed.push(false);
-	    }
-	  },
-
 	  menuClick: function menuClick(menuIndex) {
-	    this._alreadyPlayed[this.state.menuIndex] = true;
+	    // let resumeIndex = 2;
+	    // if (menuIndex != resumeIndex)
 	    this.setState({ menuIndex: menuIndex });
+	    // else
+	    //   document.getElementById("menu0").click();
 	  },
 
 	  render: function render() {
@@ -97,7 +94,6 @@
 
 	          myElements.push(React.createElement(SimType, { content: eachContent,
 	            options: {
-	              animate: this._alreadyPlayed[i],
 	              show: i == this.state.menuIndex },
 	            key: i + myElements.length
 	          }));
@@ -128,12 +124,16 @@
 	        { id: 'header' },
 	        React.createElement(
 	          'h2',
-	          null,
+	          { onClick: function () {
+	              this.menuClick(0);
+	            }.bind(this)
+	          },
 	          'Matt Schiller'
 	        ),
 	        React.createElement(Menu, {
 	          items: this.state.menuItems,
-	          clicked: this.menuClick
+	          clicked: this.menuClick,
+	          resume: this.state.menuItems[2]
 	        })
 	      ),
 	      React.createElement(
@@ -20129,13 +20129,19 @@
 	  },
 
 	  formatItems: function formatItems() {
+	    var resumeURL = "./assets/MattSchillerCV.pdf";
 	    var myItems = this.props.items.map(function (item, i) {
 	      return React.createElement(
 	        "li",
 	        { key: i,
+	          id: "menu" + i,
 	          onClick: function () {
-	            this.makeCurrent(i);
-	            this.props.clicked(i);
+	            if (item == this.props.resume) {
+	              window.open(resumeURL, "_blank");
+	            } else {
+	              this.makeCurrent(i);
+	              this.props.clicked(i);
+	            }
 	          }.bind(this),
 	          className: i == this.state.current ? "current" : ""
 	        },
@@ -20176,7 +20182,7 @@
 	"use strict";
 
 	var About = {
-	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).-->" + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).-->" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent1=0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent1~" + "<" + "~ckey~div" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent2~" + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~" + "~Cindent1~" + "</" + "~ckey~div" + "~c0~>" + "~l0~" + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 	};
@@ -20189,13 +20195,13 @@
 
 	"use strict";
 
-	var Personal = {
+	var Hobbies = {
 	    stub: "~Cindent0~" + "~ccomment~/* So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums. */" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "24 years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "~Cindent0~" + "}"
 	};
 
-	module.exports = Personal;
+	module.exports = Hobbies;
 
 /***/ },
 /* 164 */
@@ -20204,11 +20210,11 @@
 	"use strict";
 
 	var Projects = [{
-	    stub: "~Cindent0~" + "~ccomment~// Awesome, I get to show you some of the cool things that I've made!" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~// " + "~ctitle~" + "PROJECT: CARD GAME" + "~l0~" + "~Cindent0~" + "~ccomment~// This is a webapp version of my favorite card game, Egyptian Ratscrew. The UI was built in React and all communication is handled via socket.io, supporting up to 4 players in a room and an unlimited number of rooms." + "~l0~" + "~Cindent0~" + "~ccomment~// And don't worry if you don't have anyone to play with, because you can easily add AI players from the Settings widget." + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~ccomment~// Awesome, I get to show you some of the cool things that I've made!" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~/* " + "~ctitle~" + "PROJECT: CARD GAME" + "~l0~" + "~Cindent0~" + "~ccomment~ This is a webapp version of my favorite card game, Egyptian Ratscrew. The UI was built in React and all communication is handled via socket.io, supporting up to 4 players in a room and an unlimited number of rooms." + "~l0~" + "~Cindent0~" + "~ccomment~ And don't worry if you don't have anyone to play with, because you can easily add AI players from the Settings widget. */" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent0~" + "function~Cfunc~" + " getCardGame~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " gameURL " + "~ck~= " + "~q+~eRatscrew.HerokuApp.com~ahttp://eratscrew.herokuapp.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}"
 	}, {
-	    stub: "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~// " + "~ctitle~" + "PROJECT: DATA VIZ" + "~l0~" + "~Cindent0~" + "~ccomment~// This is another webapp built with React and D3 displaying beer award winners for the past two decades as well as how the award styles have changed over time." + "~l0~" + "~Cindent0~" + "~ccomment~// Data processing all done via regular expressions and Python.." + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~/* " + "~ctitle~" + "PROJECT: DATA VIZ" + "~l0~" + "~Cindent0~" + "~ccomment~ This is another webapp built with React and D3 displaying beer award winners for the past two decades as well as how the award styles have changed over time." + "~l0~" + "~Cindent0~" + "~ccomment~ Data processing all done via regular expressions and Python. */" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent0~" + "function~Cfunc~" + " getBeerMap~CfuncName~" + "(" + '~carg~over21 = "unimportant"' + "~c0~) {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " visualizationURL " + "~ck~= " + "~q+~GoldPintMap.MatthewSchiller.com~ahttp://goldpintmap.matthewschiller.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}",
 	    numStart: 9
@@ -20216,6 +20222,20 @@
 	}];
 
 	module.exports = Projects;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var Contact = {
+	    stub: "~Cindent0~{~l0~" + "~Cindent1~" + '"_comment": "Looking to stay in touch?",' + "~l0~" + "~Cindent1~" + '"contact options": {' + "~l0~" + "~Cindent2~" + '"email":' + '~cspace~    "' + "~c0~" + 'matt.s.schiller(at)gmail(dot)com' + "~amailto:matt.s.schiller@gmail.com~" + '~c0~",' + "~l0~",
+
+	    writing: "~Cindent2~" + '"linkedIn": "' + "~c0~" + 'www.linkedIn.com/in/MattSchiller' + "~awww.linkedIn.com/in/MattSchiller~" + '~c0~",' + "~l0~" + "~Cindent2~" + '"gitHub":' + '~cspace~   "' + "~c0~" + 'www.gitHub.com/MattSchiller' + "~awww.gitHub.com/MattSchiller~" + '~c0~"' + "~l0~" + "~Cindent1~" + "}" + "~l0~" + "~Cindent0~" + "}"
+	};
+
+	module.exports = Contact;
 
 /***/ }
 /******/ ]);
