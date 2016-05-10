@@ -136,7 +136,11 @@
 	          clicked: this.menuClick
 	        })
 	      ),
-	      pages
+	      React.createElement(
+	        'div',
+	        { id: 'codePages' },
+	        pages
+	      )
 	    );
 	  }
 
@@ -20206,7 +20210,7 @@
 	}, {
 	    stub: "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~// " + "~ctitle~" + "PROJECT: DATA VIZ" + "~l0~" + "~Cindent0~" + "~ccomment~// This is another webapp built with React and D3 displaying beer award winners for the past two decades as well as how the award styles have changed over time." + "~l0~" + "~Cindent0~" + "~ccomment~// Data processing all done via regular expressions and Python.." + "~l0~" + "~Cindent0~" + "~l0~",
 
-	    writing: "~Cindent0~" + "function~Cfunc~" + " getBeerMap~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " visualizationURL " + "~ck~= " + "~q+~GoldPintMap.MatthewSchiller.com~ahttp://goldpintmap.matthewschiller.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}",
+	    writing: "~Cindent0~" + "function~Cfunc~" + " getBeerMap~CfuncName~" + "(" + '~carg~over21 = "unimportant"' + "~c0~) {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " visualizationURL " + "~ck~= " + "~q+~GoldPintMap.MatthewSchiller.com~ahttp://goldpintmap.matthewschiller.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}",
 	    numStart: 9
 
 	}];

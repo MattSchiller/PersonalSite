@@ -59,7 +59,9 @@ var App = React.createClass({
             clicked = { this.menuClick }
             />
         </div>
+        <div id = "codePages">
         { pages }
+        </div>
       </div>
       )
   }

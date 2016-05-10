@@ -8,13 +8,24 @@ html {
 
 h2 {
   margin-right: 0.5em;
+  margin-left: 3px;
 }
 
 #header {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: -20px;
+  margin-top: -5.5em;
+  position: fixed;
+  background-color: #272822;
+  z-index: 5;
+  width: 95%;
+  overflow: hidden;
+}
+
+#codePages {
+  margin-top: 5em;
+  overflow: auto;
 }
 
 .wholeLine {
@@ -99,7 +110,7 @@ a:focus {
 }
 
 .tabs {
-  flex-grow: 4;
+  flex-grow: 6;
 }
 
 nav {
@@ -120,7 +131,6 @@ nav {
   overflow: hidden;
   margin: 0 auto;
   width: 100%;
-  font-size: 1.25em;
 }
 
 .tabs nav ul {
