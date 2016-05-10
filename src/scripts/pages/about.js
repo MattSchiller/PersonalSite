@@ -13,7 +13,7 @@ var About = {
   , writing:  "~Cindent1=0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~"
     + "~p350~" + "~Cindent1~" + "<" + "~ckey~div" + "~c0~>" + "~l0~"
     + "~p350~" + "~Cindent2~"
-                    + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still" + "~p1000~" + " under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~"
+                    + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~"
                 + "~Cindent1~" + "</" + "~ckey~div" + "~c0~>" + "~l0~"
               + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 };
