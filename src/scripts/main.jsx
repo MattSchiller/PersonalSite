@@ -2,23 +2,23 @@ var React   = require('react');
 var SimType = require('./SimType/simType.jsx');
 var Menu    = require('./menu.jsx');
 
-var About     = "";
-var mainPage  = require('./pages/mainPage.js');
+var About  = require('./pages/about.js');
 var Personal  = require('./pages/personal.js');
+var Projects  = require('./pages/projects.js');
 
 
 var App = React.createClass({
   getInitialState: function() {
     return {
         menuIndex: 0
-      , menuItems: [ "index.html"
+      , menuItems: [ "about.html"
                    , "resume.pdf"
                    , "projects.js"
                    , "personal.css" ]
-      , content:   [ mainPage
-                   , {stub: "", writing: ""}
-                   , {stub: "", writing: ""}
-                   , Personal ]
+      , content:   [ [ About ]
+                   , [ {stub: "", writing: ""} ]
+                   , Projects
+                   , [ Personal ] ]
     }
   },
   
@@ -36,14 +36,18 @@ var App = React.createClass({
   
   render: function() {
     let pages = this.state.content.map( function(content, i) {
-        return (
-            <SimType content    = { content }
-                     options    = { {
-                                      animate:  this._alreadyPlayed[i]
-                                    , show:     i == this.state.menuIndex } }
-                     key        = { i }
-              />
-          )
+        let myElements = [];
+        for (let eachContent of content) {
+          myElements.push(
+              <SimType content    = { eachContent }
+                       options    = { {
+                                        animate:  this._alreadyPlayed[i]
+                                      , show:     i == this.state.menuIndex } }
+                       key        = { i + myElements.length }
+                />
+            )
+        }
+        return myElements;
       }.bind(this) );
     
     return (

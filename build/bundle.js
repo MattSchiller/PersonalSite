@@ -57,9 +57,9 @@
 	var SimType = __webpack_require__(159);
 	var Menu = __webpack_require__(161);
 
-	var About = "";
-	var mainPage = __webpack_require__(162);
+	var About = __webpack_require__(162);
 	var Personal = __webpack_require__(163);
+	var Projects = __webpack_require__(164);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -67,8 +67,8 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      menuIndex: 0,
-	      menuItems: ["index.html", "resume.pdf", "projects.js", "personal.css"],
-	      content: [mainPage, { stub: "", writing: "" }, { stub: "", writing: "" }, Personal]
+	      menuItems: ["about.html", "resume.pdf", "projects.js", "personal.css"],
+	      content: [[About], [{ stub: "", writing: "" }], Projects, [Personal]]
 	    };
 	  },
 
@@ -86,12 +86,38 @@
 
 	  render: function render() {
 	    var pages = this.state.content.map(function (content, i) {
-	      return React.createElement(SimType, { content: content,
-	        options: {
-	          animate: this._alreadyPlayed[i],
-	          show: i == this.state.menuIndex },
-	        key: i
-	      });
+	      var myElements = [];
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
+
+	      try {
+	        for (var _iterator = content[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var eachContent = _step.value;
+
+	          myElements.push(React.createElement(SimType, { content: eachContent,
+	            options: {
+	              animate: this._alreadyPlayed[i],
+	              show: i == this.state.menuIndex },
+	            key: i + myElements.length
+	          }));
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+
+	      return myElements;
 	    }.bind(this));
 
 	    return React.createElement(
@@ -19741,7 +19767,9 @@
 	    return {
 	      content: {
 	        stub: "",
-	        writing: "" },
+	        writing: "",
+	        numStart: 0
+	      },
 	      options: {
 	        animate: true //NEED TO ADD ANIMATE TOGGLE, maybe
 	        , show: false }
@@ -19995,7 +20023,10 @@
 	          j++;
 	        }
 
-	        var lineNum = formattedTyped.length + 1 < 10 ? " " + (formattedTyped.length + 1).toString() : formattedTyped.length + 1;
+	        var lineNum = formattedTyped.length + 1 + (this.props.content.numStart || 0);
+
+	        lineNum = lineNum < 10 ? " " + lineNum.toString() : lineNum;
+
 	        var lineData = this.toSpan(new TypedBucket(lineNum, "lineNum", ""));
 
 	        formattedTyped.push(React.createElement(
@@ -20140,13 +20171,13 @@
 
 	"use strict";
 
-	var MainPage = {
-	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).>" + "~l0~" + "~Cindent0~" + "~l0~",
+	var About = {
+	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.-->" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).-->" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent1=0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent1~" + "<" + "~ckey~div" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent2~" + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still" + "~p1000~" + " under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~" + "~Cindent1~" + "</" + "~ckey~div" + "~c0~>" + "~l0~" + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 	};
 
-	module.exports = MainPage;
+	module.exports = About;
 
 /***/ },
 /* 163 */
@@ -20155,12 +20186,32 @@
 	"use strict";
 
 	var Personal = {
-	    stub: "~Cindent0~" + "~ccomment~/*So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums.*/" + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~ccomment~/* So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums. */" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "24 years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "~Cindent0~" + "}"
 	};
 
 	module.exports = Personal;
+
+/***/ },
+/* 164 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var Projects = [{
+	    stub: "~Cindent0~" + "~ccomment~// Awesome, I get to show you some of the cool things that I've made!" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~// " + "~ctitle~" + "PROJECT: CARD GAME" + "~l0~" + "~Cindent0~" + "~ccomment~// This is a webapp version of my favorite card game, Egyptian Ratscrew. The UI was built in React and all communication is handled via socket.io, supporting up to 4 players in a room and an unlimited number of rooms." + "~l0~" + "~Cindent0~" + "~ccomment~// And don't worry if you don't have anyone to play with, because you can easily add AI players from the Settings widget." + "~l0~" + "~Cindent0~" + "~l0~",
+
+	    writing: "~Cindent0~" + "function~Cfunc~" + " getCardGame~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " gameURL " + "~ck~= " + "~q+~eRatscrew.HerokuApp.com~ahttp://eratscrew.herokuapp.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}"
+	}, {
+	    stub: "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~// " + "~ctitle~" + "PROJECT: DATA VIZ" + "~l0~" + "~Cindent0~" + "~ccomment~// This is another webapp built with React and D3 displaying beer award winners for the past two decades as well as how the award styles have changed over time." + "~l0~" + "~Cindent0~" + "~ccomment~// Data processing all done via regular expressions and Python.." + "~l0~" + "~Cindent0~" + "~l0~",
+
+	    writing: "~Cindent0~" + "function~Cfunc~" + " getBeerMap~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var~Cfunc~" + " visualizationURL " + "~ck~= " + "~q+~GoldPintMap.MatthewSchiller.com~ahttp://goldpintmap.matthewschiller.com~" + "~q-~" + "~c0~;" + "~l0~" + "~Cindent0~" + "}",
+	    numStart: 9
+
+	}];
+
+	module.exports = Projects;
 
 /***/ }
 /******/ ]);

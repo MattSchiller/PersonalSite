@@ -23,7 +23,7 @@ h2 {
 
 .lineNum {
   font-size: 1em;
-  color: #9F9F9F;
+  color: #75715E;
   justify-content: flex-start;
   margin-right: .5em;
   white-space: pre;
@@ -44,6 +44,10 @@ a {
   font-weight: bold;
 }
 
+a:focus {
+  color: #485E6C;
+}
+
 .simType span.line {
   white-space: pre;
 }
@@ -62,11 +66,16 @@ a {
 }
 
 .comment {
-  color: #75715E;
+  color: #9F9F9F;
+}
+
+.title {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 .key {
-  color: #F92672;x
+  color: #F92672;
 }
 
 .str {
