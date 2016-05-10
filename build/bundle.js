@@ -67,8 +67,8 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      menuIndex: 0,
-	      menuItems: ["index.html", "projects.js", "personal.css"],
-	      content: [mainPage, { stub: "", writing: "" }, Personal]
+	      menuItems: ["index.html", "resume.pdf", "projects.js", "personal.css"],
+	      content: [mainPage, { stub: "", writing: "" }, { stub: "", writing: "" }, Personal]
 	    };
 	  },
 
@@ -101,7 +101,7 @@
 	        'div',
 	        { id: 'header' },
 	        React.createElement(
-	          'h1',
+	          'h2',
 	          null,
 	          'Matt Schiller'
 	        ),
@@ -19980,8 +19980,7 @@
 	  convertTyped: function convertTyped() {
 	    var typed = this.state.typed,
 	        j = 0,
-	        formattedTyped = [],
-	        lineNum = void 0;
+	        formattedTyped = [];
 
 	    while (j < typed.length) {
 	      if (~typed[j].className.indexOf(this._indent)) {
@@ -19996,8 +19995,8 @@
 	          j++;
 	        }
 
-	        lineNum = formattedTyped.length + 1;
-	        var lineData = this.toSpan(new TypedBucket(lineNum, "lineNum"));
+	        var lineNum = formattedTyped.length + 1 < 10 ? " " + (formattedTyped.length + 1).toString() : formattedTyped.length + 1;
+	        var lineData = this.toSpan(new TypedBucket(lineNum, "lineNum", ""));
 
 	        formattedTyped.push(React.createElement(
 	          'div',
@@ -20142,7 +20141,7 @@
 	"use strict";
 
 	var MainPage = {
-	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant. I'd love to talk to you about possible employment!>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).>" + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).>" + "~l0~" + "~Cindent0~" + "~l0~",
 
 	    writing: "~Cindent1=0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent1~" + "<" + "~ckey~div" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent2~" + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still" + "~p1000~" + " under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~" + "~Cindent1~" + "</" + "~ckey~div" + "~c0~>" + "~l0~" + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 	};
@@ -20156,9 +20155,9 @@
 	"use strict";
 
 	var Personal = {
-	    stub: "~Cindent0~" + "~ccomment~/*So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums.*/" + "~l0~" + "~Cindent0~" + "~l0~",
+	    stub: "~Cindent0~" + "~ccomment~/*So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums.*/" + "~l0~" + "~Cindent0~" + "~l0~",
 
-	    writing: "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "24" + "~p200~" + " years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "~Cindent0~" + "}"
+	    writing: "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "24 years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "~Cindent0~" + "}"
 	};
 
 	module.exports = Personal;

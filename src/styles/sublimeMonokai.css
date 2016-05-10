@@ -6,9 +6,8 @@ html {
   font-size: 1.5em;
 }
 
-h1 {
+h2 {
   margin-right: 0.5em;
-  font-size: 5vw;
 }
 
 #header {
@@ -25,10 +24,9 @@ h1 {
 .lineNum {
   font-size: 1em;
   color: #9F9F9F;
-  font-weight: normal;
-  width: 1em;
   justify-content: flex-start;
   margin-right: .5em;
+  white-space: pre;
 }
 
 .currLine {
@@ -91,18 +89,21 @@ a {
   text-indent: 3em;
 }
 
+.tabs {
+  flex-grow: 4;
+}
+
+nav {
+  display: block;
+  line-height: 2.5;
+}
+
 .tabs span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 2vw;
   font-weight: 600;
-}
-
-nav {
-  display: block;
-  line-height: 2.5;
-  width: 120%;
 }
 
 .tabs ul li{
@@ -138,7 +139,7 @@ nav {
   position: relative;
   z-index: 1;
   display: block;
-  margin: 0 0.5em;
+  margin: 0 0.3em;
   text-align: center;
   flex: 1;
   -webkit-flex: 1;

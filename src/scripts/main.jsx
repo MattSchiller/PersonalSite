@@ -12,9 +12,11 @@ var App = React.createClass({
     return {
         menuIndex: 0
       , menuItems: [ "index.html"
+                   , "resume.pdf"
                    , "projects.js"
                    , "personal.css" ]
       , content:   [ mainPage
+                   , {stub: "", writing: ""}
                    , {stub: "", writing: ""}
                    , Personal ]
     }
@@ -47,7 +49,7 @@ var App = React.createClass({
     return (
       <div>
         <div id = "header">
-          <h1>Matt Schiller</h1>
+          <h2>Matt Schiller</h2>
           <Menu
             items   = { this.state.menuItems }
             clicked = { this.menuClick }
