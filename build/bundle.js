@@ -68,7 +68,7 @@
 	    return {
 	      menuIndex: 0,
 	      menuItems: ["index.html", "projects.js", "personal.css"],
-	      content: [mainPage, { stub: "", writing: "" }, { stub: "", writing: "" }]
+	      content: [mainPage, { stub: "", writing: "" }, Personal]
 	    };
 	  },
 
@@ -19769,7 +19769,7 @@
 	  },
 
 	  updateTyped: function updateTyped(contentType) {
-	    if (!this.props.options.show) return;
+	    if (!this.props.options.show && contentType == this._contentWrt) return;
 
 	    var textSrc = void 0;
 	    if (contentType == this._contentWrt) textSrc = this.props.content.writing;else if (contentType == this._contentStb) textSrc = this.props.content.stub;
@@ -19980,7 +19980,8 @@
 	  convertTyped: function convertTyped() {
 	    var typed = this.state.typed,
 	        j = 0,
-	        formattedTyped = [];
+	        formattedTyped = [],
+	        lineNum = void 0;
 
 	    while (j < typed.length) {
 	      if (~typed[j].className.indexOf(this._indent)) {
@@ -19995,14 +19996,21 @@
 	          j++;
 	        }
 
+	        lineNum = formattedTyped.length + 1;
+	        var lineData = this.toSpan(new TypedBucket(lineNum, "lineNum"));
+
 	        formattedTyped.push(React.createElement(
 	          'div',
-	          {
-	            className: thisLineClass,
-	            key: j
-	          },
-	          lineContents,
-	          React.createElement('br', null)
+	          { key: j,
+	            className: 'wholeLine' },
+	          lineData,
+	          React.createElement(
+	            'div',
+	            {
+	              className: thisLineClass },
+	            lineContents,
+	            React.createElement('br', null)
+	          )
 	        ));
 	      } else {
 	        formattedTyped.push(this.toSpan(typed[j], j));
@@ -20133,14 +20141,13 @@
 
 	"use strict";
 
-	var SimTypeIndex = {
-	  stub: "~Cindent0~" + "~ccomment~" + "//This is just some sample comments" + "~l0~",
-	  writing: "~Cindent0~" + "function " + "~Cfunc~" + "getModuleName" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " src   " + "~ckey~" + "= " + "~q+~" + "~p350~" + "index.html" + "~q-~" + "~l0~" + "~p350~" + "~Cindent2~" + ", " + " author " + "~ckey~" + "= " + "~q+~" + "~p350~" + "Matt Schiller (c) 1987" + "~p500~" + "~b4~" + "2016" + "~q-~" + "~l0~" + "~p350~" + "~Cindent3~" + ", " + " text " + "~ckey~" + "= " + "~q+~" + "~p350~" + "JUST SOME TEST, YO" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
-	   + "~Cindent0~" + "function " + "~Cfunc~" + "getContactInfo" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "var" + "~Cfunc~" + " email " + "~ckey~" + "= " + "~q+~" + "~p350~" + "matt.s.schiller(at)gmail(dot)com" + "~amailto:matt.s.schiller@gmail.com~" + "~q-~" + ";" + "~l0~" + "~Cindent0~" + "}" + "~l0~" + "~Cindent0~" + " " + "~l0~" //Dummy line
-	   + "~Cindent0~" + "function " + "~Cfunc~" + "thankVisitor" + "~CfuncName~" + "() {" + "~l0~" + "~p350~" + "~Cindent1~" + "console." + "~c0~" + "log" + "~CfuncName~" + "(" + "~q+~" + "~p350~" + "Thanks for checking out my site, much of it is still" + "~p200~" + "." + "~p200~" + "." + "~p200~" + "." + "~p200~" + "~b3~" + " under construction" + "~q-~" + ");" + "~l0~" + "~Cindent0~" + "}"
+	var MainPage = {
+	    stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, an aspiring Web Developer and freelance Tech Consultant. I'd love to talk to you about possible employment!>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--My work experience is in SQL & VBA, but I've been learning Python and JavaScript - with a focus on React and D3.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.>" + "~l0~" + "~Cindent0~" + "~l0~" + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).>" + "~l0~" + "~Cindent0~" + "~l0~",
+
+	    writing: "~Cindent1=0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent1~" + "<" + "~ckey~div" + "~c0~>" + "~l0~" + "~p350~" + "~Cindent2~" + "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still" + "~p1000~" + " under construcktoi" + "~p300~" + "~b4~" + "tion." + "~l0~" + "~Cindent1~" + "</" + "~ckey~div" + "~c0~>" + "~l0~" + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 	};
 
-	module.exports = SimTypeIndex;
+	module.exports = MainPage;
 
 /***/ },
 /* 163 */
@@ -20148,7 +20155,11 @@
 
 	"use strict";
 
-	var Personal = "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "1" + "~p400~" + "~b-1~" + "2" + "~p200~" + "~b-1~" + "3" + "~p200~" + "~b-1~" + "4" + "~p200~" + "~b-1~" + "5" + "~p200~" + "~b-1~" + "6" + "~p100~" + "~b-1~" + "7" + "~p100~" + "~b-1~" + "8" + "~p100~" + "~b-1~" + "9" + "~p100~" + "~b-1~" + "10" + "~p100~" + "~b-1~" + "1" + "~p100~" + "~b-1~" + "2" + "~p75~" + "~b-1~" + "3" + "~p75~" + "~b-1~" + "4" + "~p75~" + "~b-1~" + "5" + "~p75~" + "~b-1~" + "6" + "~p75~" + "~b-1~" + "7" + "~p75~" + "~b-1~" + "8" + "~p75~" + "~b-1~" + "9" + "~p75~" + "~b-2~" + "20" + "~p100~" + "~b-1~" + "1" + "~p150~" + "~b-1~" + "2" + "~p250~" + "~b-1~" + "3" + "~p300  ~" + "~b-1~" + "4" + "~p200~" + "yr" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "}";
+	var Personal = {
+	    stub: "~Cindent0~" + "~ccomment~/*So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" + "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums.*/" + "~l0~" + "~Cindent0~" + "~l0~",
+
+	    writing: "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" + "~p350~" + "~Cindent1~" + "origami" + "~Cfunc~" + ": " + "~c0~" + "24" + "~p200~" + " years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";" + "~l0~" + "~Cindent0~" + "}"
+	};
 
 	module.exports = Personal;
 

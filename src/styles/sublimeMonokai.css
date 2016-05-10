@@ -1,18 +1,38 @@
 html {
   font-family: Inconsolata, sans-serif;
-  background: #2D3B45;
+  background: #272822;
   color: #E6E6E5;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1.5em;
 }
 
 h1 {
   margin-right: 0.5em;
+  font-size: 5vw;
 }
 
 #header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin-bottom: -20px;
+}
+
+.wholeLine {
+  display: inline-flex;
+}
+
+.lineNum {
+  font-size: 1em;
+  color: #9F9F9F;
+  font-weight: normal;
+  width: 1em;
+  justify-content: flex-start;
+  margin-right: .5em;
+}
+
+.currLine {
+  background: #485E6C;
 }
 
 .simType {
@@ -23,7 +43,7 @@ h1 {
 
 a {
   color: #D947FF;
-  
+  font-weight: bold;
 }
 
 .simType span.line {
@@ -32,12 +52,6 @@ a {
 
 .hidden {
   visibility: hidden;
-}
-
-.tabs span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .func {
@@ -54,7 +68,7 @@ a {
 }
 
 .key {
-  color: #F92672;
+  color: #F92672;x
 }
 
 .str {
@@ -77,9 +91,18 @@ a {
   text-indent: 3em;
 }
 
+.tabs span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 2vw;
+  font-weight: 600;
+}
+
 nav {
   display: block;
   line-height: 2.5;
+  width: 120%;
 }
 
 .tabs ul li{

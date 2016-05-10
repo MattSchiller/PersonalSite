@@ -16,7 +16,7 @@ var App = React.createClass({
                    , "personal.css" ]
       , content:   [ mainPage
                    , {stub: "", writing: ""}
-                   , {stub: "", writing: ""}]
+                   , Personal ]
     }
   },
   
