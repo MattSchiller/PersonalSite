@@ -214,7 +214,7 @@ nav {
 .tabs nav li.current:focus::after{
   position: absolute;
   background-color: #7db14a;
-  height: 3em;
+  height: 4em;
   -webkit-transform: translate3d(0,1px,0);
   transform: translate3d(0,0,0) height 100%;
 }
