@@ -1,5 +1,5 @@
 # My Personal Webpage
-### *with simulated typing*
+### *With simulated typing*
 
 The site is built with the React framework for ease in modularity and quick updating. The simulated typing component I built works by being given 3 pieces of information:
 * **Stub**: The text to be displayed immediately upon loading
