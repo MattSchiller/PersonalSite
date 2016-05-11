@@ -1,18 +1,10 @@
 var React = require('react');
 
 var Menu = React.createClass({
-  getInitialState: function() {
-    return { current: 0 }
-  },
-  
   getDefaultProps: function() {
     return {
         items: []
     }
-  },
-  
-  makeCurrent: function(i) {
-    this.setState({ current: i });
   },
   
   formatItems: function() {
@@ -25,11 +17,10 @@ var Menu = React.createClass({
                                       if (item == this.props.resume) {
                                         window.open(resumeURL, "_blank");
                                       } else {
-                                        this.makeCurrent( i );
                                         this.props.clicked( i );
                                       }
                                   }.bind(this) }
-            className = { i == this.state.current ? "current" : "" }
+            className = { i == this.props.currInd ? "current" : "" }
           >
           <span>{ item }</span>
         </li>

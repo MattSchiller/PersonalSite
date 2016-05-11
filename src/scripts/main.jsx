@@ -53,6 +53,7 @@ var App = React.createClass({
           <Menu
             items   = { this.state.menuItems }
             clicked = { this.menuClick }
+            currInd = { this.state.menuIndex }
             resume  = { this.state.menuItems[2] }
             />
         </div>

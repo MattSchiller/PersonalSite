@@ -11,7 +11,7 @@ var About = {
         + "~Cindent0~" + "~ccomment~I thrive in using the right tool for a job, whether it's in my toolbelt yet or not. Sometimes that means the React framework in JavaScript to put together the dynamic website you see before you. Sometimes it means working in Python to build out a game's AI or handle the back end." + "~l0~"
         + "~Cindent0~" + "~l0~"
        
-  , writing:  "~Cindent0~" + "~ccomment~And a good day's work is great, going to bed at night feeling like you've really SPENT the day well is one of the greatest things in life, but there's more to me than my work ethic. I believe in building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of origami, something not many people are too well-versed in." + "~l0~"
+  , writing:  "~Cindent0~" + "~ccomment~And a good day's work is great, going to bed at night feeling like you've really SPENT the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of origami, something not many people are too well-versed in." + "~l0~"
         + "~Cindent0~" + "~l0~"
         + "~Cindent0~" + "~ccomment~So welcome to my site, my corner of this digital world. Take your time and explore, and let me know if any of my work has piqued your interest.-->" + "~l0~"
         + "~Cindent0~" + "~l0~"
