@@ -26,11 +26,7 @@ var App = React.createClass({
   },
   
   menuClick: function(menuIndex) {
-    // let resumeIndex = 2;
-    // if (menuIndex != resumeIndex)
     this.setState({ menuIndex });
-    // else
-    //   document.getElementById("menu0").click();
   },
   
   render: function() {
