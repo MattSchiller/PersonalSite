@@ -7,7 +7,7 @@ var About = {
         + "~Cindent0~" + "~l0~"
         + "~Cindent0~" + "~ccomment~<!--I've recently completed a three-month session at the Recurse Center in NYC. Check out the 'projects' tab above for more info on the webapps I've created.-->" + "~l0~"
         + "~Cindent0~" + "~l0~"
-        + "~Cindent0~" + "~ccomment~<!--Check out the 'personal' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).-->" + "~l0~"
+        + "~Cindent0~" + "~ccomment~<!--Check out the 'hobbies' tab above to check out some of my other passions (like folding origami, constructing some bad-ass costumes, and traveling the world (with proper documentation of course).-->" + "~l0~"
         + "~Cindent0~" + "~l0~"
         
       
