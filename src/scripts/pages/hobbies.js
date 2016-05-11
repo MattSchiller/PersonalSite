@@ -6,13 +6,13 @@ var Hobbies = {
         
     , writing:  "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~"
               + "~Cindent1~" + "origami" + "~Cfunc~" + "~cspace~:     " + "~c0~"
-                    + "24 years" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";"
+                    + "24 years" + "~ahttps://goo.gl/photos/dxTN5bMiAVqE5gA89~" + "~c0~" + ";"
                     + "~l0~"
               + "~Cindent1~" + "travel-blog" + "~Cfunc~" + ": " + "~c0~"
                     + "www.MostlyNonFiction.com" + "~ahttps://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=origami~" + "~c0~" + ";"
                     + "~l0~"
               + "~Cindent1~" + "costumes" + "~Cfunc~" + "~cspace~:    " + "~c0~"
-                    + "super-cool" + "~ahttps://www.google.com/search?q=costumes&rlz=1CAACAG_enUS674US674&oq=costumes&aqs=chrome..69i57j0l5.895j0j7&sourceid=chrome&ie=UTF-8~" + "~c0~" + ";"
+                    + "super-cool" + "~ahttps://goo.gl/photos/YKGpuzTFbfbqWzKz6~" + "~c0~" + ";"
                     + "~l0~"
               + "~Cindent0~" + "}"
 };
