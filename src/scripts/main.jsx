@@ -26,7 +26,8 @@ var App = React.createClass({
   },
   
   menuClick: function(menuIndex) {
-    this.setState({ menuIndex });
+    if (menuIndex != this.state.menuIndex)
+      this.setState({ menuIndex });
   },
   
   render: function() {

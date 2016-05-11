@@ -74,7 +74,7 @@
 	  },
 
 	  menuClick: function menuClick(menuIndex) {
-	    this.setState({ menuIndex: menuIndex });
+	    if (menuIndex != this.state.menuIndex) this.setState({ menuIndex: menuIndex });
 	  },
 
 	  render: function render() {
