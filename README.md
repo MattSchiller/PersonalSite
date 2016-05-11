@@ -1,7 +1,7 @@
 # My Personal Webpage
-## (with my simulated typing)
+### __with simulated typing__
 
-The site is built with the React framework for ease in modularity and quick updating. The simulated typing work by being given 3 pieces of information:
+The site is built with the React framework for ease in modularity and quick updating. The simulated typing component I built works by being given 3 pieces of information:
 * **Stub**: The text to be displayed immediately upon loading
 * **Writing**: The text that will be written out per the markup language (more below)
 * **LineNum** (optional): Due to the possibility of wanting to have several components within a single page writing at once, this will sync the line numbers up
