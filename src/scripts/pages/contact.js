@@ -5,7 +5,7 @@ var Contact = {
         + "~Cindent2~" + '"email":' + '~cspace~    "' + "~c0~" + 'matt.s.schiller(at)gmail(dot)com' + "~amailto:matt.s.schiller@gmail.com~" + '~c0~",' + "~l0~"
         
     , writing:  "~Cindent2~" + '"linkedIn": "' + "~c0~" + 'www.linkedIn.com/in/MattSchiller' + "~ahttps://www.linkedIn.com/in/MattSchiller~" + '~c0~",' + "~l0~"
-              + "~Cindent2~" + '"gitHub":' + '~cspace~   "' + "~c0~" + 'www.gitHub.com/MattSchiller' + "~ahttps://www.gitHub.com/MattSchiller~" + '~c0~"' + "~l0~"
+              + "~Cindent2~" + '"gitHub":' + '~cspace~   "' + "~c0~" + 'www.gitHub.com/MattSSchiller' + "~ahttps://www.gitHub.com/MattSSchiller~" + '~c0~"' + "~l0~"
               + "~Cindent1~" + "}" + "~l0~"
               + "~Cindent0~" + "}"
 };
