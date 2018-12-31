@@ -1,32 +1,86 @@
 const path = require("path");
-const webpack = require('webpack');
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = () => {
     const config = {
-        entry: path.join(__dirname, "./src/scripts/main.jsx"),
+        entry: path.join(__dirname, "./src/ts/Main.tsx"),
+
         output: {
             path: __dirname + '/build',
             filename: 'bundle.js'
         },
+
+        resolve: {
+            extensions: [".tsx", ".ts", ".js", ".css", ".scss"],
+
+            // NOTE: You should make an entry in tsconfig.json as well for each of these entries.
+            alias: {
+                "@Sass": path.resolve(__dirname, "src/sass/"),
+                "@HTML": path.resolve(__dirname, "src/html/"),
+                "@Redux": path.resolve(__dirname, "src/ts/Redux/"),
+                "@Pages": path.resolve(__dirname, "src/ts/Pages/"),
+                "@Interfaces": path.resolve(__dirname, "src/ts/Interfaces/"),
+            },
+        },
+
         module: {
             rules: [
                 {
-                    test: /\.jsx?$/,
-                    loader: "babel-loader",
+                    // TypeScript
+                    test: /\.tsx?$/,
                     exclude: /node_modules/,
+                    use: {
+                        loader: "ts-loader",
+                        options: {
+                            transpileOnly: true     // This is used with ForkTSCheckerWebpackPlugin to speed up builds.
+                        }
+                    }
+                },
+                {
+                    // Sass + CSS
+                    test: /\.(s*)css$/,
+                    exclude: /node_modules/,
+                    use: [
+                        { loader: "style-loader" },
+                        {
+                            loader: "typings-for-css-modules-loader",
+                            options: {
+                                namedExport: true,
+                                camelCase: "only",
+                                modules: true,
+                                localIdentName: "[local]"
+                            }
+                        },
+                        {
+                            loader: "sass-loader"
+                        }
+                    ]
                 }
-            ],
+            ]
         },
+
+        devServer: {
+            headers: { "Access-Control-Allow-Origin": "*" },
+            hot: true,
+            open: true,
+            openPage: "index.html",
+            inline: true,
+            https: true
+        },
+
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
 
             new HtmlWebpackPlugin({
                 hash: true,
                 filename: "index.html",
-                template: __dirname + "/index.html",
+                template: __dirname + "/src/html/index.html",
                 favicon: __dirname + "/assets/images/favicon.ico"
-            })
+            }),
+
+            // Ignore the changes in any auto-created d.ts files for TypeScript (like typings-for-css-loader makes).
+            new webpack.WatchIgnorePlugin([/\.d\.ts$/]),
         ]
     };
 
