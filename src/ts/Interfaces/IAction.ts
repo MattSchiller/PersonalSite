@@ -2,5 +2,10 @@ import ActionTypes from "@Redux/actions";
 
 export default interface IAction {
     type: ActionTypes;
-    payload: any;
+    payload: IActionPayload;
+}
+
+interface IActionPayload {
+    pageId: string;
+    contentIndex?: number;
 }

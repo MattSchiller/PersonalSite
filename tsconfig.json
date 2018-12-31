@@ -24,6 +24,9 @@
             "@HTML/*": [
                 "./src/html/*"
             ],
+            "@Components/*": [
+                "./src/ts/Components/*"
+            ],
             "@Redux/*": [
                 "./src/ts/Redux/*"
             ],
