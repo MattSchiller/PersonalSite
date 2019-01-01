@@ -5,60 +5,73 @@ import ISimTypeContent from "@Interfaces/ISimTypeContent";
 
 // Given a string, this module simulates typing of that string into the div
 export default class SimType {
+    private _quoting: boolean = false;
     private _backspacing: boolean = false;
+    private _contentIndex: number = -1;
 
-    public getNewTypedContentPayload(content: ISimTypeContent): ITypedContentPayload {
-        // No more text to write.
-        if (content.contentIndex >= content.sourceText.length - 1)
+    public async getNextSimTypeContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
+        // No more text to "type".
+        if (this._contentIndexIsSafe(content.sourceText, content.contentIndex))
             return content;
 
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(this._getNextSimTypeContentPayload(content));
+            }, this._getTypingTimeoutMs())
+        });
+
+    }
+
+    private _getTypingTimeoutMs(): number {
+        const typingTimeoutSeedMs = this._backspacing ? Constants.backTimeoutMs : Constants.charTimeoutMs;
+        return typingTimeoutSeedMs * Math.random();
+    }
+
+    private _getNextSimTypeContentPayload(content: ISimTypeContent): ITypedContentPayload {
+        let nextSimTypeContent: ITypedContentPayload = {
+            contentIndex: content.contentIndex,
+            textSegments: [...content.textSegments]
+        };
 
 
-        // Check if the next character is escape string
-        let nextCharacter = this._getNextCharacter(contentIndex);
+        // Process next character;
+        let contentIndex = content.contentIndex + 1;
+        const nextCharacter = content.sourceText[contentIndex];
 
-        // if it is, do the thing, if not, append to the textSegment
+        if (nextCharacter === Constants.escapeCharacter) {
+            // Process nextCharacter
+        } else
+            nextSimTypeContent = {
+                contentIndex,
+                textSegments: this._getNextTextSegments(nextCharacter, content.textSegments)
+            }
 
-        let nextTextSegments: TextSegment[] = [...currentTextSegments];
+        return nextSimTypeContent;
+    }
 
-        if (contentType == this._contentWrt) return;
+    private _getNextTextSegments(nextCharacter: string, textSegments: TextSegment[]): TextSegment[] {
+        const textSegment = textSegments.pop() || new TextSegment();
+        let nextText: string = textSegment.text;
 
-        let textSrc;
-        if (contentType == this._contentWrt)
-            textSrc = this.props.content.writing;
-        else if (contentType == this._contentStb)
-            textSrc = this.props.content.stub;
+        if (this._quoting)
+            // Keep the trailing quotation mark at the end of this text segment.
+            nextText = nextText.slice(0, -1) + nextCharacter + nextText.slice(nextText.length - 1);
+        else
+            nextText += nextCharacter;
 
-        let contentPos = this.state.contentPos
-            , typed
-            , timeout
-            , loopLen = contentType == this._contentStb ? textSrc.length : contentPos + 1;
+        textSegment.text = nextText;
+        textSegments.push(textSegment);
 
-        while (contentPos < loopLen)
-            [typed, contentPos, timeout] = this.singleChar(textSrc, contentPos);
+        return textSegments;
+    }
 
-        if (typed == false) return;
-
-        if (contentType == this._contentStb)  //Reset contentPos
-            contentPos = this.getInitialState().contentPos;
+    private _contentIndexIsSafe(sourceText: string, contentIndex: number): boolean {
+        return (contentIndex <= sourceText.length - 1);
+    }
+}
 
 
-        let self = this;
-        if (timeout) {
-            setTimeout(function() {
-                self.setState({ typed, contentPos });
-            }, timeout);
-
-        } else    //To avoid any race conditions with backspace and so on
-            this.setState({ typed, contentPos });
-
-    },
-
-    singleChar: function(textSrc, contentPos) {
-    //Given the marked up source, returns the variables needed to create the next state
-    let nullifyCall = [false, contentPos + 1, false];
-
-    if (this.state.contentPos >= textSrc.length - 1) return nullifyCall;
+singleChar: function(textSrc, contentPos) {
 
     if (this._backspacing) return nullifyCall;
 
@@ -81,17 +94,6 @@ export default class SimType {
 
     } else {
         //We're appending a regular character or an errored escape char
-
-        if (this._quoting) {    //Insert next char before trailing space
-            let text = typed[typed.length - 1].text
-                , len = text.length;
-
-            typed[typed.length - 1].text = text.slice(0, -1) + nextChar + text.slice(len - 1);
-
-        } else
-            typed[typed.length - 1].text += nextChar;
-
-        timeout = this._charTimeout * Math.random();
     }
 
     return [typed, contentPos, timeout];
@@ -224,71 +226,4 @@ escapedActions: {
         return [typed, contentPos];
     }
 
-},
-
-// This goes into the SimTypeComponent.tsx
-convertTyped: function() {
-    let typed = this.state.typed
-        , j = 0
-        , formattedTyped = [];
-
-    while (j < typed.length) {
-        if (~typed[j].className.indexOf(this._indent)) {
-            //Get the className etc for this div
-            let thisLineClass = typed[j].className
-                , lineContents = [];
-
-            j++;
-            //Build the spans for the line's contents
-            while (j < typed.length && typed[j].className != this._newLine) {
-                lineContents.push(this.toSpan(typed[j], j));
-                j++;
-            }
-
-            let lineNum = formattedTyped.length + 1 + (this.props.content.numStart || 0);
-
-            lineNum = lineNum < 10 ? " " + (lineNum).toString() : lineNum;
-
-            let lineData = this.toSpan(new TypedBucket(lineNum, "lineNum", ""));
-
-            formattedTyped.push(
-                <div key={ j }
-                    className = "wholeLine" >
-                { lineData }
-                < div
-                        className = { thisLineClass } >
-                { lineContents }
-                < br />
-                </div>
-                < /div>
-            )
-        } else {
-            formattedTyped.push(this.toSpan(typed[j], j));
-        }
-
-        j++;
-    }
-
-    return formattedTyped;
-},
-
-toSpan: function(segment, j) {
-    //Handles the conversion of the TypedBuckets into spans/a hrefs
-    return (segment.link == "" ?
-        <span
-            className= { segment.className }
-    key = { j } >
-        { segment.text }
-        < /span>
-        :
-    <a href={ segment.link }
-    target = "_blank"
-    key = { j } >
-        { segment.text }
-        < /a>
-    )
-},
-
-
-}
 }
