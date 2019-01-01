@@ -36,6 +36,9 @@
             "@Interfaces/*": [
                 "./src/ts/Interfaces/*"
             ],
+            "@SimType/*": [
+                "./src/ts/SimType/*"
+            ],
         },
         // "noUnusedLocals": true, // This is set to true in 'mocha-tests-strict'
         "baseUrl": "."

@@ -1,4 +1,4 @@
-var Contact = {
+export default {
     stub: "~Cindent0~{~l0~"
         + "~Cindent1~" + '"_comment": "Looking to stay in touch?",' + "~l0~"
         + "~Cindent1~" + '"contact options": {' + "~l0~"
@@ -9,5 +9,3 @@ var Contact = {
         + "~Cindent1~" + "}" + "~l0~"
         + "~Cindent0~" + "}"
 };
-
-module.exports = Contact;

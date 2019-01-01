@@ -1,7 +1,7 @@
-import IAction from "@Interfaces/IAction";
+import IAction, { IUpdateTypedContentPayload } from "@Interfaces/IAction";
 import ActionTypes from "@Redux/actions";
 import IStore from "@Interfaces/IStore";
-import IPage from "@Interfaces/IPage";
+import ISimTypeContent from "@Interfaces/ISimTypeContent";
 
 const defaultState: IStore = {
     activePageId: "NULL",
@@ -9,32 +9,39 @@ const defaultState: IStore = {
 };
 
 export default (state: IStore = defaultState, action: IAction) => {
+    const pageId = action.payload.pageId;
+
     switch (action.type) {
         case ActionTypes.SET_ACTIVE_PAGE:
-            return {
-                ...state,
-                activePage: action.payload.pageId
+            if (pageId != state.activePageId)
+                return {
+                    ...state,
+                    activePage: pageId
+                };
+            break;
+
+        case ActionTypes.UPDATE_SIMTYPE_CONTENT:
+            if (pageId === state.activePageId) {
+                const payload: IUpdateTypedContentPayload = action.payload as IUpdateTypedContentPayload;
+
+                const updatedPage: ISimTypeContent = {
+                    ...state.pages[pageId],
+                    contentIndex: payload.contentIndex,
+                    textSegments: payload.textSegments
+                };
+
+                const pages = {
+                    ...state.pages,
+                    [pageId]: updatedPage
+                };
+
+                return {
+                    ...state,
+                    pages
+                };
             }
-
-        case ActionTypes.SET_PAGE_INDEX:
-            const pageId = action.payload.pageId;
-
-            const newPage: IPage = {
-                content: state.pages[pageId].content,
-                contentIndex: action.payload.contentIndex || 0
-            };
-
-            const pages = {
-                ...state.pages,
-                [pageId]: newPage
-            }
-
-            return {
-                ...state,
-                pages
-            }
-
-        default:
-            return state
+            break;
     }
+
+    return state;
 }

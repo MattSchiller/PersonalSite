@@ -1,6 +1,6 @@
 enum ActionTypes {
     SET_ACTIVE_PAGE,
-    SET_PAGE_INDEX
+    UPDATE_SIMTYPE_CONTENT
 }
 
 export default ActionTypes;

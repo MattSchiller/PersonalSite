@@ -1,4 +1,4 @@
-var About = {
+export default {
     stub: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~"
         + "~Cindent0~" + "~l0~"
         + "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l0~"
@@ -23,5 +23,3 @@ var About = {
         + "~Cindent1~" + "</" + "~ckey~body" + "~c0~>" + "~l0~"
         + "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
 };
-
-module.exports = About;

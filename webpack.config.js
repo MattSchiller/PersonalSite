@@ -21,6 +21,8 @@ module.exports = () => {
                 "@Redux": path.resolve(__dirname, "src/ts/Redux/"),
                 "@Pages": path.resolve(__dirname, "src/ts/Pages/"),
                 "@Interfaces": path.resolve(__dirname, "src/ts/Interfaces/"),
+                "@Components": path.resolve(__dirname, "src/ts/Components/"),
+                "@SimType": path.resolve(__dirname, "src/ts/SimType/"),
             },
         },
 
@@ -66,7 +68,9 @@ module.exports = () => {
             open: true,
             openPage: "index.html",
             inline: true,
-            https: true
+            https: true,
+            host: "https://localhost",
+            port: 8080
         },
 
         plugins: [

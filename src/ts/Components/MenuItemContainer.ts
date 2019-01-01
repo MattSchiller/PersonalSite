@@ -1,29 +1,30 @@
-import { connect } from 'react-redux'
-import ActionTypes from "@Redux/actions.js";
-import { Dispatch } from "redux";
-import IAction from "@Interfaces/IAction.js";
+import { IMenuItem } from "@Components/Menu";
+import MenuItemComponent from "@Components/MenuItem";
+import IAction from "@Interfaces/IAction";
 import IStore from "@Interfaces/IStore";
-import MenuItem from "@Components/MenuItem";
+import Resume from "@Pages/Resume";
+import ActionTypes from "@Redux/Actions";
+import { connect } from 'react-redux';
+import { Dispatch } from "redux";
 
-export interface IMenuItemContainerProps {
-    pageId: string;
-    displayName: string;
-}
-
-const mapStateToProps = (state: IStore, ownProps: IMenuItemContainerProps) => {
+const mapStateToProps = (state: IStore, ownProps: IMenuItem) => {
     return {
         ...ownProps,
         isSelected: state.activePageId === ownProps.pageId
     };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IMenuItemContainerProps) => {
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IMenuItem) => {
     return {
         onClick: () => {
-            dispatch({
-                type: ActionTypes.SET_ACTIVE_PAGE,
-                payload: { pageId: ownProps.pageId }
-            })
+            // For the resume, open a new tab and don't interact with the store, otherwise, dispatch.
+            if (Resume.isResumeId(ownProps.pageId))
+                window.open(Resume.getResumeUrl(), "_blank");
+            else
+                dispatch({
+                    type: ActionTypes.SET_ACTIVE_PAGE,
+                    payload: { pageId: ownProps.pageId }
+                });
         }
     }
 };
@@ -31,4 +32,4 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IMenuItemCont
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MenuItem)
+)(MenuItemComponent);
