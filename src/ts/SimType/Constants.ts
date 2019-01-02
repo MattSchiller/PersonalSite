@@ -1,9 +1,9 @@
 export default {
-    charTimeoutMs: 50,
+    typeTimeoutMs: 50,
     backTimeoutMs: 100,
     escapeCharacter: "~",
-    quoteCharacter: '"',
+    quoteCharacter: "\"",
     newLine: "line",
     indent: "indent",
     str: "str",
-}
+};

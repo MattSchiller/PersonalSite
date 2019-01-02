@@ -7,7 +7,6 @@
         ],
         "types": [ // Type declaration files to be included in compilation.
             "fast-deep-equal",
-            "reflect-metadata",
             "node"
         ],
         "module": "commonjs", // Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'.

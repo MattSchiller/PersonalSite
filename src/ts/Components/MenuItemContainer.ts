@@ -4,7 +4,7 @@ import IAction from "@Interfaces/IAction";
 import IStore from "@Interfaces/IStore";
 import Resume from "@Pages/Resume";
 import ActionTypes from "@Redux/Actions";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
 const mapStateToProps = (state: IStore, ownProps: IMenuItem) => {
@@ -12,7 +12,7 @@ const mapStateToProps = (state: IStore, ownProps: IMenuItem) => {
         ...ownProps,
         isSelected: state.activePageId === ownProps.pageId
     };
-}
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IMenuItem) => {
     return {
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IMenuItem) =>
                     payload: { pageId: ownProps.pageId }
                 });
         }
-    }
+    };
 };
 
 export default connect(

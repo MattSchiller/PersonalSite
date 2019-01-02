@@ -15,4 +15,4 @@ export interface ITypedContentPayload {
     textSegments: TextSegment[];
 }
 
-export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload { };
+export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload { }

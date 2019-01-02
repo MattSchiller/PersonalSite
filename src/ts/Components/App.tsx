@@ -1,6 +1,6 @@
 import React from "react";
 // import "@Sass/styles";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import IStore from "@Interfaces/IStore";
 import Menu, { IMenuItem } from "@Components/Menu";
 
@@ -20,9 +20,9 @@ class App extends React.PureComponent {
         }];
 
         return [
-            <Menu items={ items } />,
+            <Menu key={ "menu" } items={ items } />,
             // <SimTypePage content={ "" } contentIndex={ 0 } />
-        ]
+        ];
     }
 }
 
@@ -30,4 +30,4 @@ const mapStateToProps = (state: IStore) => ({ ...state });
 
 export default connect(
     mapStateToProps
-)(App)
+)(App);

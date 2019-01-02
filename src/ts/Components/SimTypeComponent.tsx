@@ -7,6 +7,7 @@ import SimTypeElement from "@Components/SimTypeElement";
 
 // This is supplied by the container.
 export interface ISimTypeComponentProps extends ISimTypeContent {
+    lineNumberStart: number;
     updateTypedContent: (typedContentPayload: ITypedContentPayload) => void;
 }
 
@@ -28,14 +29,17 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
         );
     }
 
-
     public componentDidUpdate() {
         // Asyncronously wait on the newTypedContentPayload promise and then run the update function
         // when the promise resolves (to handle the timeouts that simulate human typing).
-        this._simType.getNextSimTypeContentPayload({ ...this.props })
+        this._simType.getNextTypedContentPayload({ ...this.props })
             .then(this.props.updateTypedContent);
     }
 }
+
+// Output needs to be
+
+// [ <lineNumberElement>, ...All elements until newLine or Indent class]
 
 // let typed = this.state.typed
 //     , j = 0
@@ -80,6 +84,3 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
 
 //             return formattedTyped;
 //         },
-
-
-

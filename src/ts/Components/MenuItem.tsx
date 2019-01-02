@@ -10,7 +10,8 @@ export interface IMenuItemProps extends IMenuItemContainerProps {
 export default class MenuItem extends React.PureComponent<IMenuItemProps> {
     public render() {
         return (
-            <li onClick={ this.props.onClick }
+            <li
+                onClick={ this.props.onClick }
                 className={ this._getClassName() }
             >
                 { this.props.displayName }

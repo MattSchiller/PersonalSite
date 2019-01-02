@@ -1,10 +1,10 @@
 export default
-    "~i~" +
+    "~s~" +
     "~Cindent0~" + "~ccomment~/* So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" +
     "~Cindent0~" + "~l0~" +
     "~Cindent0~" + "~ccomment~ Well, I'm happy to oblige! Feel free to explore the links below to take you to the relevant albums. */" + "~l0~" +
     "~Cindent0~" + "~l0~" +
-    "~i~" +
+    "~s~" +
 
     "~Cindent0~" + ".hobbies" + "~CfuncName~" + " {" + "~l0~" +
     "~Cindent1~" + "origami" + "~Cfunc~" + "~cspace~:     " + "~c0~" +

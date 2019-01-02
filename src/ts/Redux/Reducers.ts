@@ -13,7 +13,7 @@ export default (state: IStore = defaultState, action: IAction) => {
 
     switch (action.type) {
         case ActionTypes.SET_ACTIVE_PAGE:
-            if (pageId != state.activePageId)
+            if (pageId !== state.activePageId)
                 return {
                     ...state,
                     activePage: pageId
@@ -44,4 +44,4 @@ export default (state: IStore = defaultState, action: IAction) => {
     }
 
     return state;
-}
+};

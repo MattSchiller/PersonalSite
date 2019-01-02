@@ -18,6 +18,7 @@ export default class SimTypeElement extends React.PureComponent<ISimTypeElementP
                 target="_blank"
             >
                 { textSegment.text }
+                <br />
             </DomElementType>
         );
     }
