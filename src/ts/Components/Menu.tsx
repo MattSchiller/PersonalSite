@@ -15,7 +15,9 @@ export default class Menu extends React.PureComponent<IMenuProps> {
     public render() {
         return (
             <nav className={ CSS.tabs }>
-                { this.props.items.map(this._createNavItem, this) }
+                <ul>
+                    { this.props.items.map(this._createNavItem, this) }
+                </ul>
             </nav>
         );
     }
