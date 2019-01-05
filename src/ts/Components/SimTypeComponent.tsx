@@ -1,5 +1,5 @@
 import { ITypedContentPayload } from "@Interfaces/IAction";
-import ISimTypeContent from "@Interfaces/ISimTypeContent";
+import ISimTypeContent from "@SimType/ISimTypeContent";
 import SimType from "@SimType/SimType";
 import React from "react";
 import TextSegment from "@SimType/TextSegment";

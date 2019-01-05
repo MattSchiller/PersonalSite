@@ -58,10 +58,10 @@ h2 {
 a {
     color: khaki;
     font-weight: bold;
-}
 
-a:focus {
-    color: #485E6C;
+    &:focus {
+        color: #485E6C;
+    }
 }
 
 .simType span.line {
@@ -120,26 +120,20 @@ a:focus {
 
 .tabs {
     flex-grow: 6;
-}
 
-nav {
-    display: block;
-    line-height: 2.5;
-}
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 1.8vw;
+        font-weight: 600;
+    }
 
-.tabs span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 1.8vw;
-    font-weight: 600;
-}
-
-.tabs ul {
     position: relative;
     display: flex;
     flex-flow: row wrap;
     padding: 0;
+    line-height: 2.5;
     list-style: none;
     justify-content: center;
 

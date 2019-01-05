@@ -1,7 +1,13 @@
-import IMap from "@Interfaces/IMap";
-import ISimTypeContent from "@Interfaces/ISimTypeContent";
+import ISimTypeContent from "@SimType/ISimTypeContent";
 
 export default interface IStore {
     activePageId: string;
-    pages: IMap<ISimTypeContent>;
+    pages: IPage[];
 }
+
+export interface IRawPage {
+    pageId: string;
+    sourceText: string;
+}
+
+export interface IPage extends IRawPage, ISimTypeContent { }

@@ -1,7 +1,7 @@
 import TextSegment from "@SimType/TextSegment";
 import Constants from "@SimType/Constants";
 import { ITypedContentPayload } from "@Interfaces/IAction";
-import ISimTypeContent from "@Interfaces/ISimTypeContent";
+import ISimTypeContent from "@SimType/ISimTypeContent";
 
 export default class SimType {
     private _quoting: boolean = false;

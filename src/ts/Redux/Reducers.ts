@@ -1,14 +1,9 @@
 import IAction, { IUpdateTypedContentPayload } from "@Interfaces/IAction";
 import ActionTypes from "@Redux/actions";
-import IStore from "@Interfaces/IStore";
-import ISimTypeContent from "@Interfaces/ISimTypeContent";
+import IStore, { IPage } from "@Interfaces/IStore";
+import InitialState from "@Redux/InitialState";
 
-const defaultState: IStore = {
-    activePageId: "NULL",
-    pages: {}
-};
-
-export default (state: IStore = defaultState, action: IAction) => {
+export default (state: IStore = InitialState, action: IAction) => {
     if (!action.payload) return state;
     console.log("action:", action);
 
@@ -19,7 +14,7 @@ export default (state: IStore = defaultState, action: IAction) => {
             if (pageId !== state.activePageId)
                 return {
                     ...state,
-                    activePage: pageId
+                    activePageId: pageId
                 };
             break;
 
@@ -27,16 +22,15 @@ export default (state: IStore = defaultState, action: IAction) => {
             if (pageId === state.activePageId) {
                 const payload: IUpdateTypedContentPayload = action.payload as IUpdateTypedContentPayload;
 
-                const updatedPage: ISimTypeContent = {
-                    ...state.pages[pageId],
-                    contentIndex: payload.contentIndex,
-                    textSegments: payload.textSegments
-                };
-
-                const pages = {
-                    ...state.pages,
-                    [pageId]: updatedPage
-                };
+                const pages = state.pages.map((page: IPage) => {
+                    return (page.pageId !== pageId ? page :
+                        {
+                            ...page,
+                            contentIndex: payload.contentIndex,
+                            textSegments: payload.textSegments
+                        }
+                    );
+                });
 
                 return {
                     ...state,
