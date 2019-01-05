@@ -9,6 +9,9 @@ const defaultState: IStore = {
 };
 
 export default (state: IStore = defaultState, action: IAction) => {
+    if (!action.payload) return state;
+    console.log("action:", action);
+
     const pageId = action.payload.pageId;
 
     switch (action.type) {

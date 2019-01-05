@@ -62,6 +62,8 @@ module.exports = () => {
             ]
         },
 
+        devtool: "eval-source-map",
+
         devServer: {
             headers: { "Access-Control-Allow-Origin": "*" },
             hot: true,
@@ -69,7 +71,7 @@ module.exports = () => {
             openPage: "index.html",
             inline: true,
             https: true,
-            host: "https://localhost",
+            host: "localhost",
             port: 8080
         },
 

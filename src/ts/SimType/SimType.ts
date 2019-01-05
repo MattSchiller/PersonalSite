@@ -4,12 +4,12 @@ import { ITypedContentPayload } from "@Interfaces/IAction";
 import ISimTypeContent from "@Interfaces/ISimTypeContent";
 
 export default class SimType {
-    private _processingStartingStub: boolean = false;
     private _quoting: boolean = false;
     private _backspacing: boolean = false;
     private _backspaceInterations: number = 0;
     private _pausing: boolean = false;
     private _pausedMs: number = 0;
+    private _startingStubbing: boolean = false;
 
     public async getNextTypedContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
         // No more text to "type".
@@ -26,10 +26,7 @@ export default class SimType {
     private _getTypingTimeoutMs(): number {
         let typingTimeoutSeedMs: number;
 
-        if (this._processingStartingStub) {
-            this._processingStartingStub = false;
-            typingTimeoutSeedMs = 0;
-        } else if (this._pausing) {
+        if (this._pausing) {
             this._pausing = false;
             typingTimeoutSeedMs = this._pausedMs;
         } else if (this._backspacing)
@@ -150,16 +147,17 @@ export default class SimType {
 
     private _actions = {
         startingStub: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+            if (!this._startingStubbing) {
+                // Start whipping through processing the content, skipping any sort of timeout/promises.
+                this._startingStubbing = true;
+                const content = actionParams.content;
 
-            // TODO: Write stub functionality that will iterate over the text between ~s~ and return it all at
-            // once without a timeout.
+                while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex))
+                    actionParams.content = { ...content, ...this._getNextTypedContentPayload(content) };
 
-            // Find next stub icon
-            // Get sourceContent for intervening stuff
-
-            // while contentIndex != sub-sourceContent.length _getNextTypedContentPayload
-
-            // pass sourceContent as "value" to _getPostAction...
+            } else
+                // We've found the end of the starting stub of text.
+                this._startingStubbing = false;
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
