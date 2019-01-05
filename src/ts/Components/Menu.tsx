@@ -3,7 +3,6 @@ import CSS from "@Sass/sublimeMonokai.scss";
 import MenuItemContainer from "@Components/MenuItemContainer";
 import { IPage } from "@Interfaces/IStore";
 
-
 export interface IMenuProps {
     items: IPage[];
 }

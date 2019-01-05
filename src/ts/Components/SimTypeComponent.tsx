@@ -6,8 +6,8 @@ import TextSegment from "@SimType/TextSegment";
 import SimTypeElement from "@Components/SimTypeElement";
 
 // This is supplied by the container.
-export interface ISimTypeComponentProps extends ISimTypeContent {
-    lineNumberStart: number;
+interface ISimTypeComponentProps extends ISimTypeContent {
+    lineNumberStart?: number;
     updateTypedContent: (typedContentPayload: ITypedContentPayload) => void;
 }
 

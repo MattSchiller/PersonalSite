@@ -1,21 +1,20 @@
-import React from "react";
-// import "@Sass/styles";
-import { connect } from "react-redux";
-import IStore from "@Interfaces/IStore";
 import Menu from "@Components/Menu";
-
-// var About = require("./pages/about.js");
-// var Hobbies = require("./pages/hobbies.js");
-// var Projects = require("./pages/projects.js");
-// var Contact = require("./pages/contact.js");
+import SimTypeContainer from "@Components/SimTypeContainer";
+import IStore, { IPage } from "@Interfaces/IStore";
+import React from "react";
+import { connect } from "react-redux";
 
 class App extends React.PureComponent<IStore> {
     public render() {
         return [
             <Menu key={ "menu" } items={ this.props.pages } />,
-            // <SimTypePage content={ "" } contentIndex={ 0 } />
+            <SimTypeContainer key={ "content" } { ...getActivePage(this.props) } />
         ];
     }
+}
+
+function getActivePage(state: IStore): IPage {
+    return state.pages.filter((page: IPage) => page.pageId === state.activePageId)[0];
 }
 
 const mapStateToProps = (state: IStore) => ({ ...state });
