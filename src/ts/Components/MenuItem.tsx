@@ -1,8 +1,8 @@
 import React from "react";
+import { IMenuItem } from "@Components/Menu";
 // import CSS from "@Sass/sublimeMonokai.scss";
-import { IMenuItemContainerProps } from "@Components/MenuItemContainer";
 
-export interface IMenuItemProps extends IMenuItemContainerProps {
+export interface IMenuItemProps extends IMenuItem {
     isSelected: boolean;
     onClick: () => void;
 }
@@ -14,7 +14,7 @@ export default class MenuItem extends React.PureComponent<IMenuItemProps> {
                 onClick={ this.props.onClick }
                 className={ this._getClassName() }
             >
-                { this.props.displayName }
+                { this.props.display }
             </li >
         );
     }

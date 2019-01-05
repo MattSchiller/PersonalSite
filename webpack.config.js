@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = () => {
     const config = {
+        mode: "development",
+
         entry: path.join(__dirname, "./src/ts/Main.tsx"),
 
         output: {
@@ -54,9 +56,7 @@ module.exports = () => {
                                 localIdentName: "[local]"
                             }
                         },
-                        {
-                            loader: "sass-loader"
-                        }
+                        { loader: "sass-loader" }
                     ]
                 }
             ]
