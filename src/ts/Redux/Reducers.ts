@@ -1,5 +1,5 @@
 import IAction, { IUpdateTypedContentPayload } from "@Interfaces/IAction";
-import ActionTypes from "@Redux/actions";
+import ActionTypes from "@Redux/Actions";
 import IStore, { IPage } from "@Interfaces/IStore";
 import InitialState from "@Redux/InitialState";
 

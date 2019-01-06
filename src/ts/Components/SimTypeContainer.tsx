@@ -1,7 +1,7 @@
 import SimTypeComponent from "@Components/SimTypeComponent";
 import IAction, { ITypedContentPayload } from "@Interfaces/IAction";
 import IStore, { IPage } from "@Interfaces/IStore";
-import ActionTypes from "@Redux/actions";
+import ActionTypes from "@Redux/Actions";
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 
