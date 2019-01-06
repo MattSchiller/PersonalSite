@@ -12,13 +12,14 @@ export default class SimType {
     private _startingStubbing: boolean = false;
 
     public async getNextTypedContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
-        // No more text to "type".
-        if (content.contentIndex >= content.sourceText.length)
-            return content;
+        console.log("TYPE!")
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(this._getNextTypedContentPayload(content));
+                if (!this._isContentIndexSafe(content.sourceText, content.contentIndex))
+                    reject("Finished typing content");
+                else
+                    resolve(this._getNextTypedContentPayload(content));
             }, this._getTypingTimeoutMs());
         });
     }
@@ -39,12 +40,19 @@ export default class SimType {
 
     private _getNextTypedContentPayload(content: ISimTypeContent): ITypedContentPayload {
         // Process next character;
-        const nextContentIndex = content.contentIndex + 1;
-        const nextCharacter = content.sourceText[nextContentIndex];
+        const contentIndex = content.contentIndex;
+
+        if (!this._isContentIndexSafe(content.sourceText, contentIndex)) {
+            console.log("~~~~~");
+            console.warn("Content index out of bounds, no update to content:", content);
+            return content;
+        }
+
+        const nextCharacter = content.sourceText[contentIndex];
 
         if (nextCharacter !== Constants.escapeCharacter)
             return {
-                contentIndex: nextContentIndex,
+                contentIndex: contentIndex + 1,
                 // We spread the textSegments here so we don't accidentally modify the passed references.
                 textSegments: this._appendNextCharacterToTextSegments(nextCharacter, [...content.textSegments])
             };
@@ -53,8 +61,8 @@ export default class SimType {
     }
 
     private _appendNextCharacterToTextSegments(nextCharacter: string, textSegments: TextSegment[]): TextSegment[] {
-        const textSegment = textSegments.pop() || new TextSegment();
-        let nextText: string = textSegment.text;
+        let nextTextSegment: TextSegment = TextSegment.clone(this._getMostRecentTextSegment(textSegments));
+        let nextText = nextTextSegment.text;
 
         if (this._quoting)
             // Keep the trailing quotation mark at the end of this text segment.
@@ -62,10 +70,19 @@ export default class SimType {
         else
             nextText += nextCharacter;
 
-        textSegment.text = nextText;
-        textSegments.push(textSegment);
+        console.log("TEXT:", nextText);
 
-        return textSegments;
+        nextTextSegment.text = nextText;
+
+        // We return a new object here so that we're not manipulating theprevious state directly
+        return [...textSegments, nextTextSegment];
+    }
+
+    private _getMostRecentTextSegment(textSegments: TextSegment[]): TextSegment {
+        if (textSegments.length > 0)
+            return textSegments.pop()!;
+        else
+            return new TextSegment();
     }
 
     private _getNextContentByProcessingActionCharacter(content: ISimTypeContent): ITypedContentPayload {

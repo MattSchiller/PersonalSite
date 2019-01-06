@@ -16,6 +16,7 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
     private _simType = new SimType();
 
     public render() {
+        console.log("Rendering...")
         return (
             <div className="simType" >
                 { this._createElementsFromTextSegments() }
@@ -29,11 +30,22 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
         );
     }
 
+    public componentDidMount() {
+        this._simulateTyping();
+    }
+
     public componentDidUpdate() {
+        this._simulateTyping();
+    }
+
+    private _simulateTyping() {
         // Asyncronously wait on the newTypedContentPayload promise and then run the update function
         // when the promise resolves (to handle the timeouts that simulate human typing).
         this._simType.getNextTypedContentPayload({ ...this.props })
-            .then(this.props.updateTypedContent);
+            .then(this.props.updateTypedContent)
+            .catch((reason: any) => {
+                console.log(reason);
+            });
     }
 }
 
