@@ -1,9 +1,9 @@
-import TextSegment from "@SimType/TextSegment";
-import Constants from "@SimType/Constants";
 import { ITypedContentPayload } from "@Interfaces/IAction";
-import ISimTypeContent from "@SimType/ISimTypeContent";
+import { constants } from "@SimType/Constants";
+import { ISimTypeContent } from "@SimType/ISimTypeContent";
+import { TextSegment } from "@SimType/TextSegment";
 
-export default class SimType {
+export class SimType {
     private _quoting: boolean = false;
     private _backspacing: boolean = false;
     private _backspaceInterations: number = 0;
@@ -18,8 +18,13 @@ export default class SimType {
             setTimeout(() => {
                 if (!this._isContentIndexSafe(content.sourceText, content.contentIndex))
                     reject("Finished typing content");
-                else
-                    resolve(this._getNextTypedContentPayload(content));
+                else {
+                    const nextContent = this._getNextTypedContentPayload(content);
+                    resolve({
+                        contentIndex: nextContent.contentIndex,
+                        textSegments: nextContent.textSegments
+                    });
+                }
             }, this._getTypingTimeoutMs());
         });
     }
@@ -31,14 +36,14 @@ export default class SimType {
             this._pausing = false;
             typingTimeoutSeedMs = this._pausedMs;
         } else if (this._backspacing)
-            typingTimeoutSeedMs = Constants.backTimeoutMs;
+            typingTimeoutSeedMs = constants.backTimeoutMs;
         else
-            typingTimeoutSeedMs = Constants.typeTimeoutMs;
+            typingTimeoutSeedMs = constants.typeTimeoutMs;
 
         return typingTimeoutSeedMs * Math.random();
     }
 
-    private _getNextTypedContentPayload(content: ISimTypeContent): ITypedContentPayload {
+    private _getNextTypedContentPayload(content: ISimTypeContent): ISimTypeContent {
         // Process next character;
         const contentIndex = content.contentIndex;
 
@@ -50,14 +55,18 @@ export default class SimType {
 
         const nextCharacter = content.sourceText[contentIndex];
 
-        if (nextCharacter !== Constants.escapeCharacter)
+        if (nextCharacter !== constants.escapeCharacter)
             return {
+                ...content,
                 contentIndex: contentIndex + 1,
                 // We spread the textSegments here so we don't accidentally modify the passed references.
                 textSegments: this._appendNextCharacterToTextSegments(nextCharacter, [...content.textSegments])
             };
         else
-            return this._getNextContentByProcessingActionCharacter(content);
+            return {
+                ...content,
+                ...this._getNextContentByProcessingActionCharacter(content)
+            };
     }
 
     private _appendNextCharacterToTextSegments(nextCharacter: string, textSegments: TextSegment[]): TextSegment[] {
@@ -85,7 +94,7 @@ export default class SimType {
             return new TextSegment();
     }
 
-    private _getNextContentByProcessingActionCharacter(content: ISimTypeContent): ITypedContentPayload {
+    private _getNextContentByProcessingActionCharacter(content: ISimTypeContent): ISimTypeContent {
         const nextContentIndex = content.contentIndex + 2;    // Skipping over the escape character;
         const sourceText = content.sourceText;
 
@@ -104,10 +113,10 @@ export default class SimType {
         }
     }
 
-    private _processActionCharacter(actionCharacter: string, content: ISimTypeContent): ITypedContentPayload {
+    private _processActionCharacter(actionCharacter: string, content: ISimTypeContent): ISimTypeContent {
         const actionValue = this._getActionValue(content.sourceText, content.contentIndex + 1);
 
-        let actionMethod: (actionParams: IEscapedActionParams) => ITypedContentPayload;
+        let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContent;
 
         switch (actionCharacter) {
             case "s":
@@ -151,7 +160,7 @@ export default class SimType {
 
     private _getActionValue(sourceText: string, contentIndex: number): string | number {
         const subString = sourceText.substring(contentIndex, sourceText.length);
-        const regExpRule = new RegExp("/[^" + Constants.escapeCharacter + "]+/");
+        const regExpRule = new RegExp("/[^" + constants.escapeCharacter + "]+/");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
         if (endOfActionValueRegExMatches.length === 0) {
@@ -163,7 +172,7 @@ export default class SimType {
     }
 
     private _actions = {
-        startingStub: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        startingStub: (actionParams: IEscapedActionParams): ISimTypeContent => {
             if (!this._startingStubbing) {
                 // Start whipping through processing the content, skipping any sort of timeout/promises.
                 this._startingStubbing = true;
@@ -179,14 +188,14 @@ export default class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        pause: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        pause: (actionParams: IEscapedActionParams): ISimTypeContent => {
             this._pausing = true;
             this._pausedMs = actionParams.actionValue as number;
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        link: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        link: (actionParams: IEscapedActionParams): ISimTypeContent => {
             const textSegment = actionParams.content.textSegments.pop()!;
             textSegment.link = actionParams.actionValue as string;
             actionParams.content.textSegments.push(textSegment);
@@ -194,15 +203,15 @@ export default class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        preClass: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        preClass: (actionParams: IEscapedActionParams): ISimTypeContent => {
             const textSegment = new TextSegment("", actionParams.actionValue as string);
             actionParams.content.textSegments.push(textSegment);
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        postClass: (actionParams: IEscapedActionParams): ITypedContentPayload => {
-            const textSegment: TextSegment = actionParams.content.textSegments.pop()!;
+        postClass: (actionParams: IEscapedActionParams): ISimTypeContent => {
+            const textSegment: TextSegment = actionParams.content.textSegments.pop() || new TextSegment();
 
             textSegment.className += " " + actionParams.actionValue;
             actionParams.content.textSegments.push(textSegment);
@@ -210,12 +219,12 @@ export default class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        quote: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        quote: (actionParams: IEscapedActionParams): ISimTypeContent => {
             if (this._quoting)
                 actionParams.content.textSegments.push(new TextSegment());
             else {
                 const textSegment = actionParams.content.textSegments.pop()!;
-                textSegment.text = Constants.quoteCharacter + Constants.quoteCharacter;
+                textSegment.text = constants.quoteCharacter + constants.quoteCharacter;
                 actionParams.content.textSegments.push(textSegment);
             }
 
@@ -224,7 +233,7 @@ export default class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        lines: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        lines: (actionParams: IEscapedActionParams): ISimTypeContent => {
             for (let i = 0; i < actionParams.actionValue; i++) {
                 actionParams.content.textSegments.push(new TextSegment("", "line"));    // TODO: CSS ADDITION.
             }
@@ -234,7 +243,7 @@ export default class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        backspace: (actionParams: IEscapedActionParams): ITypedContentPayload => {
+        backspace: (actionParams: IEscapedActionParams): ISimTypeContent => {
             // Backspacing is a weird one. It's simulated by managing a flag on this class that on the first pass
             // sets the number of iterations and turns on the _backspacing flag and NOT changing the contentIndex.
             // Subsequent calls to get the next content will go over the same backspace command and reduce the
@@ -245,7 +254,7 @@ export default class SimType {
                 this._backspaceInterations--;
 
                 if (this._quoting) {
-                    const quoteCharacter = Constants.quoteCharacter;
+                    const quoteCharacter = constants.quoteCharacter;
                     textSegment.text = textSegment.text.slice(0, -(1 + quoteCharacter.length)) + quoteCharacter;
                 } else
                     textSegment.text = textSegment.text.slice(0, -1);
@@ -271,7 +280,7 @@ export default class SimType {
         },
     };
 
-    private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ITypedContentPayload {
+    private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ISimTypeContent {
         const contentIndex = actionParams.content.contentIndex + actionParams.actionValue.toString().length;
         return {
             ...actionParams.content,

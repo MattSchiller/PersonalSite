@@ -1,16 +1,12 @@
-import App from "@Components/App";
-import rootReducer from "@Redux/Reducers";
+import { AppContainer } from "@Components/App";
+import { store } from "@Redux/Store";
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
-
-const store = createStore(rootReducer, devToolsEnhancer({}));
 
 render(
     <Provider store={ store }>
-        <App />
+        <AppContainer />
     </Provider>,
     document.getElementById("content")
 );

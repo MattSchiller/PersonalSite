@@ -1,25 +1,27 @@
 import SimTypeComponent from "@Components/SimTypeComponent";
-import IAction, { ITypedContentPayload } from "@Interfaces/IAction";
-import IStore, { IPage } from "@Interfaces/IStore";
-import ActionTypes from "@Redux/Actions";
+import { IAction, ITypedContentPayload } from "@Interfaces/IAction";
+import { IStore, IPage } from "@Interfaces/IStore";
+import { ActionTypes, Actions } from "@Redux/Actions";
 import { Dispatch } from "react";
 import { connect } from "react-redux";
+import React from "react";
+import { ISimTypeContent } from "@SimType/ISimTypeContent";
 
-const mapStateToProps = (state: IStore, ownProps: IPage) => ({ ...ownProps });
+export default class SimTypeContainer extends React.PureComponent<IPage> {
+    public render() {
+        return (
+            <div >
+                { this.props.simType.map() }
+            </div>
+        );
+    }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IPage) => {
-    return {
-        updateTypedContent: (updatedContent: ITypedContentPayload) => dispatch({
-            type: ActionTypes.UPDATE_SIMTYPE_CONTENT,
-            payload: {
-                ...updatedContent,
-                pageId: ownProps.pageId
-            }
-        })
-    };
+
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SimTypeComponent);
+
+function mapStateToProps(state: IStore, ownProps: IPage) {
+
+
+    return {};
+}

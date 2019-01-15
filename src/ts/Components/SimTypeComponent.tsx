@@ -1,13 +1,12 @@
+import { SimTypeElement } from "@Components/SimTypeElement";
 import { ITypedContentPayload } from "@Interfaces/IAction";
-import ISimTypeContent from "@SimType/ISimTypeContent";
-import SimType from "@SimType/SimType";
+import { ISimTypeContent } from "@SimType/ISimTypeContent";
+import { SimType } from "@SimType/SimType";
+import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
-import TextSegment from "@SimType/TextSegment";
-import SimTypeElement from "@Components/SimTypeElement";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent {
-    lineNumberStart?: number;
     updateTypedContent: (typedContentPayload: ITypedContentPayload) => void;
 }
 
@@ -29,6 +28,7 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
             <SimTypeElement key={ index } textSegment={ textSegment } />
         );
     }
+
 
     public componentDidMount() {
         this._simulateTyping();

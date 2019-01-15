@@ -1,4 +1,4 @@
-export default {
+export const constants = {
     typeTimeoutMs: 50,
     backTimeoutMs: 100,
     escapeCharacter: "~",

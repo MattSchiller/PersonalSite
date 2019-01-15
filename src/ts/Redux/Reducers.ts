@@ -1,9 +1,9 @@
-import IAction, { IUpdateTypedContentPayload } from "@Interfaces/IAction";
-import ActionTypes from "@Redux/Actions";
-import IStore, { IPage } from "@Interfaces/IStore";
-import InitialState from "@Redux/InitialState";
+import { IAction, IUpdateTypedContentPayload } from "@Interfaces/IAction";
+import { IPage, IStore } from "@Interfaces/IStore";
+import { ActionTypes } from "@Redux/Actions";
+import { initialState } from "@Redux/InitialState";
 
-export default (state: IStore = InitialState, action: IAction) => {
+export const rootReducer = (state: IStore = initialState, action: IAction) => {
     if (!action.payload) return state;
     console.log("action:", action);
 

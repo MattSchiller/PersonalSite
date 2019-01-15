@@ -1,16 +1,17 @@
-import ActionTypes from "@Redux/actions";
-import TextSegment from "@SimType/TextSegment";
+import { ActionTypes } from "@Redux/Actions";
+import { TextSegment } from "@SimType/TextSegment";
 
-export default interface IAction {
+export interface IAction {
     type: ActionTypes;
     payload: ISetActivePagePayload | IUpdateTypedContentPayload;
 }
 
-interface ISetActivePagePayload {
+export interface ISetActivePagePayload {
     pageId: string;
 }
 
 export interface ITypedContentPayload {
+    // simTypeId: string;
     contentIndex: number;
     textSegments: TextSegment[];
 }

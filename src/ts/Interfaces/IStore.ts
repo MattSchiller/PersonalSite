@@ -1,13 +1,16 @@
-import ISimTypeContent from "@SimType/ISimTypeContent";
+import { ISimTypeContent, IRawSimTypeContent } from "@SimType/ISimTypeContent";
 
-export default interface IStore {
+export interface IStore {
     activePageId: string;
     pages: IPage[];
 }
 
-export interface IRawPage {
+export interface IPage {
     pageId: string;
-    sourceText: string;
+    simTypes?: ISimTypeContent[];
 }
 
-export interface IPage extends IRawPage, ISimTypeContent { }
+export interface IRawPage {
+    pageId: string;
+    simTypes?: IRawSimTypeContent[];
+}

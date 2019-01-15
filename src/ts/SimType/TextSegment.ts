@@ -1,4 +1,4 @@
-export default class TextSegment {
+export class TextSegment {
     constructor(
         public text: string = "",
         public className: string = "",

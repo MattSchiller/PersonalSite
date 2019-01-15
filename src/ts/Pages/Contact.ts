@@ -1,6 +1,12 @@
+import { IRawPage } from "@Interfaces/IStore";
+
 export default {
     pageId: "Contact",
-    sourceText: "12345",
+    simTypes: [{
+        simTypeId: "contact",
+        sourceText: "12345",
+    }],
+
     sourceText_: "~s~" + "~Cindent0~{~l0~" +
         "~Cindent1~" + "\"_comment\": \"Looking to stay in touch?\"," + "~l0~" +
         "~Cindent1~" + "\"contact options\": {" + "~l0~" +
@@ -14,4 +20,4 @@ export default {
         "~ahttps://www.gitHub.com/MattSSchiller~" + "~c0~\"" + "~l0~" +
         "~Cindent1~" + "}" + "~l0~" +
         "~Cindent0~" + "}"
-};
+} as IRawPage;

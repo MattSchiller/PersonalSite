@@ -1,7 +1,12 @@
-import TextSegment from "@SimType/TextSegment";
+import { TextSegment } from "@SimType/TextSegment";
 
-export default interface ISimTypeContent {
-    sourceText: string;
+export interface ISimTypeContent extends IRawSimTypeContent {
     contentIndex: number;
     textSegments: TextSegment[];
+    lineNumberStart?: number;
+}
+
+export interface IRawSimTypeContent {
+    simTypeId: string;
+    sourceText: string;
 }

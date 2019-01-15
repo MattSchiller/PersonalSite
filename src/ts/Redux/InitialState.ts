@@ -1,31 +1,39 @@
-import IAction, { IUpdateTypedContentPayload } from "@Interfaces/IAction";
-import ActionTypes from "@Redux/actions";
-import IStore, { IPage, IRawPage } from "@Interfaces/IStore";
+import { IPage, IRawPage, IStore } from "@Interfaces/IStore";
 import About from "@Pages/About";
 import Contact from "@Pages/Contact";
+import { IRawSimTypeContent, ISimTypeContent } from "@SimType/ISimTypeContent";
 
-export default getInitialStore();
+export const initialState = getInitialState();
 
-function getInitialStore(): IStore {
-    const pages = getPages();
+function getInitialState(): IStore {
+    const pages: IPage[] = [
+        About,
+        Contact
+    ].map(cleanUpRawPage);
+
     const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
 
     return {
         activePageId,
         pages
-    }
-
-}
-function getPages(): IPage[] {
-    return [
-        About,
-        Contact
-    ].map((rawPage: IRawPage) => createPage(rawPage));
+    };
 }
 
-function createPage(importedPage: IRawPage): IPage {
+function cleanUpRawPage(page: IRawPage): IPage {
+    if (!page.simTypes)
+        return page as IPage;
+
+    const simTypes = page.simTypes.map(initializeSimTypeContent);
+
     return {
-        ...importedPage,
+        ...page,
+        simTypes
+    };
+}
+
+function initializeSimTypeContent(rawSimType: IRawSimTypeContent): ISimTypeContent {
+    return {
+        ...rawSimType,
         contentIndex: 0,
         textSegments: []
     };
