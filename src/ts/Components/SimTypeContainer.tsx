@@ -15,7 +15,7 @@ export default class SimTypeContainer extends React.PureComponent<IPage> {
 
         return this.props.simTypes.map((simType: ISimTypeContent, index: number) =>
             <SimTypeComponent
-                key={ index }
+                key={ this.props.pageId + index }
                 pageId={ this.props.pageId }
                 { ...simType }
             />
