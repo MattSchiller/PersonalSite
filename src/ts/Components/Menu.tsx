@@ -5,6 +5,7 @@ import React from "react";
 
 interface IMenuProps {
     items: IPage[];
+    activePageId: string;
 }
 
 export class Menu extends React.PureComponent<IMenuProps> {
@@ -21,6 +22,7 @@ export class Menu extends React.PureComponent<IMenuProps> {
             <MenuItem
                 key={ key }
                 { ...menuItem }
+                isSelected={ menuItem.pageId === this.props.activePageId }
             />
         );
     }

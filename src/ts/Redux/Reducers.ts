@@ -7,12 +7,12 @@ import { ISimTypeContent } from "@SimType/ISimTypeContent";
 export const rootReducer = (state: IStore = initialState, action: IAction) => {
     if (!action.payload)
         return state;
-    console.log("action:", action);
 
     const pageId = action.payload.pageId;
 
     switch (action.type) {
         case ActionTypes.SET_ACTIVE_PAGE:
+            console.log("current:", state.activePageId)
             if (pageId !== state.activePageId)
                 return {
                     ...state,
@@ -27,7 +27,7 @@ export const rootReducer = (state: IStore = initialState, action: IAction) => {
 
                 return {
                     ...state,
-                    pages
+                    pages: [...pages]
                 };
             }
             break;

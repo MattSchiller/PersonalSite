@@ -16,9 +16,10 @@ export class SimType {
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!this._isContentIndexSafe(content.sourceText, content.contentIndex))
+                if (!this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
+                    // console.log("DATA:", content)
                     reject("Finished typing content");
-                else {
+                } else {
                     const nextContent = this._getNextTypedContentPayload(content);
                     resolve({
                         contentIndex: nextContent.contentIndex,
@@ -78,8 +79,6 @@ export class SimType {
             nextText = nextText.slice(0, -1) + nextCharacter + nextText.slice(nextText.length - 1);
         else
             nextText += nextCharacter;
-
-        console.log("TEXT:", nextText);
 
         nextTextSegment.text = nextText;
 

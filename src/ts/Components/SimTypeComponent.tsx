@@ -25,6 +25,7 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
     }
 
     private _createElementsFromTextSegments(): JSX.Element[] {
+        // console.log("SEGMENTS:", this.props.textSegments)
         return this.props.textSegments.map((textSegment: TextSegment, index: number) =>
             <SimTypeElement key={ index } textSegment={ textSegment } />
         );

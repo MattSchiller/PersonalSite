@@ -5,7 +5,11 @@ import { getActivePageId } from "@Redux/Store";
 import CSS from "@Sass/sublimeMonokai.scss";
 import React from "react";
 
-export class MenuItem extends React.PureComponent<IPage> {
+interface IMenuItemProps extends IPage {
+    isSelected: boolean;
+}
+
+export class MenuItem extends React.PureComponent<IMenuItemProps> {
     public render() {
         return (
             <li
@@ -18,7 +22,7 @@ export class MenuItem extends React.PureComponent<IPage> {
     }
 
     private _getClassName(): string {
-        return this.props.pageId === getActivePageId() ? CSS.current : "";
+        return this.props.isSelected ? CSS.selected : "";
     }
 
     private _onClick = () => {

@@ -1,14 +1,11 @@
 import SimTypeComponent from "@Components/SimTypeComponent";
-import { IAction, ITypedContentPayload } from "@Interfaces/IAction";
-import { IStore, IPage } from "@Interfaces/IStore";
-import { ActionTypes, Actions } from "@Redux/Actions";
-import { Dispatch } from "react";
-import { connect } from "react-redux";
-import React from "react";
+import { IPage } from "@Interfaces/IStore";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
+import React from "react";
 
 export default class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
+        // console.log("PAGE:", this.props.simTypes![0])
         return this._renderSimTypeComponents();
     }
 
