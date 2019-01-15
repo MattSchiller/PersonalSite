@@ -16,15 +16,15 @@ export class SimType {
 
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                if (!this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
-                    // console.log("DATA:", content)
-                    reject("Finished typing content");
-                } else {
+                try {
                     const nextContent = this._getNextTypedContentPayload(content);
+
                     resolve({
                         contentIndex: nextContent.contentIndex,
                         textSegments: nextContent.textSegments
                     });
+                } catch (error) {
+                    reject(error.message);
                 }
             }, this._getTypingTimeoutMs());
         });
@@ -45,15 +45,12 @@ export class SimType {
     }
 
     private _getNextTypedContentPayload(content: ISimTypeContent): ISimTypeContent {
-        // Process next character;
         const contentIndex = content.contentIndex;
 
-        if (!this._isContentIndexSafe(content.sourceText, contentIndex)) {
-            console.log("~~~~~");
-            console.warn("Content index out of bounds, no update to content:", content);
+        if (!this._isContentIndexSafe(content.sourceText, content.contentIndex))
             return content;
-        }
 
+        // Process next character;
         const nextCharacter = content.sourceText[contentIndex];
 
         if (nextCharacter !== constants.escapeCharacter)
@@ -66,7 +63,10 @@ export class SimType {
         else
             return {
                 ...content,
-                ...this._getNextContentByProcessingActionCharacter(content)
+                ...this._getNextContentByProcessingActionCharacter({
+                    ...content,
+                    contentIndex: contentIndex + 1  // Skipping over the escape character.
+                })
             };
     }
 
@@ -94,26 +94,26 @@ export class SimType {
     }
 
     private _getNextContentByProcessingActionCharacter(content: ISimTypeContent): ISimTypeContent {
-        const nextContentIndex = content.contentIndex + 2;    // Skipping over the escape character;
+        const contentIndex = content.contentIndex;
         const sourceText = content.sourceText;
 
-        if (this._isContentIndexSafe(sourceText, nextContentIndex)) {
-            const actionCharacter = sourceText[nextContentIndex];
+        if (this._isContentIndexSafe(sourceText, contentIndex)) {
+            const actionCharacter = sourceText[contentIndex];
+            console.log("next content:", actionCharacter)
             return this._processActionCharacter(
                 actionCharacter,
                 {
                     ...content,
-                    contentIndex: nextContentIndex
+                    contentIndex: contentIndex + 1   // Skipping over the action character.
                 }
             );
-        } else {
-            console.warn(`Content has open escaped character at end of source text! ${content}`);
-            return content;
-        }
+        } else
+            throw new CannotSimulateTypingError(
+                "Content has open escaped character at end of source text!", contentIndex, sourceText);
     }
 
     private _processActionCharacter(actionCharacter: string, content: ISimTypeContent): ISimTypeContent {
-        const actionValue = this._getActionValue(content.sourceText, content.contentIndex + 1);
+        const actionValue = this._getActionValue(content.sourceText, content.contentIndex);
 
         let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContent;
 
@@ -159,14 +159,13 @@ export class SimType {
 
     private _getActionValue(sourceText: string, contentIndex: number): string | number {
         const subString = sourceText.substring(contentIndex, sourceText.length);
-        const regExpRule = new RegExp("/[^" + constants.escapeCharacter + "]+/");
+        const regExpRule = new RegExp("^[^" + constants.escapeCharacter + "]+");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
-        if (endOfActionValueRegExMatches.length === 0) {
-            console.warn(`Failed to parse any actionValue contents from sourceText! Index: ${contentIndex},
-                \n ${sourceText}, }`);
-            return 0;
-        }
+        if (endOfActionValueRegExMatches.length === 0)
+            throw new CannotSimulateTypingError(
+                "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
+
         return endOfActionValueRegExMatches[0];
     }
 
@@ -280,7 +279,10 @@ export class SimType {
     };
 
     private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ISimTypeContent {
-        const contentIndex = actionParams.content.contentIndex + actionParams.actionValue.toString().length;
+        const contentIndex = actionParams.content.contentIndex +
+            actionParams.actionValue.toString().length +
+            constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
+
         return {
             ...actionParams.content,
             contentIndex
@@ -295,4 +297,10 @@ export class SimType {
 interface IEscapedActionParams {
     actionValue: string | number;
     content: ISimTypeContent;
+}
+
+class CannotSimulateTypingError extends Error {
+    constructor(message: string, index: number, source: string) {
+        super(`${message} \n Index: ${index}, \n ${source}`);
+    }
 }

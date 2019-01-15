@@ -11,6 +11,7 @@ export interface ISetActivePagePayload {
 }
 
 export interface ITypedContentPayload {
+    [key: string]: any;
     contentIndex: number;
     textSegments: TextSegment[];
 }

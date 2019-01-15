@@ -16,7 +16,6 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
     private _simType = new SimType();
 
     public render() {
-        console.log("Rendering...")
         return (
             <div className={ "simType" } >
                 { this._createElementsFromTextSegments() }
@@ -25,7 +24,7 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
     }
 
     private _createElementsFromTextSegments(): JSX.Element[] {
-        // console.log("SEGMENTS:", this.props.textSegments)
+        console.log("SEGMENTS:", this.props.textSegments)
         return this.props.textSegments.map((textSegment: TextSegment, index: number) =>
             <SimTypeElement key={ index } textSegment={ textSegment } />
         );
@@ -45,11 +44,21 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
         // when the promise resolves (to handle the timeouts that simulate human typing).
         this._simType.getNextTypedContentPayload({ ...this.props })
             .then(updatedContent => {
-                Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
+                if (this._isUpdatedContentDifferent(updatedContent))
+                    // console.log("updating")
+                    Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
+                else
+                    console.log("Finished typing.")
             })
-            .catch((reason: any) => {
-                console.log(reason);
-            });
+            .catch(console.log);    // Prints whatever error/return message the library is looking for.
+    }
+
+    private _isUpdatedContentDifferent(updatedContent: ITypedContentPayload): boolean {
+        return (
+            Object.keys(updatedContent).some((key: string) =>
+                updatedContent[key] !== (this.props as ITypedContentPayload)[key]
+            )
+        );
     }
 }
 
