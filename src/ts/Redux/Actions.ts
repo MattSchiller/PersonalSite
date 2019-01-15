@@ -14,9 +14,14 @@ export const Actions = {
         })
     },
 
-    updateSimTypeContent: (simTypeId: string, updatedContent: ITypedContentPayload) => store.dispatch({
+    updateSimTypeContent: (
+        pageId: string,
+        simTypeId: string,
+        updatedContent: ITypedContentPayload
+    ) => store.dispatch({
         type: ActionTypes.UPDATE_SIMTYPE_CONTENT,
         payload: {
+            pageId,
             simTypeId,
             ...updatedContent
         }

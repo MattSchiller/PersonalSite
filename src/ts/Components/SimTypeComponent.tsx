@@ -4,10 +4,11 @@ import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { SimType } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
+import { Actions } from "@Redux/Actions";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent {
-    updateTypedContent: (typedContentPayload: ITypedContentPayload) => void;
+    pageId: string,
 }
 
 // Given a string, this module simulates typing of that string into the div
@@ -17,7 +18,7 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
     public render() {
         console.log("Rendering...")
         return (
-            <div className="simType" >
+            <div className={ "simType" } >
                 { this._createElementsFromTextSegments() }
             </div>
         );
@@ -42,7 +43,9 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
         // Asyncronously wait on the newTypedContentPayload promise and then run the update function
         // when the promise resolves (to handle the timeouts that simulate human typing).
         this._simType.getNextTypedContentPayload({ ...this.props })
-            .then(this.props.updateTypedContent)
+            .then(updatedContent => {
+                Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
+            })
             .catch((reason: any) => {
                 console.log(reason);
             });

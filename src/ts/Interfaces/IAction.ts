@@ -11,9 +11,10 @@ export interface ISetActivePagePayload {
 }
 
 export interface ITypedContentPayload {
-    // simTypeId: string;
     contentIndex: number;
     textSegments: TextSegment[];
 }
 
-export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload { }
+export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload {
+    simTypeId: string;
+}
