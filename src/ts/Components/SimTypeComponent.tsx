@@ -141,10 +141,16 @@ class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     public render() {
         return (
             <div className={ CSS.wholeLine } >
-                <div className={ CSS.lineNumber }>{ this.props.lineNumber }</div>
+                <div className={ CSS.lineNumber }>
+                    { this._getSpacedLineNumber(this.props.lineNumber) }
+                </div>
                 { this._renderTextSegments() }
             </div>
         )
+    }
+
+    private _getSpacedLineNumber(lineNumber: number): string {
+        return lineNumber > 9 ? lineNumber.toString() : " " + lineNumber;
     }
 
     private _renderTextSegments(): JSX.Element[] {
