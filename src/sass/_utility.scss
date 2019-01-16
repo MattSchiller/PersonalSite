@@ -1,0 +1,7 @@
+@mixin indent-classes($indent-number) {
+    @for $i from 1 through $indent-number {
+        .indent#{$i} {
+            text-indent: #{$i}em;
+        }
+    }
+}

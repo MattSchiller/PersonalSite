@@ -19,4 +19,3 @@ export const indent2: string;
 export const indent3: string;
 export const tabs: string;
 export const selected: string;
-export const noFlexbox: string;

@@ -1,7 +1,9 @@
+@import "utility";
+
 html {
     font-family: Inconsolata, sans-serif;
     background: #272822;
-    color: #E6E6E5;
+    color: rgb(175, 175, 148);
     font-weight: 500;
     font-size: 1.5em;
 }
@@ -106,17 +108,7 @@ a {
     white-space: pre;
 }
 
-.indent1 {
-    text-indent: 1em;
-}
-
-.indent2 {
-    text-indent: 2em;
-}
-
-.indent3 {
-    text-indent: 3em;
-}
+@include indent-classes(3);
 
 .tabs {
     flex-grow: 6;
@@ -195,23 +187,3 @@ a {
         }
     }
 }
-
-/*Fallback styling*/
-.no-flexbox nav ul {
-    display: block;
-}
-
-.no-flexbox nav ul li {
-    min-width: 15%;
-    display: inline-block;
-}
-
-/*@media handheld {*/
-/*    html {*/
-/*        font-size: 2em;*/
-/*    }*/
-
-/*    .tabs nav li:before {*/
-/*        margin-right: 0;*/
-/*    }*/
-/*}*/

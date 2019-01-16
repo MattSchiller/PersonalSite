@@ -171,10 +171,10 @@ export class SimType {
 
     private _actions = {
         startingStub: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            console.log("startingStubbing?", this._startingStubbing)
             if (!this._startingStubbing) {
                 // Start whipping through processing the content, skipping any sort of timeout/promises.
                 this._startingStubbing = true;
+
                 let content = actionParams.content;
 
                 // Account for having to skip over own character.

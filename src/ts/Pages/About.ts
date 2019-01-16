@@ -25,6 +25,7 @@ export default {
             "Sometimes it means working in Python to build out a game's AI or handle the back end." + "~l~" +
             "~Cindent0~" + "~l~" +
             "~s0~" +
+
             "~Cindent0~" + "~ccomment~And a good day's work is great, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
             "building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of " +
