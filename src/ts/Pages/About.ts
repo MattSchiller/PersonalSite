@@ -10,13 +10,11 @@ export const About: IRawPage = {
             "~s~" + "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l~" +
             "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l~" +
-            "~Cindent0~" + "~l~" +
-            "~Cindent0~" + "~ccomment~(I build out enterprise software capabilities and construct cool things on the " +
-            "internet for money and fun.)" + "~l~" +
-            "~Cindent0~" + "~l~" +
-            "~Cindent0~" + "~ccomment~My work experience grows from a SQL & Excel/VBA background. For years I've implemented " +
-            "SaaS for Pharmaceutical, Healthcare, and Higher Education systems(like " + "~ccomment~Johnson & Johnson" +
-            "~ahttp://www.janssen.com/~" +
+            "~l~" +
+            "~Cindent0~" + "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for money and fun.)" + "~l~" +
+            "~l~" +
+            "~Cindent0~" + "~ccomment~My work experience grows from a SQL & Excel/VBA background. For years I've implemented SaaS for Pharmaceutical, Healthcare, and Higher Education systems(like " +
+            "~ccomment~Johnson & Johnson" + "~ahttp://www.janssen.com/~" +
             "~ccomment~" + " and " + "~ccomment~Gonzaga University" + "~ahttp://www.gonzaga.org~" +
             "~ccomment~), often having to learn new languages and database structures in the process. Which is 100% my jam." +
             "~l~" +

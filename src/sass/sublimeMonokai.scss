@@ -35,11 +35,11 @@ h2 {
     margin-left: .5em;
 }
 
-.wholeLine {
+.whole-line {
     display: inline-flex;
 }
 
-.lineNum {
+.line-number {
     font-size: 1em;
     color: #75715E;
     justify-content: flex-start;
@@ -47,68 +47,72 @@ h2 {
     white-space: pre;
 }
 
-.currLine {
+.line-break {
+    color: transparent;
+}
+
+.curr-line {
     background: #485E6C;
 }
 
-.simType {
+.sim-type {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-}
 
-a {
-    color: khaki;
-    font-weight: bold;
+    a {
+        color: khaki;
+        font-weight: bold;
 
-    &:focus {
-        color: #485E6C;
+        &:focus {
+            color: #485E6C;
+        }
     }
-}
 
-.simType span.line {
-    white-space: pre;
-}
+    a, span {
+        white-space: pre;
+    }
 
-.hidden {
-    visibility: hidden;
-}
+    .hidden {
+        visibility: hidden;
+    }
 
-.func {
-    color: #66D9EF;
-    font-style: italic;
-}
+    .func {
+        color: #66D9EF;
+        font-style: italic;
+    }
 
-.funcName {
-    color: #A6E22E;
-}
+    .func-name {
+        color: #A6E22E;
+    }
 
-.comment {
-    color: #9F9F9F;
-}
+    .comment {
+        color: #9F9F9F;
+    }
 
-.title {
-    /*text-decoration: underline;*/
-    font-weight: 600;
-}
+    .title {
+        /*text-decoration: underline;*/
+        font-weight: 600;
+    }
 
-.key {
-    color: #F92672;
-}
+    .key {
+        color: #F92672;
+    }
 
-.str {
-    color: #E6DB74;
-}
+    .str {
+        color: #E6DB74;
+    }
 
-.arg {
-    color: #FD971F;
-}
+    .arg {
+        color: #FD971F;
+    }
 
-.space {
-    white-space: pre;
-}
+    .space {
+        white-space: pre;
+    }
 
-@include indent-classes(3);
+    @include indent-classes(3);
+}
 
 .tabs {
     flex-grow: 6;

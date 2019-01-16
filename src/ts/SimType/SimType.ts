@@ -1,5 +1,6 @@
+import CSS from "@Sass/sublimeMonokai.scss";
 import { ITypedContentPayload } from "@Interfaces/IAction";
-import { constants } from "@SimType/Constants";
+import { Constants } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { TextSegment } from "@SimType/TextSegment";
 
@@ -35,9 +36,9 @@ export class SimType {
             this._pausing = false;
             typingTimeoutSeedMs = this._pausedMs;
         } else if (this._backspacing)
-            typingTimeoutSeedMs = constants.backTimeoutMs;
+            typingTimeoutSeedMs = Constants.backTimeoutMs;
         else
-            typingTimeoutSeedMs = constants.typeTimeoutMs;
+            typingTimeoutSeedMs = Constants.typeTimeoutMs;
 
         return typingTimeoutSeedMs * Math.random();
     }
@@ -51,7 +52,7 @@ export class SimType {
         // Process next character;
         const nextCharacter = content.sourceText[contentIndex];
 
-        if (nextCharacter !== constants.escapeCharacter)
+        if (nextCharacter !== Constants.escapeCharacter)
             return {
                 ...content,
                 contentIndex: contentIndex + 1,
@@ -63,7 +64,7 @@ export class SimType {
                 ...content,
                 ...this._getNextContentByProcessingActionCharacter({
                     ...content,
-                    contentIndex: contentIndex + constants.escapeCharacter.length  // Skipping over the escape character
+                    contentIndex: contentIndex + Constants.escapeCharacter.length  // Skipping over the escape character
                 })
             };
     }
@@ -116,36 +117,36 @@ export class SimType {
         let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContent;
 
         switch (actionCharacter) {
-            case constants.actionCharacters.startingStub:
+            case Constants.actionCharacters.startingStub:
                 actionMethod = this._actions.startingStub;
                 break;
 
-            case constants.actionCharacters.pause:
+            case Constants.actionCharacters.pause:
                 actionMethod = this._actions.pause;
                 break;
 
-            case constants.actionCharacters.backspace:
+            case Constants.actionCharacters.backspace:
                 actionMethod = this._actions.backspace;
                 break;
 
-            case constants.actionCharacters.link:
+            case Constants.actionCharacters.link:
                 actionMethod = this._actions.link;
                 break;
 
-            case constants.actionCharacters.preClass:
+            case Constants.actionCharacters.preClass:
                 actionMethod = this._actions.preClass;
                 break;
 
-            case constants.actionCharacters.postClass:
+            case Constants.actionCharacters.postClass:
                 actionMethod = this._actions.postClass;
                 break;
 
-            case constants.actionCharacters.quote:
+            case Constants.actionCharacters.quote:
                 actionMethod = this._actions.quote;
                 break;
 
-            case constants.actionCharacters.line:
-                actionMethod = this._actions.lines;
+            case Constants.actionCharacters.line:
+                actionMethod = this._actions.line;
                 break;
 
             default:
@@ -157,7 +158,7 @@ export class SimType {
 
     private _getActionValue(sourceText: string, contentIndex: number): string | number {
         const subString = sourceText.substring(contentIndex, sourceText.length);
-        const regExpRule = new RegExp("^[^" + constants.escapeCharacter + "]*");
+        const regExpRule = new RegExp("^[^" + Constants.escapeCharacter + "]*");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
         console.log("index:", contentIndex)
@@ -178,7 +179,7 @@ export class SimType {
                 let content = actionParams.content;
 
                 // Account for having to skip over own character.
-                content.contentIndex += constants.actionCharacters.startingStub.length;
+                content.contentIndex += Constants.actionCharacters.startingStub.length;
 
                 while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
                     content = {
@@ -194,7 +195,7 @@ export class SimType {
                 this._startingStubbing = false;
 
                 // Undo having to skip over own character.
-                actionParams.content.contentIndex -= constants.actionCharacters.startingStub.length;
+                actionParams.content.contentIndex -= Constants.actionCharacters.startingStub.length;
             }
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
@@ -236,7 +237,7 @@ export class SimType {
                 actionParams.content.textSegments.push(new TextSegment());
             else {
                 const textSegment = actionParams.content.textSegments.pop()!;
-                textSegment.text = constants.quoteCharacter + constants.quoteCharacter;
+                textSegment.text = Constants.quoteCharacter + Constants.quoteCharacter;
                 actionParams.content.textSegments.push(textSegment);
             }
 
@@ -245,10 +246,8 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        lines: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            for (let i = 0; i < actionParams.actionValue; i++) {
-                actionParams.content.textSegments.push(new TextSegment("", "line"));    // TODO: CSS ADDITION.
-            }
+        line: (actionParams: IEscapedActionParams): ISimTypeContent => {
+            actionParams.content.textSegments.push(new TextSegment("", CSS.lineBreak));
 
             actionParams.content.textSegments.push(new TextSegment());  // For the next bunch of text.
 
@@ -266,7 +265,7 @@ export class SimType {
                 this._backspaceInterations--;
 
                 if (this._quoting) {
-                    const quoteCharacter = constants.quoteCharacter;
+                    const quoteCharacter = Constants.quoteCharacter;
                     textSegment.text = textSegment.text.slice(0, -(1 + quoteCharacter.length)) + quoteCharacter;
                 } else
                     textSegment.text = textSegment.text.slice(0, -1);
@@ -295,7 +294,7 @@ export class SimType {
     private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ISimTypeContent {
         const contentIndex = actionParams.content.contentIndex +
             actionParams.actionValue.toString().length +
-            constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
+            Constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
 
         return {
             ...actionParams.content,

@@ -1,4 +1,4 @@
-import SimTypeComponent from "@Components/SimTypeComponent";
+import { SimTypeComponent } from "@Components/SimTypeComponent";
 import { IPage } from "@Interfaces/IStore";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import React from "react";
