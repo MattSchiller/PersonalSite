@@ -1,6 +1,6 @@
 import { IRawPage } from "@Interfaces/IStore";
 
-export default {
+export const Contact: IRawPage = {
     pageId: "Contact",
     simTypes: [{
         simTypeId: "contact",
@@ -20,4 +20,4 @@ export default {
         "~ahttps://www.gitHub.com/MattSSchiller~" + "~c0~\"" + "~l0~" +
         "~Cindent1~" + "}" + "~l0~" +
         "~Cindent0~" + "}"
-} as IRawPage;
+};

@@ -1,17 +1,18 @@
 import { IRawPage } from "@Interfaces/IStore";
 
-export default {
+export const About: IRawPage = {
     pageId: "About",
     simTypes: [{
         simTypeId: "About_1",
-        sourceText_: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l0~",
+        sourceText_: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l~",
         sourceText:
+            // tslint:disable:max-line-length
             "~s~" + "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l~" +
             "~Cindent0~" + "~l~" +
-            "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l0~" +
+            "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l~" +
             "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~(I build out enterprise software capabilities and construct cool things on the " +
-            "internet for money and fun.)" + "~l0~" +
+            "internet for money and fun.)" + "~l~" +
             "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~My work experience grows from a SQL & Excel/VBA background. For years I've implemented " +
             "SaaS for Pharmaceutical, Healthcare, and Higher Education systems(like " + "~ccomment~Johnson & Johnson" +
@@ -29,18 +30,19 @@ export default {
             "~Cindent0~" + "~ccomment~And a good day's work is great, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
             "building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of " +
-            "origami, something not many people are too well - versed in." + "~l0~" +
-            "~Cindent0~" + "~l0~" +
+            "origami, something not many people are too well - versed in." + "~l~" +
+            "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~So welcome to my site, my corner of this digital world. Take your time and explore, " +
-            "and let me know if any of my work has piqued your interest.-->" + "~l0~" +
-            "~Cindent0~" + "~l0~" +
+            "and let me know if any of my work has piqued your interest.-->" + "~l~" +
+            "~Cindent0~" + "~l~" +
 
-            "~Cindent0~" + "<" + "~ckey~html" + "~c0~>" + "~l0~" +
-            "~p350~" + "~Cindent1~" + "<" + "~ckey~body" + "~c0~>" + "~l0~" +
+            "~Cindent0~" + "<" + "~ckey~html" + "~c0~>" + "~l~" +
+            "~p350~" + "~Cindent1~" + "<" + "~ckey~body" + "~c0~>" + "~l~" +
             "~p350~" + "~Cindent2~" +
             "Thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still under construcktoi" + "~p300~" + "~b4~" +
-            "tion." + "~l0~" +
-            "~Cindent1~" + "</" + "~ckey~body" + "~c0~>" + "~l0~" +
-            "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l0~"
+            "tion." + "~l~" +
+            "~Cindent1~" + "</" + "~ckey~body" + "~c0~>" + "~l~" +
+            "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l~"
+        // tslint:enable:max-line-length
     }]
-} as IRawPage;
+};

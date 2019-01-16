@@ -1,8 +1,7 @@
+import { IPage, IStore } from "@Interfaces/IStore";
 import { rootReducer } from "@Redux/Reducers";
 import { createStore, Store } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import { IStore, IPage } from "@Interfaces/IStore";
-import { ISimTypeContent } from "@SimType/ISimTypeContent";
 
 export const store: Store = createStore(rootReducer, devToolsEnhancer({}));
 

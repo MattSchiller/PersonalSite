@@ -1,6 +1,6 @@
 import { IPage, IRawPage, IStore } from "@Interfaces/IStore";
-import About from "@Pages/About";
-import Contact from "@Pages/Contact";
+import { About } from "@Pages/About";
+import { Contact } from "@Pages/Contact";
 import { IRawSimTypeContent, ISimTypeContent } from "@SimType/ISimTypeContent";
 
 export const initialState = getInitialState();
