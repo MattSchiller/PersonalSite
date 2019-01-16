@@ -63,7 +63,7 @@ export class SimType {
                 ...content,
                 ...this._getNextContentByProcessingActionCharacter({
                     ...content,
-                    contentIndex: contentIndex + 1  // Skipping over the escape character.
+                    contentIndex: contentIndex + constants.escapeCharacter.length  // Skipping over the escape character
                 })
             };
     }
@@ -102,7 +102,7 @@ export class SimType {
                 actionCharacter,
                 {
                     ...content,
-                    contentIndex: contentIndex + 1   // Skipping over the action character.
+                    contentIndex: contentIndex + actionCharacter.length   // Skipping over the action character.
                 }
             );
         } else
@@ -160,7 +160,8 @@ export class SimType {
         const regExpRule = new RegExp("^[^" + constants.escapeCharacter + "]*");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
-        // console.log("remaining:", subString)
+        console.log("index:", contentIndex)
+        console.log("matches:", endOfActionValueRegExMatches)
         if (endOfActionValueRegExMatches.length === 0)
             throw new CannotSimulateTypingError(
                 "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
@@ -176,22 +177,10 @@ export class SimType {
                 this._startingStubbing = true;
                 let content = actionParams.content;
 
-
-
-
+                // Account for having to skip over own character.
+                content.contentIndex += constants.actionCharacters.startingStub.length;
 
                 while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
-                    content.contentIndex++;
-                    console.log("INDEX: ", content.contentIndex)
-
-
-
-
-                    // Seems we need to increment the contentIndex by one more or something??
-
-
-
-
                     content = {
                         ...content,
                         ...this._getNextTypedContentPayload(content)
@@ -200,9 +189,13 @@ export class SimType {
 
                 actionParams.content = content;
 
-            } else
+            } else {
                 // We've found the end of the starting stub of text.
                 this._startingStubbing = false;
+
+                // Undo having to skip over own character.
+                actionParams.content.contentIndex -= constants.actionCharacters.startingStub.length;
+            }
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
