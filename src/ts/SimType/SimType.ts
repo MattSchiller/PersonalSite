@@ -12,8 +12,6 @@ export class SimType {
     private _startingStubbing: boolean = false;
 
     public async getNextTypedContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
-        console.log("TYPE!")
-
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 try {
@@ -118,35 +116,35 @@ export class SimType {
         let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContent;
 
         switch (actionCharacter) {
-            case "s":
+            case constants.actionCharacters.startingStub:
                 actionMethod = this._actions.startingStub;
                 break;
 
-            case "p":
+            case constants.actionCharacters.pause:
                 actionMethod = this._actions.pause;
                 break;
 
-            case "b":
+            case constants.actionCharacters.backspace:
                 actionMethod = this._actions.backspace;
                 break;
 
-            case "a":
+            case constants.actionCharacters.link:
                 actionMethod = this._actions.link;
                 break;
 
-            case "c":
+            case constants.actionCharacters.preClass:
                 actionMethod = this._actions.preClass;
                 break;
 
-            case "C":
+            case constants.actionCharacters.postClass:
                 actionMethod = this._actions.postClass;
                 break;
 
-            case "q":
+            case constants.actionCharacters.quote:
                 actionMethod = this._actions.quote;
                 break;
 
-            case "l":
+            case constants.actionCharacters.line:
                 actionMethod = this._actions.lines;
                 break;
 
@@ -159,9 +157,10 @@ export class SimType {
 
     private _getActionValue(sourceText: string, contentIndex: number): string | number {
         const subString = sourceText.substring(contentIndex, sourceText.length);
-        const regExpRule = new RegExp("^[^" + constants.escapeCharacter + "]+");
+        const regExpRule = new RegExp("^[^" + constants.escapeCharacter + "]*");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
+        // console.log("remaining:", subString)
         if (endOfActionValueRegExMatches.length === 0)
             throw new CannotSimulateTypingError(
                 "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
@@ -171,13 +170,35 @@ export class SimType {
 
     private _actions = {
         startingStub: (actionParams: IEscapedActionParams): ISimTypeContent => {
+            console.log("startingStubbing?", this._startingStubbing)
             if (!this._startingStubbing) {
                 // Start whipping through processing the content, skipping any sort of timeout/promises.
                 this._startingStubbing = true;
-                const content = actionParams.content;
+                let content = actionParams.content;
 
-                while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex))
-                    actionParams.content = { ...content, ...this._getNextTypedContentPayload(content) };
+
+
+
+
+                while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
+                    content.contentIndex++;
+                    console.log("INDEX: ", content.contentIndex)
+
+
+
+
+                    // Seems we need to increment the contentIndex by one more or something??
+
+
+
+
+                    content = {
+                        ...content,
+                        ...this._getNextTypedContentPayload(content)
+                    };
+                }
+
+                actionParams.content = content;
 
             } else
                 // We've found the end of the starting stub of text.

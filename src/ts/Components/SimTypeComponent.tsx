@@ -45,12 +45,11 @@ export default class SimTypeComponent extends React.PureComponent<ISimTypeCompon
         this._simType.getNextTypedContentPayload({ ...this.props })
             .then(updatedContent => {
                 if (this._isUpdatedContentDifferent(updatedContent))
-                    // console.log("updating")
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
                 else
                     console.log("Finished typing.")
             })
-            .catch(console.log);    // Prints whatever error/return message the library is looking for.
+            .catch(console.log);    // Prints whatever error/return message the library returns.
     }
 
     private _isUpdatedContentDifferent(updatedContent: ITypedContentPayload): boolean {
