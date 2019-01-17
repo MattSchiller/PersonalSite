@@ -1,6 +1,7 @@
 export const Constants = {
     typeTimeoutMs: 50,
     backTimeoutMs: 100,
+    maxLineLength: 80,
     escapeCharacter: "~",
     quoteCharacter: "\"",
     indent: "indent",

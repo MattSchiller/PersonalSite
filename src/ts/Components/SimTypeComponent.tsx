@@ -1,4 +1,3 @@
-import { SimTypeElement } from "@Components/SimTypeElement";
 import { ITypedContentPayload } from "@Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/sublimeMonokai.scss";
@@ -7,6 +6,7 @@ import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { SimType } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
+import { SimTypeLine } from "@Components/SimTypeLine";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent {
@@ -16,91 +16,6 @@ interface ISimTypeComponentProps extends ISimTypeContent {
 // Given a string, this module simulates typing of that string into the div
 export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps> {
     private _simType = new SimType();
-
-    public render() {
-        return (
-            <div className={ CSS.simType } >
-                { this._renderLines() }
-            </div>
-        );
-    }
-
-    private _renderLines(): JSX.Element[] {
-        let lines: TextSegment[][] = [[]];
-
-        this.props.textSegments.forEach((textSegment: TextSegment) => {
-            if (this._isTextSegmentNewLine(textSegment)) {
-                const newLine: TextSegment[] = [textSegment];
-                lines.push(newLine);
-            } else {
-                const linesIndex = lines.length === 0 ? 0 : lines.length - 1;
-                lines[linesIndex].push(textSegment);
-            }
-        });
-
-        // Clean lines for specific char width
-
-        const lineNumberStart = this.props.lineNumberStart || 1;
-        return lines.map((line: TextSegment[], index: number) =>
-            <SimTypeLine
-                key={ index }
-                lineNumber={ index + lineNumberStart }
-                textSegments={ line } />
-        );
-    }
-
-    private _isTextSegmentNewLine(textSegment: TextSegment): boolean {
-        return ~textSegment.className.indexOf(CSS.lineBreak) ? true : false;
-    }
-    // Output needs to be
-
-    // [ <lineNumberElement>, ...All elements until newLine or Indent class]
-
-    // let typed = this.state.typed
-    //     , j = 0
-    //     , formattedTyped = [];
-
-    // while (j < typed.length) {
-    //     if (~typed[j].className.indexOf(this._indent)) {
-    //         //Get the className etc for this div
-    //         let thisLineClass = typed[j].className
-    //             , lineContents = [];
-
-    //         j++;
-    //         //Build the spans for the line's contents
-    //         while (j < typed.length && typed[j].className != this._newLine) {
-    //             lineContents.push(this.toSpan(typed[j], j));
-    //             j++;
-    //         }
-
-    //         let lineNum = formattedTyped.length + 1 + (this.props.content.numStart || 0);
-
-    //         lineNum = lineNum < 10 ? " " + (lineNum).toString() : lineNum;
-
-    //         let lineData = this.toSpan(new TypedBucket(lineNum, "lineNum", ""));
-
-    //         formattedTyped.push(
-    //             <div key={ j }
-    //                 className="wholeLine" >
-    //                 { lineData }
-    //                 < div
-    //                     className={ thisLineClass } >
-    //                     { lineContents }
-    //                     < br />
-    //                 </div>
-    //                 < /div>
-    //             )
-    //         } else {
-    //                     formattedTyped.push(this.toSpan(typed[j], j));
-    //                 }
-
-    //                 j++;
-    //             }
-
-    //             return formattedTyped;
-    //         },
-
-
 
     public componentDidMount() {
         this._simulateTyping();
@@ -120,7 +35,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
                 else
                     console.log("Finished typing.")
             })
-            .catch(console.log);    // Prints whatever error/return message the library returns.
+            .catch(console.log);
     }
 
     private _isUpdatedContentDifferent(updatedContent: ITypedContentPayload): boolean {
@@ -130,31 +45,76 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
             )
         );
     }
-}
 
-interface ISimTypeLineProps {
-    textSegments: TextSegment[];
-    lineNumber: number;
-}
-
-class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     public render() {
         return (
-            <div className={ CSS.wholeLine } >
-                <div className={ CSS.lineNumber }>
-                    { this._getSpacedLineNumber(this.props.lineNumber) }
-                </div>
-                { this._renderTextSegments() }
+            <div className={ CSS.simType } >
+                { this._renderLines(this._getTrimmedLines()) }
             </div>
-        )
+        );
     }
 
-    private _getSpacedLineNumber(lineNumber: number): string {
-        return lineNumber > 9 ? lineNumber.toString() : " " + lineNumber;
+    private _renderLines(lines: TextSegment[][]): JSX.Element[] {
+        const lineNumberStart = this.props.lineNumberStart || 1;
+
+        return lines.map((textSegments: TextSegment[], index: number) =>
+            <SimTypeLine
+                key={ index }
+                lineNumber={ lineNumberStart + index }
+                textSegments={ textSegments } />
+        );
     }
 
-    private _renderTextSegments(): JSX.Element[] {
-        return this.props.textSegments.map((textSegment: TextSegment, index: number) =>
-            <SimTypeElement key={ index } textSegment={ textSegment } />);
+    private _getTrimmedLines(): TextSegment[][] {
+        let lines: TextSegment[][] = new Array<TextSegment[]>([]);
+
+        let lineLength: number = 0;
+
+        this.props.textSegments.forEach((textSegment: TextSegment) => {
+            const clonedTextSegment: TextSegment = TextSegment.clone(textSegment);
+
+            if (this._isTextSegmentNewLine(clonedTextSegment)) {
+                lines.push([]);
+                this._addToLine(clonedTextSegment, lines);
+                lineLength = 0;
+            } else
+                lineLength = this._getTrimmedTextSegment(clonedTextSegment, lineLength, lines);
+        });
+
+        return lines;
+    }
+
+    private _isTextSegmentNewLine(textSegment: TextSegment): boolean {
+        return ~textSegment.className.indexOf(CSS.lineBreak) ? true : false;
+    }
+
+    private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
+        const text: string = textSegment.text;
+        lineLength += text.length;
+        const overage = lineLength - Constants.maxLineLength;
+
+        if (overage > 0) {
+            const trimmedOffTextSegment: TextSegment = TextSegment.clone(textSegment);
+            textSegment.text = text.substr(0, text.length - overage);
+            trimmedOffTextSegment.text = text.substr(text.length - overage);
+
+            lineLength = trimmedOffTextSegment.text.length;
+
+            this._addToLine(textSegment, lines);
+
+            lines.push([]);
+
+            if (lineLength > Constants.maxLineLength)
+                lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, lineLength, lines);
+            else
+                this._addToLine(trimmedOffTextSegment, lines);
+        } else
+            this._addToLine(textSegment, lines);
+
+        return lineLength;
+    }
+
+    private _addToLine(textSegment: TextSegment, lines: TextSegment[][]) {
+        lines[lines.length - 1].push(textSegment);
     }
 }
