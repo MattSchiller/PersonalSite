@@ -75,7 +75,6 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
             if (this._isTextSegmentNewLine(clonedTextSegment)) {
                 lines.push([]);
-                this._addToLine(clonedTextSegment, lines);
                 lineLength = 0;
             } else
                 lineLength = this._getTrimmedTextSegment(clonedTextSegment, lineLength, lines);
@@ -85,10 +84,10 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     private _isTextSegmentNewLine(textSegment: TextSegment): boolean {
-        return ~textSegment.className.indexOf(CSS.lineBreak) ? true : false;
+        return textSegment.className.indexOf(CSS.lineBreak) > -1;
     }
 
-    private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
+    private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][], isNested: boolean = false): number {
         const text: string = textSegment.text;
         lineLength += text.length;
         const overage = lineLength - Constants.maxLineLength;
@@ -105,7 +104,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
             lines.push([]);
 
             if (lineLength > Constants.maxLineLength)
-                lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, lineLength, lines);
+                lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines, true);
             else
                 this._addToLine(trimmedOffTextSegment, lines);
         } else
