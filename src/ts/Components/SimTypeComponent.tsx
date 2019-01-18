@@ -87,8 +87,15 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
         return textSegment.className.indexOf(CSS.lineBreak) > -1;
     }
 
-    private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][], isNested: boolean = false): number {
+    private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
+        this._trimLeadingSpace(textSegment);
+
         const text: string = textSegment.text;
+        if (text.indexOf(" ") == 0) {
+            console.log("..:" + text[0])
+            console.log("text:" + text)
+        }
+
         lineLength += text.length;
         const overage = lineLength - Constants.maxLineLength;
 
@@ -103,14 +110,28 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
             lines.push([]);
 
+            console.log("new:", trimmedOffTextSegment.text)
+
             if (lineLength > Constants.maxLineLength)
-                lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines, true);
-            else
+                lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines);
+            else {
+                this._trimLeadingSpace(trimmedOffTextSegment);
                 this._addToLine(trimmedOffTextSegment, lines);
+            }
         } else
             this._addToLine(textSegment, lines);
 
         return lineLength;
+    }
+
+    private _indexUpToLastSpace(textSegment: TextSegment): number {
+        return textSegment.text.lastIndexOf(" ");
+    }
+
+    private _trimLeadingSpace(textSegment: TextSegment): TextSegment {
+        while (textSegment.text.length > 0 && textSegment.text[0] === " ")
+            textSegment.text = textSegment.text.substr(1);
+        return textSegment;
     }
 
     private _addToLine(textSegment: TextSegment, lines: TextSegment[][]) {
