@@ -94,16 +94,12 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
         if (overage > 0) {
             const trimmedOffTextSegment: TextSegment = TextSegment.clone(textSegment);
-            textSegment.text = text.substr(0, text.length - overage);
-            trimmedOffTextSegment.text = text.substr(text.length - overage);
+            [textSegment.text, trimmedOffTextSegment.text] = this._getSplitText(textSegment.text, overage);
 
             lineLength = trimmedOffTextSegment.text.length;
 
             this._addToLine(textSegment, lines);
-
             lines.push([]);
-
-            this._trimLeadingSpace(trimmedOffTextSegment);
 
             if (lineLength > Constants.maxLineLength)
                 lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines);
@@ -115,14 +111,32 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
         return lineLength;
     }
 
-    private _indexUpToLastSpace(textSegment: TextSegment): number {
-        return textSegment.text.lastIndexOf(" ");
+    private _getSplitText(text: string, overage: number): string[] {
+        const defaultSplitIndex: number = text.length - overage;
+        const lastSpaceIndex: number = text.substr(0, defaultSplitIndex).lastIndexOf(" ");
+        let splitIndex: number;
+
+        const charBeforeSplit: string = text[defaultSplitIndex - 1];
+        const charAfterSplit: string = text[defaultSplitIndex];
+
+        if (charBeforeSplit === " " || charAfterSplit === " " || lastSpaceIndex === -1)
+            splitIndex = defaultSplitIndex
+        else
+            splitIndex = lastSpaceIndex;
+
+        return [
+            this._trimOutsideSpaces(text.substr(0, splitIndex)),
+            this._trimOutsideSpaces(text.substr(splitIndex))
+        ];
     }
 
-    private _trimLeadingSpace(textSegment: TextSegment): TextSegment {
-        while (textSegment.text.length > 0 && textSegment.text[0] === " ")
-            textSegment.text = textSegment.text.substr(1);
-        return textSegment;
+    private _trimOutsideSpaces(text: string): string {
+        while (text.length > 0 && text[0] === " ")
+            text = text.substr(1);
+        while (text.length > 0 && text[text.length - 1] === " ")
+            text = text.substr(0, text.length - 1);
+
+        return text;
     }
 
     private _addToLine(textSegment: TextSegment, lines: TextSegment[][]) {
