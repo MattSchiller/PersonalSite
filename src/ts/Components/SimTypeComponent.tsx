@@ -88,14 +88,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
-        this._trimLeadingSpace(textSegment);
-
         const text: string = textSegment.text;
-        if (text.indexOf(" ") == 0) {
-            console.log("..:" + text[0])
-            console.log("text:" + text)
-        }
-
         lineLength += text.length;
         const overage = lineLength - Constants.maxLineLength;
 
@@ -110,14 +103,12 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
             lines.push([]);
 
-            console.log("new:", trimmedOffTextSegment.text)
+            this._trimLeadingSpace(trimmedOffTextSegment);
 
             if (lineLength > Constants.maxLineLength)
                 lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines);
-            else {
-                this._trimLeadingSpace(trimmedOffTextSegment);
+            else
                 this._addToLine(trimmedOffTextSegment, lines);
-            }
         } else
             this._addToLine(textSegment, lines);
 
