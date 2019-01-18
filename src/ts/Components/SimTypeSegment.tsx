@@ -5,7 +5,7 @@ export interface ISimTypeElementProps {
     textSegment: TextSegment;
 }
 
-export class SimTypeElement extends React.PureComponent<ISimTypeElementProps> {
+export class SimTypeSegment extends React.PureComponent<ISimTypeElementProps> {
     public render() {
         const textSegment = this.props.textSegment;
         const DomElementType = textSegment.link ? "a" : "span";// Dynamic DOM element masquerading as a React Component

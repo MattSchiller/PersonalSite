@@ -1,4 +1,4 @@
-import { SimTypeElement } from "@Components/SimTypeElement";
+import { SimTypeSegment } from "@Components/SimTypeSegment";
 import CSS from "@Sass/sublimeMonokai.scss";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
@@ -26,6 +26,6 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
 
     private _renderTextSegments(): JSX.Element[] {
         return this.props.textSegments.map((textSegment: TextSegment, index: number) =>
-            <SimTypeElement key={ index } textSegment={ textSegment } />);
+            <SimTypeSegment key={ index } textSegment={ textSegment } />);
     }
 }

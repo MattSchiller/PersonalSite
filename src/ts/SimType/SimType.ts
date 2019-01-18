@@ -30,17 +30,17 @@ export class SimType {
     }
 
     private _getTypingTimeoutMs(): number {
-        let typingTimeoutSeedMs: number;
+        let typingTimeoutMs: number;
 
         if (this._pausing) {
             this._pausing = false;
-            typingTimeoutSeedMs = this._pausedMs;
+            typingTimeoutMs = this._pausedMs;
         } else if (this._backspacing)
-            typingTimeoutSeedMs = Constants.backTimeoutMs;
+            typingTimeoutMs = Constants.backTimeoutMs * Math.random();
         else
-            typingTimeoutSeedMs = Constants.typeTimeoutMs;
+            typingTimeoutMs = Constants.typeTimeoutMs * Math.random();
 
-        return typingTimeoutSeedMs * Math.random();
+        return typingTimeoutMs;
     }
 
     private _getNextTypedContentPayload(content: ISimTypeContent): ISimTypeContent {

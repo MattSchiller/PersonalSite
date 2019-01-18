@@ -1,7 +1,7 @@
 import { ITypedContentPayload } from "@Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/sublimeMonokai.scss";
-import { Constants } from "@SimType/Constants";
+import { Constants, getMaxLineLengthWithIndent } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { SimType } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
@@ -88,9 +88,10 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
+        const effectiveMaxLineLength = getMaxLineLengthWithIndent(textSegment.className);
         const text: string = textSegment.text;
         lineLength += text.length;
-        const overage = lineLength - Constants.maxLineLength;
+        const overage = lineLength - effectiveMaxLineLength;
 
         if (overage > 0) {
             const trimmedOffTextSegment: TextSegment = TextSegment.clone(textSegment);
@@ -101,7 +102,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
             this._addToLine(textSegment, lines);
             lines.push([]);
 
-            if (lineLength > Constants.maxLineLength)
+            if (lineLength > effectiveMaxLineLength)
                 lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines);
             else
                 this._addToLine(trimmedOffTextSegment, lines);
