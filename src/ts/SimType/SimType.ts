@@ -73,13 +73,14 @@ export class SimType {
         let nextTextSegment: TextSegment = TextSegment.clone(this._getMostRecentTextSegment(textSegments));
         let nextText = nextTextSegment.text;
 
-        if (this._quoting)
+        if (this._quoting) {
             // Keep the trailing quotation mark at the end of this text segment.
-            nextText = nextText.slice(0, -1) + nextCharacter + nextText.slice(nextText.length - 1);
-        else
-            nextText += nextCharacter;
+            nextTextSegment.text = nextTextSegment.text.substr(0, nextTextSegment.text.length - 1);
+            nextText = nextCharacter + Constants.quoteCharacter;
+        } else
+            nextText = nextCharacter;
 
-        nextTextSegment.text = nextText;
+        nextTextSegment.text += nextText;
 
         // We return a new object here so that we're not manipulating theprevious state directly
         return [...textSegments, nextTextSegment];
@@ -233,11 +234,9 @@ export class SimType {
         },
 
         quote: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            if (this._quoting)
-                actionParams.content.textSegments.push(new TextSegment());
-            else {
-                const textSegment = actionParams.content.textSegments.pop()!;
-                textSegment.text = Constants.quoteCharacter + Constants.quoteCharacter;
+            if (!this._quoting) {
+                const textSegment: TextSegment = actionParams.content.textSegments.pop()!;
+                textSegment.text += Constants.quoteCharacter + Constants.quoteCharacter;
                 actionParams.content.textSegments.push(textSegment);
             }
 

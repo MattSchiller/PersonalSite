@@ -1,19 +1,19 @@
 import { IRawPage } from "@Interfaces/IStore";
 
 export const About: IRawPage = {
-    pageId: "About",
+    pageId: "About.html",
     simTypes: [{
         simTypeId: "About_1",
         sourceText_: "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l~",
         sourceText:
             // tslint:disable:max-line-length
-            "~s~" + "~Cindent0~" + "~ccomment~<!DOCTYPE html>" + "~l~" +
-            "~Cindent0~" + "~l~" +
-            "~Cindent0~" + "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l~" +
+            "~s~" + "~ccomment~<!DOCTYPE html>" + "~l~" +
             "~l~" +
-            "~Cindent0~" + "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for money and fun.)" + "~l~" +
+            "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l~" +
             "~l~" +
-            "~Cindent0~" + "~ccomment~My work experience grows from a SQL & Excel/VBA background. For years I've implemented SaaS for Pharmaceutical, Healthcare, and Higher Education systems (like " +
+            "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for money and fun.)" + "~l~" +
+            "~l~" +
+            "~ccomment~My work experience grows from a SQL & Excel/VBA background. For years I've implemented SaaS for Pharmaceutical, Healthcare, and Higher Education systems (like " +
             "~ccomment~Johnson & Johnson" + "~ahttp://www.janssen.com/~" +
             "~ccomment~" + " and " + "~ccomment~Gonzaga University" + "~ahttp://www.gonzaga.org~" +
             "~ccomment~), often having to learn new languages and database structures in the process. Which is 100% my jam." +
@@ -22,10 +22,10 @@ export const About: IRawPage = {
             "~Cindent0~" + "~l~" +
             "~s0~" +
 
-            "~Cindent0~" + "~ccomment~And a good day's work is great, going to bed at night feeling like you've really SPENT " +
+            "~Cindent0~" + "~ccomment~" + "~q~" + "And a good day's work is great, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
             "building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of " +
-            "origami, something not many people are too well-versed in." + "~l~" +
+            "origami, something not many people are too well-versed in." + "~q~" + "~l~" +
             "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~So welcome to my site, my corner of this digital world. Take your time and explore, " +
             "and let me know if any of my work has piqued your interest.-->" + "~l~" +
