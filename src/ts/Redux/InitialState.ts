@@ -35,6 +35,10 @@ function initializeSimTypeContent(rawSimType: IRawSimTypeContent): ISimTypeConte
     return {
         ...rawSimType,
         contentIndex: 0,
-        textSegments: []
+        textSegments: [],
+        // status: {
+        isBackspacing: false,
+        backspaceIterations: 0
+        // }
     };
 }

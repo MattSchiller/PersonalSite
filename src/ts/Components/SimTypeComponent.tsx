@@ -47,6 +47,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     public render() {
+        console.log("rendering", this.props.isBackspacing)
         return (
             <div className={ CSS.simType } >
                 { this._renderLines(this._getTrimmedLines()) }

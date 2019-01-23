@@ -16,11 +16,13 @@ export class SimType {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 try {
-                    const nextContent = this._getNextTypedContentPayload(content);
+                    const nextContent: ISimTypeContent = this._getNextTypedContentPayload(content);
 
                     resolve({
                         contentIndex: nextContent.contentIndex,
-                        textSegments: nextContent.textSegments
+                        textSegments: nextContent.textSegments,
+                        isBackspacing: this._backspacing,
+                        backspaceIterations: this._backspaceInterations
                     });
                 } catch (error) {
                     reject(error.message);
@@ -254,7 +256,7 @@ export class SimType {
         },
 
         backspace: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            // Backspacing is a weird one. It's simulated by managing a flag on this class that on the first pass
+            // Backspacing is a weird one. It's simulated by managing a flag that on the first pass
             // sets the number of iterations and turns on the _backspacing flag and NOT changing the contentIndex.
             // Subsequent calls to get the next content will go over the same backspace command and reduce the
             // iteration count by one until we're at 0 or the're no more text in the segment.
@@ -271,7 +273,8 @@ export class SimType {
 
             } else {
                 this._backspacing = true;
-                this._backspaceInterations = actionParams.actionValue as number - 1;
+                this._backspaceInterations = actionParams.actionValue as number;
+                console.log("iterations:", this._backspacing, this._backspaceInterations);
             }
 
             if (textSegment.text.length === 0 || this._backspaceInterations === 0)
@@ -279,13 +282,18 @@ export class SimType {
 
             actionParams.content.textSegments.push(textSegment);
 
-            if (this._backspacing)
+            if (this._backspacing) {
+                console.log({
+                    ...actionParams.content,
+                    contentIndex: actionParams.content.contentIndex - (
+                        Constants.actionCharacters.backspace.length + Constants.escapeCharacter.length)
+                });
                 return {
                     ...actionParams.content,
-                    // TODO: remove magic number (2) by actually checking length of escape & "b" characters.
-                    contentIndex: actionParams.content.contentIndex - 2
+                    contentIndex: actionParams.content.contentIndex - (
+                        Constants.actionCharacters.backspace.length + Constants.escapeCharacter.length)
                 };
-            else
+            } else
                 return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
     };
@@ -294,6 +302,8 @@ export class SimType {
         const contentIndex = actionParams.content.contentIndex +
             actionParams.actionValue.toString().length +
             Constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
+
+        console.log("returning:", contentIndex)
 
         return {
             ...actionParams.content,

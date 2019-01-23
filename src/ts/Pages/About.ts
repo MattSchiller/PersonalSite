@@ -22,10 +22,10 @@ export const About: IRawPage = {
             "~Cindent0~" + "~l~" +
             "~s0~" +
 
-            "~Cindent0~" + "~ccomment~" + "~q~" + "And a good day's work is great, going to bed at night feeling like you've really SPENT " +
+            "~Cindent0~" + "~ccomment~" + "And a good day's work is great~b5~, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
             "building fun and and interesting things all time, separate from technology. For instance, I'm an avid folder of " +
-            "origami, something not many people are too well-versed in." + "~q~" + "~l~" +
+            "origami, something not many people are too well-versed in." + "~l~" +
             "~Cindent0~" + "~l~" +
             "~Cindent0~" + "~ccomment~So welcome to my site, my corner of this digital world. Take your time and explore, " +
             "and let me know if any of my work has piqued your interest.-->" + "~l~" +
