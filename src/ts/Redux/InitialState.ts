@@ -1,7 +1,7 @@
 import { IPage, IRawPage, IStore } from "@Interfaces/IStore";
 import { About } from "@Pages/About";
 import { Contact } from "@Pages/Contact";
-import { IRawSimTypeContent, ISimTypeContent } from "@SimType/ISimTypeContent";
+import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";
 
 export const initialState = getInitialState();
 
@@ -36,9 +36,13 @@ function initializeSimTypeContent(rawSimType: IRawSimTypeContent): ISimTypeConte
         ...rawSimType,
         contentIndex: 0,
         textSegments: [],
-        // status: {
+        status: getInitialSimTypeStatus()
+    };
+}
+
+function getInitialSimTypeStatus(): ISimTypeStatus {
+    return {
         isBackspacing: false,
         backspaceIterations: 0
-        // }
     };
 }

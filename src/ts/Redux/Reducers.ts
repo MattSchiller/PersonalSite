@@ -58,8 +58,7 @@ function getUpdatedSimTypes(
                 ...simType,
                 contentIndex: payload.contentIndex,
                 textSegments: payload.textSegments,
-                isBackspacing: payload.isBackspacing,
-                backspaceIterations: payload.backspaceIterations
+                status: { ...payload.status }
             }
         } else
             return simType;

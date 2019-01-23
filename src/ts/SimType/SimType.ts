@@ -21,8 +21,10 @@ export class SimType {
                     resolve({
                         contentIndex: nextContent.contentIndex,
                         textSegments: nextContent.textSegments,
-                        isBackspacing: this._backspacing,
-                        backspaceIterations: this._backspaceInterations
+                        status: {
+                            isBackspacing: this._backspacing,
+                            backspaceIterations: this._backspaceInterations
+                        }
                     });
                 } catch (error) {
                     reject(error.message);

@@ -1,7 +1,7 @@
 import { ITypedContentPayload } from "@Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/sublimeMonokai.scss";
-import { Constants, getMaxLineLengthWithIndent } from "@SimType/Constants";
+import { getMaxLineLengthWithIndent } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { SimType } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
@@ -39,15 +39,23 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     private _isUpdatedContentDifferent(updatedContent: ITypedContentPayload): boolean {
+        const typedProps: ITypedContentPayload = this.props as ITypedContentPayload;
+
         return (
-            Object.keys(updatedContent).some((key: string) =>
-                updatedContent[key] !== (this.props as ITypedContentPayload)[key]
-            )
+            Object.keys(updatedContent).some((key: string) => {
+                const objectValue: any = updatedContent[key];
+
+                if (typeof objectValue === "object")
+                    return Object.keys(objectValue).some((subKey: string) =>
+                        objectValue[subKey] !== typedProps[key][subKey]
+                    )
+                else
+                    return updatedContent[key] !== typedProps[key];
+            })
         );
     }
 
     public render() {
-        console.log("rendering", this.props.isBackspacing)
         return (
             <div className={ CSS.simType } >
                 { this._renderLines(this._getTrimmedLines()) }

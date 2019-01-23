@@ -4,8 +4,7 @@ export interface ISimTypeContent extends IRawSimTypeContent {
     contentIndex: number;
     textSegments: TextSegment[];
     lineNumberStart?: number;
-    isBackspacing: boolean;
-    backspaceIterations: number;
+    status: ISimTypeStatus;
 }
 
 export interface IRawSimTypeContent {
@@ -14,4 +13,7 @@ export interface IRawSimTypeContent {
 }
 
 export interface ISimTypeStatus {
+    [key: string]: any;
+    isBackspacing: boolean;
+    backspaceIterations: number;
 }

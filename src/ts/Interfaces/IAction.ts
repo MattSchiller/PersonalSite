@@ -15,8 +15,7 @@ export interface ITypedContentPayload {
     [key: string]: any;
     contentIndex: number;
     textSegments: TextSegment[];
-    isBackspacing: boolean;
-    backspaceIterations: number;
+    status: ISimTypeStatus;
 }
 
 export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload {
