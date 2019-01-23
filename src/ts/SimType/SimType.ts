@@ -5,41 +5,36 @@ import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { TextSegment } from "@SimType/TextSegment";
 
 export class SimType {
-    private _quoting: boolean = false;
-    private _backspacing: boolean = false;
-    private _backspaceInterations: number = 0;
     private _pausing: boolean = false;
     private _pausedMs: number = 0;
     private _startingStubbing: boolean = false;
 
     public async getNextTypedContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                try {
-                    const nextContent: ISimTypeContent = this._getNextTypedContentPayload(content);
+            try {
+                const nextContent: ISimTypeContent = this._getNextTypedContentPayload(content);
 
+                setTimeout(() => {
                     resolve({
                         contentIndex: nextContent.contentIndex,
                         textSegments: nextContent.textSegments,
-                        status: {
-                            isBackspacing: this._backspacing,
-                            backspaceIterations: this._backspaceInterations
-                        }
+                        status: { ...nextContent.status }
                     });
-                } catch (error) {
-                    reject(error.message);
-                }
-            }, this._getTypingTimeoutMs());
+                }, this._getTypingTimeoutMs(nextContent));
+            } catch (error) {
+                reject(error.message);
+            }
         });
     }
 
-    private _getTypingTimeoutMs(): number {
+    private _getTypingTimeoutMs(nextContent: ISimTypeContent): number {
         let typingTimeoutMs: number;
 
         if (this._pausing) {
             this._pausing = false;
             typingTimeoutMs = this._pausedMs;
-        } else if (this._backspacing)
+            this._pausedMs = 0;
+        } else if (nextContent.status.isBackspacing)
             typingTimeoutMs = Constants.backTimeoutMs * Math.random();
         else
             typingTimeoutMs = Constants.typeTimeoutMs * Math.random();
@@ -60,8 +55,11 @@ export class SimType {
             return {
                 ...content,
                 contentIndex: contentIndex + 1,
-                // We spread the textSegments here so we don't accidentally modify the passed references.
-                textSegments: this._appendNextCharacterToTextSegments(nextCharacter, [...content.textSegments])
+
+                textSegments: this._appendNextCharacterToTextSegments(
+                    nextCharacter,
+                    [...content.textSegments],  // We spread the textSegments so we don't modify the passed references.
+                    content.status.isQuoting)
             };
         else
             return {
@@ -73,11 +71,15 @@ export class SimType {
             };
     }
 
-    private _appendNextCharacterToTextSegments(nextCharacter: string, textSegments: TextSegment[]): TextSegment[] {
+    private _appendNextCharacterToTextSegments(
+        nextCharacter: string,
+        textSegments: TextSegment[],
+        isQuotiing: boolean
+    ): TextSegment[] {
         let nextTextSegment: TextSegment = TextSegment.clone(this._getMostRecentTextSegment(textSegments));
         let nextText = nextTextSegment.text;
 
-        if (this._quoting) {
+        if (isQuotiing) {
             // Keep the trailing quotation mark at the end of this text segment.
             nextTextSegment.text = nextTextSegment.text.substr(0, nextTextSegment.text.length - 1);
             nextText = nextCharacter + Constants.quoteCharacter;
@@ -103,7 +105,6 @@ export class SimType {
 
         if (this._isContentIndexSafe(sourceText, contentIndex)) {
             const actionCharacter = sourceText[contentIndex];
-            console.log("next content:", actionCharacter)
             return this._processActionCharacter(
                 actionCharacter,
                 {
@@ -238,13 +239,15 @@ export class SimType {
         },
 
         quote: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            if (!this._quoting) {
+
+
+            if (!actionParams.content.status.isQuoting) {
                 const textSegment: TextSegment = actionParams.content.textSegments.pop()!;
                 textSegment.text += Constants.quoteCharacter + Constants.quoteCharacter;
                 actionParams.content.textSegments.push(textSegment);
             }
 
-            this._quoting = !this._quoting;
+            actionParams.content.status.isQuoting = !actionParams.content.status.isQuoting;
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
@@ -264,32 +267,34 @@ export class SimType {
             // iteration count by one until we're at 0 or the're no more text in the segment.
             const textSegment = actionParams.content.textSegments.pop()!;
 
-            if (this._backspacing) {
-                this._backspaceInterations--;
+            let isBackspacing: boolean = actionParams.content.status.isBackspacing;
+            let backspaceIterations: number = actionParams.content.status.backspaceIterations;
 
-                if (this._quoting) {
+            if (isBackspacing) {
+                backspaceIterations--;
+
+                if (actionParams.content.status.quoting) {
                     const quoteCharacter = Constants.quoteCharacter;
                     textSegment.text = textSegment.text.slice(0, -(1 + quoteCharacter.length)) + quoteCharacter;
                 } else
                     textSegment.text = textSegment.text.slice(0, -1);
 
             } else {
-                this._backspacing = true;
-                this._backspaceInterations = actionParams.actionValue as number;
-                console.log("iterations:", this._backspacing, this._backspaceInterations);
+                isBackspacing = true;
+                backspaceIterations = actionParams.actionValue as number;
             }
 
-            if (textSegment.text.length === 0 || this._backspaceInterations === 0)
-                this._backspacing = false;
+            if (textSegment.text.length === 0 || backspaceIterations === 0)
+                isBackspacing = false;
 
             actionParams.content.textSegments.push(textSegment);
 
-            if (this._backspacing) {
-                console.log({
-                    ...actionParams.content,
-                    contentIndex: actionParams.content.contentIndex - (
-                        Constants.actionCharacters.backspace.length + Constants.escapeCharacter.length)
-                });
+            actionParams.content.status.isBackspacing = isBackspacing;
+            actionParams.content.status.backspaceIterations = backspaceIterations;
+
+            console.log("params:", actionParams.content.status)
+
+            if (isBackspacing) {
                 return {
                     ...actionParams.content,
                     contentIndex: actionParams.content.contentIndex - (
@@ -304,8 +309,6 @@ export class SimType {
         const contentIndex = actionParams.content.contentIndex +
             actionParams.actionValue.toString().length +
             Constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
-
-        console.log("returning:", contentIndex)
 
         return {
             ...actionParams.content,

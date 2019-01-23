@@ -46,8 +46,10 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
                 const objectValue: any = updatedContent[key];
 
                 if (typeof objectValue === "object")
-                    return Object.keys(objectValue).some((subKey: string) =>
-                        objectValue[subKey] !== typedProps[key][subKey]
+                    return Object.keys(objectValue).some((subKey: string) => {
+                        console.log(subKey + ":", objectValue[subKey], "\n2:", typedProps[key][subKey]);
+                        return objectValue[subKey] !== typedProps[key][subKey]
+                    }
                     )
                 else
                     return updatedContent[key] !== typedProps[key];

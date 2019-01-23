@@ -43,6 +43,7 @@ function initializeSimTypeContent(rawSimType: IRawSimTypeContent): ISimTypeConte
 function getInitialSimTypeStatus(): ISimTypeStatus {
     return {
         isBackspacing: false,
-        backspaceIterations: 0
+        backspaceIterations: 0,
+        isQuoting: false
     };
 }

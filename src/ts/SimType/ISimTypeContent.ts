@@ -16,4 +16,5 @@ export interface ISimTypeStatus {
     [key: string]: any;
     isBackspacing: boolean;
     backspaceIterations: number;
+    isQuoting: boolean;
 }
