@@ -5,8 +5,6 @@ import React from "react";
 
 export default class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
-        console.log("RENDER")
-        // console.log("PAGE:", this.props.simTypes![0])
         return this._renderSimTypeComponents();
     }
 
@@ -14,13 +12,12 @@ export default class SimTypeContainer extends React.PureComponent<IPage> {
         if (!this.props.simTypes)
             return [];
 
-        return this.props.simTypes.map((simType: ISimTypeContent, index: number) => {
-            console.log("key:", index)
-            return <SimTypeComponent
+        return this.props.simTypes.map((simType: ISimTypeContent, index: number) =>
+            <SimTypeComponent
                 key={ this.props.pageId + index }
                 pageId={ this.props.pageId }
                 { ...simType }
             />
-        });
+        );
     }
 }
