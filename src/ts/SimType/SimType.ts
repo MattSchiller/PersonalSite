@@ -289,19 +289,23 @@ export class SimType {
 
             actionParams.content.textSegments.push(textSegment);
 
-            actionParams.content.status.isBackspacing = isBackspacing;
-            actionParams.content.status.backspaceIterations = backspaceIterations;
-
-            console.log("params:", actionParams.content.status)
+            const nextContent: ISimTypeContent = {
+                ...actionParams.content,
+                status: {
+                    ...actionParams.content.status,
+                    isBackspacing,
+                    backspaceIterations
+                }
+            };
 
             if (isBackspacing) {
                 return {
-                    ...actionParams.content,
-                    contentIndex: actionParams.content.contentIndex - (
-                        Constants.actionCharacters.backspace.length + Constants.escapeCharacter.length)
+                    ...nextContent,
+                    contentIndex: nextContent.contentIndex - (
+                        Constants.actionCharacters.backspace.length + Constants.escapeCharacter.length),
                 };
             } else
-                return this._getPostActionContentWithUpdatedContentIndex(actionParams);
+                return this._getPostActionContentWithUpdatedContentIndex({ ...actionParams, content: nextContent });
         },
     };
 
