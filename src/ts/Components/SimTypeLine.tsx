@@ -6,18 +6,23 @@ import React from "react";
 interface ISimTypeLineProps {
     textSegments: TextSegment[];
     lineNumber: number;
+    isCurrentLine: boolean;
 }
 
 export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     public render() {
         return (
-            <div className={ CSS.wholeLine } >
+            <div className={ this._getClassName() } >
                 <div className={ CSS.lineNumber }>
                     { this._getSpacedLineNumber(this.props.lineNumber) }
                 </div>
                 { this._renderTextSegments() }
             </div>
         )
+    }
+
+    private _getClassName(): string {
+        return `${CSS.wholeLine} ${this.props.isCurrentLine ? CSS.currLine : ""}`;
     }
 
     private _getSpacedLineNumber(lineNumber: number): string {

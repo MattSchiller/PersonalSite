@@ -6,7 +6,7 @@ export const About: IRawPage = {
         simTypeId: "About_1",
         sourceText:
             // tslint:disable:max-line-length
-            "~s~" + "~ccomment~<!DOCTYPE html>" + "~l~" +
+            "~s~" + "<!" + "~c~DOCTYPE html>" + "~l~" +
             "~l~" +
             "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." + "~l~" +
             "~l~" +
