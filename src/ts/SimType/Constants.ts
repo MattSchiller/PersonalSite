@@ -1,4 +1,4 @@
-import CSS from "@Sass/sublimeMonokai.scss";
+import CSS from "@Sass/styles.scss";
 
 export const Constants = {
     typeTimeoutMs: 50,

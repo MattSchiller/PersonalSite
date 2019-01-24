@@ -1,4 +1,4 @@
-import { ISetActivePagePayload, ITypedContentPayload } from "@Interfaces/IAction";
+import { ISetActivePagePayload, ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { store } from "@Redux/Store";
 
 export enum ActionTypes {

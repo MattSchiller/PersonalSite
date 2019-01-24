@@ -1,4 +1,4 @@
-import { IRawPage } from "@Interfaces/IStore";
+import { IRawPage } from "@Redux/Interfaces/IStore";
 
 export const About: IRawPage = {
     pageId: "About.html",

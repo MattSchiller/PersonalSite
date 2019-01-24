@@ -18,11 +18,11 @@ module.exports = () => {
 
             // NOTE: You should make an entry in tsconfig.json as well for each of these entries.
             alias: {
+                "@TS": path.resolve(__dirname, "src/ts/"),
                 "@Sass": path.resolve(__dirname, "src/sass/"),
                 "@HTML": path.resolve(__dirname, "src/html/"),
                 "@Redux": path.resolve(__dirname, "src/ts/Redux/"),
                 "@Pages": path.resolve(__dirname, "src/ts/Pages/"),
-                "@Interfaces": path.resolve(__dirname, "src/ts/Interfaces/"),
                 "@Components": path.resolve(__dirname, "src/ts/Components/"),
                 "@SimType": path.resolve(__dirname, "src/ts/SimType/"),
             },

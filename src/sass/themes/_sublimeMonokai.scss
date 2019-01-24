@@ -1,0 +1,26 @@
+@import "themeCore";
+
+@mixin sublimeMonokaiTheme() {
+    // We use this scope to contain any variables we want to define and reuse.
+    @include generate-theme(
+        $theme-name: "sublime-monokai",
+
+        $menu-unselected-color: #E6E6E5,
+        $menu-selected-color: #7db14a,
+
+        $line-number-color: lightgrey,
+        $current-line-color: black,
+        $current-line-background-color: palegoldenrod,
+
+        $comment-color: #9F9F9F,
+        $function-color: orchid,
+        $link-color: khaki,
+        $link-focus-color: #485E6C,
+        $function-name-color: #A6E22E,
+        $key-color: #F92672,
+        $arg-color: #FD971F,
+        $string-color: #E6DB74,
+    );
+}
+
+@include sublimeMonokaiTheme();

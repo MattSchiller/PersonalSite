@@ -1,4 +1,4 @@
-import { IPage, IStore } from "@Interfaces/IStore";
+import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { rootReducer } from "@Redux/Reducers";
 import { createStore, Store } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";

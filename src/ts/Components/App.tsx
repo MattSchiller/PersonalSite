@@ -1,6 +1,6 @@
 import { Menu } from "@Components/Menu";
 import SimTypeContainer from "@Components/SimTypeContainer";
-import { IStore } from "@Interfaces/IStore";
+import { IStore } from "@Redux/Interfaces/IStore";
 import { getActivePage, getActivePageId } from "@Redux/Store";
 import React from "react";
 import { connect } from "react-redux";

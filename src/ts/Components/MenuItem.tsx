@@ -1,8 +1,7 @@
-import { IPage } from "@Interfaces/IStore";
+import { IPage } from "@Redux/Interfaces/IStore";
 import Resume from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
-import { getActivePageId } from "@Redux/Store";
-import CSS from "@Sass/sublimeMonokai.scss";
+import CSS from "@Sass/styles.scss";
 import React from "react";
 
 interface IMenuItemProps extends IPage {

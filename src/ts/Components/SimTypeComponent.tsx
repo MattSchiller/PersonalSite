@@ -1,12 +1,13 @@
-import { ITypedContentPayload } from "@Interfaces/IAction";
+import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
-import CSS from "@Sass/sublimeMonokai.scss";
+import CSS from "@Sass/styles.scss";
 import { getMaxLineLengthWithIndent } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { SimType } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { SimTypeLine } from "@Components/SimTypeLine";
+import { getThemedClassName } from "@TS/Theming";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent {
@@ -55,7 +56,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
     public render() {
         return (
-            <div className={ CSS.simType } >
+            <div className={ getThemedClassName(CSS.simType) } >
                 { this._renderLines(this._getTrimmedLines()) }
             </div>
         );

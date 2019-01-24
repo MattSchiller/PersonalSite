@@ -1,5 +1,5 @@
-import { IAction, IUpdateTypedContentPayload } from "@Interfaces/IAction";
-import { IPage, IStore } from "@Interfaces/IStore";
+import { IAction, IUpdateTypedContentPayload } from "@Redux/Interfaces/IAction";
+import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { ActionTypes } from "@Redux/Actions";
 import { initialState } from "@Redux/InitialState";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";

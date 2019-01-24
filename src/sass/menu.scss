@@ -1,0 +1,93 @@
+.tabs {
+    flex-grow: 6;
+
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 1.8vw;
+        font-weight: 600;
+    }
+
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0;
+    line-height: 2.5;
+    list-style: none;
+    justify-content: center;
+
+    & li {
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+        width: 100%;
+
+        z-index: 1;
+        display: block;
+        margin: 0 0.3em;
+        text-align: center;
+        flex: 1;
+
+        cursor: pointer;
+        transition: color 0.3s;
+        transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
+
+        &:hover, &:focus {
+            &::after {
+                transition: background-color 0.3s, height 0.3s;
+                transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
+            }
+        }
+
+        &.selected {
+            &:hover, &:focus  {
+                color: inherit;
+            }
+
+            &::after{
+                position: absolute;
+                height: 4em;
+                -webkit-transform: translate3d(0,1px,0);
+                transform: translate3d(0,0,0) height 100%;
+            }
+        }
+
+        &::after {
+            content: '';
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 0.2em;
+
+            transition: background-color 0.3s transform 0.3s height 0.3s;
+            transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
+            transform: translate3d(0,100%,0) translate3d(0,-3px,0);
+        }
+    }
+}
+
+@mixin menu-colors($theme-name, $unselected, $selected) {
+    .tabs-#{$theme-name} {
+        & li {
+            &:hover, &:focus {
+                color: $selected;
+                &::after {
+                    background-color: $selected;
+                }
+            }
+            &.selected {
+                &::after{
+                    background-color: $selected;
+                }
+            }
+
+            &::after {
+                background-color: $unselected;
+            }
+        }
+    }
+}

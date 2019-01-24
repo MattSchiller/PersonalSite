@@ -17,6 +17,9 @@
         "emitDecoratorMetadata": true,
         "jsx": "react", // Specify JSX code generation: 'preserve', 'react-native', or 'react'.
         "paths": { // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
+            "@TS/*": [
+                "./src/ts/*"
+            ],
             "@Sass/*": [
                 "./src/sass/*"
             ],
@@ -31,9 +34,6 @@
             ],
             "@Pages/*": [
                 "./src/ts/Pages/*"
-            ],
-            "@Interfaces/*": [
-                "./src/ts/Interfaces/*"
             ],
             "@SimType/*": [
                 "./src/ts/SimType/*"

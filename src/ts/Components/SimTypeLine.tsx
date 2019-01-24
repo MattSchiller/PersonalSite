@@ -1,5 +1,5 @@
 import { SimTypeSegment } from "@Components/SimTypeSegment";
-import CSS from "@Sass/sublimeMonokai.scss";
+import CSS from "@Sass/styles.scss";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 
@@ -22,7 +22,7 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     }
 
     private _getClassName(): string {
-        return `${CSS.wholeLine} ${this.props.isCurrentLine ? CSS.currLine : ""}`;
+        return `${CSS.wholeLine} ${this.props.isCurrentLine ? CSS.currLineSublime : ""}`;
     }
 
     private _getSpacedLineNumber(lineNumber: number): string {

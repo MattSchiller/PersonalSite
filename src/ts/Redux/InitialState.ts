@@ -1,4 +1,4 @@
-import { IPage, IRawPage, IStore } from "@Interfaces/IStore";
+import { IPage, IRawPage, IStore } from "@Redux/Interfaces/IStore";
 import { About } from "@Pages/About";
 import { Contact } from "@Pages/Contact";
 import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";

@@ -1,5 +1,5 @@
-import CSS from "@Sass/sublimeMonokai.scss";
-import { ITypedContentPayload } from "@Interfaces/IAction";
+import CSS from "@Sass/styles.scss";
+import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Constants } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { TextSegment } from "@SimType/TextSegment";
