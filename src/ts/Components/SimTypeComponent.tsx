@@ -41,18 +41,16 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     private _isUpdatedContentDifferent(updatedContent: ITypedContentPayload): boolean {
         const typedProps: ITypedContentPayload = this.props as ITypedContentPayload;
 
-        return (
-            Object.keys(updatedContent).some((key: string) => {
-                const objectValue: any = updatedContent[key];
+        return Object.keys(updatedContent).some((key: string) => {
+            const objectValue: any = updatedContent[key];
 
-                if (typeof objectValue === "object")
-                    return Object.keys(objectValue).some((subKey: string) =>
-                        objectValue[subKey] !== typedProps[key][subKey]
-                    );
-                else
-                    return updatedContent[key] !== typedProps[key];
-            })
-        );
+            if (typeof objectValue === "object")
+                // We only go one-layer deep in our state comparison.
+                return Object.keys(objectValue).some((subKey: string) =>
+                    objectValue[subKey] !== typedProps[key][subKey]);
+            else
+                return updatedContent[key] !== typedProps[key];
+        });
     }
 
     public render() {
@@ -76,7 +74,6 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
     private _getTrimmedLines(): TextSegment[][] {
         let lines: TextSegment[][] = new Array<TextSegment[]>([]);
-
         let lineLength: number = 0;
 
         this.props.textSegments.forEach((textSegment: TextSegment) => {
@@ -135,17 +132,20 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
             splitIndex = lastSpaceIndex;
 
         return [
-            this._trimOutsideSpaces(text.substr(0, splitIndex)),
-            this._trimOutsideSpaces(text.substr(splitIndex))
+            this._trimTrailingSpaces(text.substr(0, splitIndex)),
+            this._trimLeadingSpaces(text.substr(splitIndex))
         ];
     }
 
-    private _trimOutsideSpaces(text: string): string {
+    private _trimLeadingSpaces(text: string): string {
         while (text.length > 0 && text[0] === " ")
             text = text.substr(1);
+        return text;
+    }
+
+    private _trimTrailingSpaces(text: string): string {
         while (text.length > 0 && text[text.length - 1] === " ")
             text = text.substr(0, text.length - 1);
-
         return text;
     }
 
