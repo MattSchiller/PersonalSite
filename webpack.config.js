@@ -56,7 +56,15 @@ module.exports = () => {
                                 localIdentName: "[local]"
                             }
                         },
-                        { loader: "sass-loader" }
+                        { loader: "sass-loader" },
+                        {
+                            loader: "postcss-loader",
+                            options: {
+                                plugins: [
+                                    require("autoprefixer")
+                                ]
+                            }
+                        }
                     ]
                 }
             ]

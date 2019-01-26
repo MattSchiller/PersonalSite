@@ -48,9 +48,8 @@
             &::after{
                 position: absolute;
                 border-radius: 1.25em 1.25em 0 0;
-                height: 2.5em;
-                -webkit-transform: translate3d(0,1px,0);
-                transform: translate3d(0,0,0) height 100%;
+                transform: translate3d(0,0,0);
+                height: 100%;
             }
         }
 
