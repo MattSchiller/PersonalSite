@@ -26,6 +26,8 @@
 
 @mixin generate-theme(
     $theme-name,
+    $page-color,
+    $default-text-color,
     $menu-unselected-color,
     $menu-selected-color,
     $line-number-color,
@@ -42,6 +44,11 @@
 ) {
     @include menu-colors($theme-name, $menu-unselected-color, $menu-selected-color);
 
+    html {
+        background-color: $page-color;
+        color: $default-text-color;
+    }
+
     .sim-type-#{$theme-name} {
         a {
             color: $link-color;
@@ -56,22 +63,35 @@
             white-space: pre;
         }
 
-        .function {
-            color: $function-color;
-            font-style: italic;
-        }
-
-        .curr-line {
-            color: $current-line-color;
-            background-color: $current-line-background-color;
-        }
-
         .line-number {
             font-size: 1em;
             justify-content: flex-start;
             margin-right: .5em;
             white-space: pre;
             color: $line-number-color;
+        }
+
+        .curr-line {
+            // color: $current-line-color;
+            // background-color: $current-line-background-color;
+
+            .line-number {
+                color: $current-line-color;
+            }
+        }
+
+
+        .func {
+            color: $function-color;
+            font-style: italic;
+        }
+
+        .function-name {
+            color: $function-name-color;
+        }
+
+        .arg {
+            color: $arg-color;
         }
 
         .key {
@@ -82,20 +102,12 @@
             color: $string-color;
         }
 
-        .arg {
-            color: $arg-color;
-        }
-
         .space {
             white-space: pre;
         }
 
         .comment {
             color: $comment-color
-        }
-
-        .function-name {
-            color: $function-name-color;
         }
 
         .title {

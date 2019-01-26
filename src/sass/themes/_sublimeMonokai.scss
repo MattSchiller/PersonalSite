@@ -2,14 +2,20 @@
 
 @mixin sublimeMonokaiTheme() {
     // We use this scope to contain any variables we want to define and reuse.
+
+    $unspecified-text-color: rgb(250, 250, 250);
+
     @include generate-theme(
         $theme-name: "sublime-monokai",
 
-        $menu-unselected-color: #E6E6E5,
+        $page-color: rgb(44, 41, 45),
+        $default-text-color: $unspecified-text-color,
+
+        $menu-unselected-color: $unspecified-text-color,
         $menu-selected-color: #7db14a,
 
-        $line-number-color: lightgrey,
-        $current-line-color: black,
+        $line-number-color: rgb(75, 75, 75),
+        $current-line-color: rgb(197, 197, 197),
         $current-line-background-color: palegoldenrod,
 
         $comment-color: #9F9F9F,
@@ -17,8 +23,8 @@
         $link-color: khaki,
         $link-focus-color: #485E6C,
         $function-name-color: #A6E22E,
-        $key-color: #F92672,
-        $arg-color: #FD971F,
+        $key-color: rgb(227, 86, 121),
+        $arg-color: rgb(244, 149,83),
         $string-color: #E6DB74,
     );
 }

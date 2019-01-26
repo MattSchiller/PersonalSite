@@ -22,7 +22,7 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     }
 
     private _getClassName(): string {
-        return `${CSS.wholeLine} ${this.props.isCurrentLine ? CSS.currLineSublime : ""}`;
+        return `${CSS.wholeLine} ${this.props.isCurrentLine ? CSS.currLine : ""}`;
     }
 
     private _getSpacedLineNumber(lineNumber: number): string {
