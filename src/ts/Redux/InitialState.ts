@@ -8,7 +8,7 @@ export const initialState = getInitialState();
 function getInitialState(): IStore {
     const pages: IPage[] = [
         About,
-        Contact
+        Contact,
     ].map(cleanUpRawPage);
 
     const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
