@@ -3,7 +3,7 @@ import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/styles.scss";
 import { getMaxLineLengthWithIndent } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
-import { SimType } from "@SimType/SimType";
+import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { SimTypeLine } from "@Components/SimTypeLine";
@@ -16,8 +16,6 @@ interface ISimTypeComponentProps extends ISimTypeContent {
 
 // Given a string, this module simulates typing of that string into the div.
 export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps> {
-    private _simType = new SimType();
-
     public componentDidMount() {
         this._simulateTyping();
     }
@@ -29,7 +27,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     private _simulateTyping() {
         // Asyncronously wait on the newTypedContentPayload promise and then run the update function
         // when the promise resolves (to handle the timeouts that simulate human typing).
-        this._simType.getNextTypedContentPayload({ ...this.props })
+        getNextTypedContentPayloadPromise({ ...this.props })
             .then(updatedContent => {
                 if (this._isUpdatedContentDifferent(updatedContent))
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
