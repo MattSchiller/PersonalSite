@@ -1,18 +1,14 @@
 import CSS from "@Sass/styles.scss";
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Constants } from "@SimType/Constants";
-import { ISimTypeContent } from "@SimType/ISimTypeContent";
+import { ISimTypeContent, ISimTypeContentWithFlags } from "@SimType/ISimTypeContent";
 import { TextSegment } from "@SimType/TextSegment";
 
 export class SimType {
-    private _pausing: boolean = false;
-    private _pausedMs: number = 0;
-    private _startingStubbing: boolean = false;
-
     public async getNextTypedContentPayload(content: ISimTypeContent): Promise<ITypedContentPayload> {
         return new Promise((resolve, reject) => {
             try {
-                const nextContent: ISimTypeContent = this._getNextTypedContentPayload(content);
+                const nextContent: ISimTypeContentWithFlags = this._getNextTypedContentPayload(content);
 
                 setTimeout(() => {
                     resolve({
@@ -27,13 +23,13 @@ export class SimType {
         });
     }
 
-    private _getTypingTimeoutMs(nextContent: ISimTypeContent): number {
+    private _getTypingTimeoutMs(nextContent: ISimTypeContentWithFlags): number {
         let typingTimeoutMs: number;
 
-        if (this._pausing) {
-            this._pausing = false;
-            typingTimeoutMs = this._pausedMs;
-            this._pausedMs = 0;
+        if (nextContent.pausing && nextContent.pausedMs) {
+            typingTimeoutMs = nextContent.pausedMs;
+            nextContent.pausedMs = undefined;
+            nextContent.pausing = undefined;
         } else if (nextContent.status.isBackspacing)
             typingTimeoutMs = Constants.backTimeoutMs * Math.random();
         else
@@ -42,7 +38,7 @@ export class SimType {
         return typingTimeoutMs;
     }
 
-    private _getNextTypedContentPayload(content: ISimTypeContent): ISimTypeContent {
+    private _getNextTypedContentPayload(content: ISimTypeContentWithFlags): ISimTypeContentWithFlags {
         const contentIndex = content.contentIndex;
 
         if (!this._isContentIndexSafe(content.sourceText, content.contentIndex))
@@ -99,7 +95,7 @@ export class SimType {
             return new TextSegment();
     }
 
-    private _getNextContentByProcessingActionCharacter(content: ISimTypeContent): ISimTypeContent {
+    private _getNextContentByProcessingActionCharacter(content: ISimTypeContentWithFlags): ISimTypeContentWithFlags {
         const contentIndex = content.contentIndex;
         const sourceText = content.sourceText;
 
@@ -117,10 +113,10 @@ export class SimType {
                 "Content has open escaped character at end of source text!", contentIndex, sourceText);
     }
 
-    private _processActionCharacter(actionCharacter: string, content: ISimTypeContent): ISimTypeContent {
+    private _processActionCharacter(actionCharacter: string, content: ISimTypeContentWithFlags): ISimTypeContentWithFlags {
         const actionValue = this._getActionValue(content.sourceText, content.contentIndex);
 
-        let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContent;
+        let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContentWithFlags;
 
         switch (actionCharacter) {
             case Constants.actionCharacters.startingStub:
@@ -167,8 +163,8 @@ export class SimType {
         const regExpRule = new RegExp("^[^" + Constants.escapeCharacter + "]*");
         const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
-        console.log("index:", contentIndex)
-        console.log("matches:", endOfActionValueRegExMatches)
+        // console.log("index:", contentIndex)
+        // console.log("matches:", endOfActionValueRegExMatches)
         if (endOfActionValueRegExMatches.length === 0)
             throw new CannotSimulateTypingError(
                 "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
@@ -177,28 +173,28 @@ export class SimType {
     }
 
     private _actions = {
-        startingStub: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            if (!this._startingStubbing) {
+        startingStub: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
+            console.log("startingStub!", actionParams.content.stubbing)
+            if (!actionParams.content.stubbing) {
                 // Start whipping through processing the content, skipping any sort of timeout/promises.
-                this._startingStubbing = true;
+                actionParams.content.stubbing = true;
 
                 let content = actionParams.content;
 
                 // Account for having to skip over own character.
                 content.contentIndex += Constants.actionCharacters.startingStub.length;
 
-                while (this._startingStubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
+                while (content.stubbing && this._isContentIndexSafe(content.sourceText, content.contentIndex)) {
                     content = {
                         ...content,
-                        ...this._getNextTypedContentPayload(content)
+                        ...this._getNextTypedContentPayload(content),
                     };
                 }
 
                 actionParams.content = content;
-
             } else {
                 // We've found the end of the starting stub of text.
-                this._startingStubbing = false;
+                actionParams.content.stubbing = false;
 
                 // Undo having to skip over own character.
                 actionParams.content.contentIndex -= Constants.actionCharacters.startingStub.length;
@@ -207,14 +203,17 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        pause: (actionParams: IEscapedActionParams): ISimTypeContent => {
-            this._pausing = true;
-            this._pausedMs = actionParams.actionValue as number;
+        pause: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
+            actionParams.content = {
+                ...actionParams.content,
+                pausing: true,
+                pausedMs: actionParams.actionValue as number
+            }
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        link: (actionParams: IEscapedActionParams): ISimTypeContent => {
+        link: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             const textSegment = actionParams.content.textSegments.pop()!;
             textSegment.link = actionParams.actionValue as string;
             actionParams.content.textSegments.push(textSegment);
@@ -222,14 +221,14 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        preClass: (actionParams: IEscapedActionParams): ISimTypeContent => {
+        preClass: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             const textSegment = new TextSegment("", actionParams.actionValue as string);
             actionParams.content.textSegments.push(textSegment);
 
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        postClass: (actionParams: IEscapedActionParams): ISimTypeContent => {
+        postClass: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             const textSegment: TextSegment = actionParams.content.textSegments.pop() || new TextSegment();
 
             textSegment.className += " " + actionParams.actionValue;
@@ -238,9 +237,7 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        quote: (actionParams: IEscapedActionParams): ISimTypeContent => {
-
-
+        quote: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             if (!actionParams.content.status.isQuoting) {
                 const textSegment: TextSegment = actionParams.content.textSegments.pop()!;
                 textSegment.text += Constants.quoteCharacter + Constants.quoteCharacter;
@@ -252,7 +249,7 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        line: (actionParams: IEscapedActionParams): ISimTypeContent => {
+        line: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             actionParams.content.textSegments.push(new TextSegment("", CSS.lineBreak));
 
             actionParams.content.textSegments.push(new TextSegment());  // For the next bunch of text.
@@ -260,7 +257,7 @@ export class SimType {
             return this._getPostActionContentWithUpdatedContentIndex(actionParams);
         },
 
-        backspace: (actionParams: IEscapedActionParams): ISimTypeContent => {
+        backspace: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
             // Backspacing is a weird one. It's simulated by managing a flag that on the first pass
             // sets the number of iterations and turns on the _backspacing flag and NOT changing the contentIndex.
             // Subsequent calls to get the next content will go over the same backspace command and reduce the
@@ -289,7 +286,7 @@ export class SimType {
 
             actionParams.content.textSegments.push(textSegment);
 
-            const nextContent: ISimTypeContent = {
+            const nextContent: ISimTypeContentWithFlags = {
                 ...actionParams.content,
                 status: {
                     ...actionParams.content.status,
@@ -309,7 +306,7 @@ export class SimType {
         },
     };
 
-    private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ISimTypeContent {
+    private _getPostActionContentWithUpdatedContentIndex(actionParams: IEscapedActionParams): ISimTypeContentWithFlags {
         const contentIndex = actionParams.content.contentIndex +
             actionParams.actionValue.toString().length +
             Constants.escapeCharacter.length;   // Accounting for the closing of the actionValueContent.
@@ -327,7 +324,7 @@ export class SimType {
 
 interface IEscapedActionParams {
     actionValue: string | number;
-    content: ISimTypeContent;
+    content: ISimTypeContentWithFlags;
 }
 
 class CannotSimulateTypingError extends Error {

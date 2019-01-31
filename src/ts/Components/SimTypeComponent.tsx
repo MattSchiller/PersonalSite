@@ -14,7 +14,7 @@ interface ISimTypeComponentProps extends ISimTypeContent {
     pageId: string,
 }
 
-// Given a string, this module simulates typing of that string into the div
+// Given a string, this module simulates typing of that string into the div.
 export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps> {
     private _simType = new SimType();
 

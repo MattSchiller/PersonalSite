@@ -18,8 +18,8 @@ export const About: IRawPage = {
             "~ccomment~), often having to learn new languages and database structures in the process. Which is 100% my jam." +
             "~l~" + "~l~" +
             "~Cindent0~" + "~ccomment~I thrive in using the right tool for a job, whether it's in my toolbelt yet or not. Sometimes that means the React framework in JavaScript to put together the dynamic website you see before you. Sometimes it means working in Python to build out a game's AI or handle the back end." + "~l~" +
-            "~Cindent0~" + "~l~" +
-            "~s0~" +
+            "~l~" +
+            "~s~" +
 
             "~Cindent0~" + "~ccomment~" + "And a good day's work is great, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
