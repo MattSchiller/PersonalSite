@@ -1,0 +1,107 @@
+{
+    "lintoptions": {
+        "typecheck": true
+    },
+    // All standard TSLint Rules: https://palantir.github.io/tslint/rules/
+    "rules": {
+        "max-line-length": {
+            "options": [
+                120
+            ]
+        },
+        "trailing-comma": false,
+        "no-trailing-whitespace": true,
+        "quotemark": true,
+        "no-console": false,
+        "new-parens": true,
+        "interface-name": [
+            true,
+            "always-prefix"
+        ],
+        "no-any": false,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-consecutive-blank-lines": true,
+        "class-name": true,
+        "curly": false,
+        "no-duplicate-variable": true,
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "max-classes-per-file": false,
+        "cyclomatic-complexity": false,
+        "newline-before-return": false,
+        "no-parameter-properties": false,
+        "no-parameter-reassignment": false,
+        "no-unused-variable": false,
+        "no-unused-expression": false,
+        "only-arrow-functions": [
+            true,
+            "allow-declarations",
+            "allow-named-functions"
+        ],
+        "completed-docs": false,
+        "no-magic-numbers": false,
+        "no-non-null-assertion": false,
+        "no-null-keyword": false,
+        "no-require-imports": false,
+        "no-unbound-method": false,
+        "no-unnecessary-qualifier": false,
+        "no-use-before-declare": false,
+        "no-void-expression": false,
+        "prefer-function-over-method": false,
+        "strict-type-predicates": false,
+        "interface-over-type-literal": false,
+        "triple-equals": [
+            true,
+            "allow-undefined-check"
+        ],
+        "typedef": false,
+        "member-ordering": false,
+        "newline-per-chained-call": false,
+        "no-switch-case-fall-through": true,
+        "no-string-literal": false,
+        "strict-boolean-expressions": [
+            false,
+            "allow-mix",
+            "allow-undefined-union",
+            "allow-null-union",
+            "allow-string"
+        ],
+        "switch-default": false,
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore",
+            "allow-pascal-case"
+        ],
+        "linebreak-style": false,
+        "forin": false,
+        "no-empty": false,
+        "object-literal-shorthand": false,
+        "object-literal-sort-keys": false,
+        "arrow-parens": false,
+        //
+        // The Modules we declare in tsconfig's `paths` are internal compile-time paths.
+        // During the build, webpack uses the sister paths to bundle everything up
+        // so we don't actually need to declare these as dependencies.
+        //
+        "no-implicit-dependencies": false,
+        "no-submodule-imports": false, // Similarly, this allows us to import declared alias modules in our tests.
+        "ordered-imports": false, // Don't force alphabatizing imports. This was SUPER annoying.
+        "import-spacing": false,
+        "no-empty-interface": false,
+        //
+        // React/JSX Rules
+        //
+        "jsx-curly-spacing": "always",
+        "jsx-no-lambda": "true"
+    },
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ]
+}
