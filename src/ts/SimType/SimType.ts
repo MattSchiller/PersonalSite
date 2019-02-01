@@ -69,12 +69,12 @@ export function getNextTypedContentPayload(content: ISimTypeContentWithFlags): I
 function appendNextCharacterToTextSegments(
     nextCharacter: string,
     textSegments: TextSegment[],
-    isQuotiing: boolean
+    isQuoting: boolean
 ): TextSegment[] {
     let nextTextSegment: TextSegment = TextSegment.clone(getMostRecentTextSegment(textSegments));
     let nextText = nextTextSegment.text;
 
-    if (isQuotiing) {
+    if (isQuoting) {
         // Keep the trailing quotation mark at the end of this text segment.
         nextTextSegment.text = nextTextSegment.text.substr(0, nextTextSegment.text.length - 1);
         nextText = nextCharacter + Constants.quoteCharacter;

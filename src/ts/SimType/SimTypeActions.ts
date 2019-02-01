@@ -54,8 +54,6 @@ function getActionValue(sourceText: string, contentIndex: number): string | numb
     const regExpRule = new RegExp("^[^" + Constants.escapeCharacter + "]*");
     const endOfActionValueRegExMatches: RegExpMatchArray = subString.match(regExpRule) || [];
 
-    // console.log("index:", contentIndex)
-    // console.log("matches:", endOfActionValueRegExMatches)
     if (endOfActionValueRegExMatches.length === 0)
         throw new CannotSimulateTypingError(
             "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
