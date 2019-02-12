@@ -1,7 +1,7 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
 
 export const About: IRawPage = {
-    pageId: "About.html",
+    pageId: "about.html",
     simTypes: [{
         simTypeId: "About_1",
         sourceText:

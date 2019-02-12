@@ -18,6 +18,8 @@ export const key: string;
 export const string: string;
 export const space: string;
 export const comment: string;
+export const flatFileKey: string;
+export const flatFileValue: string;
 export const title: string;
 export const header: string;
 export const codePages: string;

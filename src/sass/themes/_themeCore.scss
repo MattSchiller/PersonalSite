@@ -41,6 +41,8 @@
     $arg-color,
     $key-color,
     $string-color,
+    $flat-file-key-color,
+    $flat-file-value-color
 ) {
     @include menu-colors($theme-name, $menu-unselected-color, $menu-selected-color);
 
@@ -108,6 +110,14 @@
 
         .comment {
             color: $comment-color
+        }
+
+        .flat-file-key {
+            color: $flat-file-key-color;
+        }
+
+        .flat-file-value {
+            color: $flat-file-value-color;
         }
 
         .title {
