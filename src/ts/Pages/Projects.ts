@@ -2,7 +2,7 @@ import { IRawPage } from "@Redux/Interfaces/IStore";
 
 // DO NOT USE (LOL), THIS CONTENT IS YEARS OUT OF DATE.
 export const Projects: IRawPage = {
-    pageId: "Projects",
+    pageId: "projects.tsx",
     simTypes: [{
         simTypeId: "projects_1",
         sourceText: "~s~" + "~Cindent0~" + "~ccomment~// Awesome, I get to show you some of the cool things that I've made!" + "~l0~"
