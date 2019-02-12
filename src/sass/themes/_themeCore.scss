@@ -42,7 +42,8 @@
     $key-color,
     $string-color,
     $flat-file-key-color,
-    $flat-file-value-color
+    $flat-file-value-color,
+    $symbol-color,
 ) {
     @include menu-colors($theme-name, $menu-unselected-color, $menu-selected-color);
 
@@ -109,7 +110,11 @@
         }
 
         .comment {
-            color: $comment-color
+            color: $comment-color;
+
+            &.flat-file {
+                font-style: italic;
+            }
         }
 
         .flat-file-key {
@@ -118,6 +123,10 @@
 
         .flat-file-value {
             color: $flat-file-value-color;
+        }
+
+        .symbol {
+            color: $symbol-color;
         }
 
         .title {

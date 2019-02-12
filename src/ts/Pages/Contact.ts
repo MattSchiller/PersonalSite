@@ -5,22 +5,21 @@ export const Contact: IRawPage = {
     simTypes: [{
         simTypeId: "contact",
         sourceText:
+            // tslint:disable:max-line-length
             "~s~" +
-            "~ccomment~" + "# "
-
-
-        // "~s~" + "~Cindent0~{~l0~" +
-        // "~Cindent1~" + "\"_comment\": \"Looking to stay in touch?\"," + "~l0~" +
-        // "~Cindent1~" + "\"contact options\": {" + "~l0~" +
-        // "~Cindent2~" + "\"email\":" + "~cspace~    \"" + "~c0~" + "matt.s.schiller(at)gmail(dot)com" +
-        // "~amailto:matt.s.schiller@gmail.com~" + "~c0~\"" + "~l0~" +
-        // "~s~" +
-
-        // "~Cindent2~" + "\"linkedIn\": \"" + "~c0~" + "www.linkedIn.com/in/MattSchiller" +
-        // "~ahttps://www.linkedIn.com/in/MattSchiller~" + "~c0~\"" + "~l0~" +
-        // "~Cindent2~" + "\"gitHub\":" + "~cspace~   \"" + "~c0~" + "www.gitHub.com/MattSSchiller" +
-        // "~ahttps://www.gitHub.com/MattSSchiller~" + "~c0~\"" + "~l0~" +
-        // "~Cindent1~" + "}" + "~l0~" +
-        // "~Cindent0~" + "}"
+            "~ccomment flat-file~" + "# Looking to stay in touch?" +
+            "~l~" +
+            "~cflat-file-key~" + "contactOptions" + "~csymbol~:" +
+            "~l~" +
+            "~cindent1 flat-file-key~email" + "~csymbol~: " + "~cflat-file-value~matt.s.schiller(at)gmail(dot)com" +
+            "~amailto: matt.s.schiller@gmail.com~" +
+            "~l~" +
+            "~s~" +
+            "~cindent1 flat-file-key~linkedIn" + "~csymbol~: " + "~cflat-file-value~www.linkedIn.com/in/MattSchiller" +
+            "~ahttps://www.linkedIn.com/in/MattSchiller~" +
+            "~l~" +
+            "~cindent1 flat-file-key~gitHub" + "~csymbol~: " + "~cflat-file-value~www.gitHub.com/MattSSchiller" +
+            "~ahttps://www.gitHub.com/MattSSchiller~" +
+            "~l~"
     }]
 };

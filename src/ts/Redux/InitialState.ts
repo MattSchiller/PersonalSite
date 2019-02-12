@@ -11,7 +11,7 @@ function getInitialState(): IStore {
         Contact,
     ].map(cleanUpRawPage);
 
-    const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
+    const activePageId = pages.length > 0 ? pages[1].pageId : "NULL";
 
     return {
         activePageId,
