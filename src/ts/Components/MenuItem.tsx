@@ -1,5 +1,5 @@
 import { IPage } from "@Redux/Interfaces/IStore";
-import Resume from "@Pages/Resume";
+import { Resume } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/styles.scss";
 import React from "react";
