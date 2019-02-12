@@ -12,8 +12,10 @@ export class Resume {
     }
 }
 
+// A dummy export so other aspects of the page outside of the menu don't know that resume is "different".
 export const ResumePage: IRawPage = {
     pageId: resumePageId,
+    iconUrl: "assets/images/pdfIcon.png",
     simTypes: [{
         simTypeId: "resume",
         sourceText: ""

@@ -24,7 +24,10 @@
         width: 100%;
 
         z-index: 1;
-        display: block;
+
+        display: flex;
+        justify-content: inherit;
+        align-items: center;
         margin: 0 0.3em;
         text-align: center;
         flex: 1;
@@ -66,6 +69,14 @@
             transition: background-color 0.3s transform 0.3s height 0.3s;
             transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
             transform: translate3d(0,100%,0) translate3d(0,-3px,0);
+        }
+
+        img {
+            height: 0.8em;
+            width: 0.8em;
+
+            margin-left: -1.25em;
+            margin-right: 0.25em;
         }
     }
 }

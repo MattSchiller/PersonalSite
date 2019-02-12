@@ -2,6 +2,7 @@ import { IRawPage } from "@Redux/Interfaces/IStore";
 
 export const Contact: IRawPage = {
     pageId: "contact.yaml",
+    iconUrl: "assets/images/yamlIcon.png",
     simTypes: [{
         simTypeId: "contact",
         sourceText:

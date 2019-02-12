@@ -2,6 +2,7 @@ import { IRawPage } from "@Redux/Interfaces/IStore";
 
 export const About: IRawPage = {
     pageId: "about.html",
+    iconUrl: "assets/images/htmlIcon.png",
     simTypes: [{
         simTypeId: "About_1",
         sourceText:

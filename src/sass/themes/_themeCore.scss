@@ -53,6 +53,11 @@
     }
 
     .sim-type-#{$theme-name} {
+        margin-top: 1em;
+        & + & {
+            margin-top: 0em;
+        }
+
         a {
             color: $link-color;
             font-weight: bold;

@@ -15,6 +15,7 @@ export class MenuItem extends React.PureComponent<IMenuItemProps> {
                 onClick={ this._onClick }
                 className={ this._getClassName() }
             >
+                <img src={ this.props.iconUrl } />
                 { this.props.pageId }
             </li >
         );

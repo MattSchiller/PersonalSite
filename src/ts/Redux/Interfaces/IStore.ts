@@ -7,10 +7,12 @@ export interface IStore {
 
 export interface IPage {
     pageId: string;
+    iconUrl?: string;
     simTypes?: ISimTypeContent[];
 }
 
 export interface IRawPage {
     pageId: string;
+    iconUrl?: string;
     simTypes?: IRawSimTypeContent[];
 }
