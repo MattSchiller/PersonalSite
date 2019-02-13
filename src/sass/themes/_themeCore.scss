@@ -1,4 +1,5 @@
 @import "../menu";
+@import "../simType";
 
 @mixin indent-classes($indent-number) {
     @for $i from 1 through $indent-number {
@@ -33,16 +34,20 @@
     $line-number-color,
     $current-line-color,
     $current-line-background-color,
+    $comment-fade-color,
     $comment-color,
     $function-color,
     $link-color,
     $link-focus-color,
     $function-name-color,
     $arg-color,
+    $reserved-color,
     $key-color,
+    $default-typescript-color,
+    $default-html-color,
+    $default-yaml-color,
     $string-color,
     $flat-file-key-color,
-    $flat-file-value-color,
     $symbol-color,
 ) {
     @include menu-colors(
@@ -50,6 +55,21 @@
         $unselected: $menu-unselected-color,
         $selected: $menu-selected-color,
         $menu-background-color: rgb(70, 70, 70),
+    );
+
+    @include sim-type-colors(
+        "typescript",
+        $default-typescript-color
+    );
+
+    @include sim-type-colors(
+        "html",
+        $default-html-color
+    );
+
+    @include sim-type-colors(
+        "yaml",
+        $default-yaml-color
     );
 
     html {
@@ -93,10 +113,8 @@
             }
         }
 
-
         .func {
             color: $function-color;
-            font-style: italic;
         }
 
         .function-name {
@@ -111,12 +129,16 @@
             color: $key-color;
         }
 
+        .reserved {
+            color: $reserved-color;
+        }
+
         .string {
             color: $string-color;
         }
 
-        .space {
-            white-space: pre;
+        .comment-fade {
+            color: $comment-fade-color;
         }
 
         .comment {
@@ -129,10 +151,6 @@
 
         .flat-file-key {
             color: $flat-file-key-color;
-        }
-
-        .flat-file-value {
-            color: $flat-file-value-color;
         }
 
         .symbol {

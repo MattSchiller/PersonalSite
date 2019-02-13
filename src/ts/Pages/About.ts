@@ -3,22 +3,23 @@ import { IRawPage } from "@Redux/Interfaces/IStore";
 export const About: IRawPage = {
     pageId: "about.html",
     iconUrl: "assets/images/htmlIcon.png",
+    language: "html",
     simTypes: [{
         simTypeId: "About_1",
         sourceText:
             // tslint:disable:max-line-length
-            "~s~" + "~ccomment~<!DOCTYPE html>" +
+            "~s~" + "~ccomment-fade~<!~ckey~DOCTYPE~c~ html~ccomment-fade~>" +
             "~l~" +
             "~l~" +
-            "~ccomment~<!--Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +
+            "~ccomment~<!-- Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +
             "~l~" +
             "~l~" +
-            "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for fun.)-->" + "~l~" +
+            "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for fun.) -->" + "~l~" +
             "~l~" +
-            "~s~" +
+            // "~s~" +
 
-            "~Cindent0~" + "<" + "~ckey~html" + "~c0~>" + "~l~" +
-            "~p350~" + "~Cindent1~" + "<" + "~ckey~" + "body" + "~c0~>" +
+            "~Cindent0 comment-fade~" + "<" + "~ckey~html" + "~ccomment-fade~>" + "~l~" +
+            "~p350~" + "~Cindent1 comment-fade~" + "<" + "~ckey~" + "body" + "~ccomment-fade~>" +
             "~l~" +
             "~p350~" + "~Cindent2~" + "My work experience grows from a SQL & Excel/VBA backgron" + "~p350~" + "~b1~" + "und that became a more comprehensive developer's toolkit (JS, C#). For years I've implemented SaaS for Pharmacuetical" + "~p350~" + "~b7~" + "eutical, Healthcare, and Higher Education systems (like " +
             "~l~" + "~cindent2~Johnson & Johnson" + "~ahttp://www.janssen.com/~" +
@@ -41,7 +42,7 @@ export const About: IRawPage = {
             "~l~~l~" +
             "~Cindent2~And thanks for checking out my site! Mchu" + "~b3~" + "uch of it is still under construcktoi" + "~p300~" + "~b4~" +
             "tion." + "~l~" +
-            "~Cindent1~" + "</" + "~ckey~body" + "~c0~>" + "~l~" +
-            "~Cindent0~" + "</" + "~ckey~html" + "~c0~>" + "~l~"
+            "~Cindent1 comment-fade~" + "</" + "~ckey~body" + "~ccomment-fade~>" + "~l~" +
+            "~Cindent0 comment-fade~" + "</" + "~ckey~html" + "~ccomment-fade~>" + "~l~"
     }]
 };

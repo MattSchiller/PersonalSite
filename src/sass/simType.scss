@@ -4,3 +4,9 @@
     overflow-y: scroll;
     height: calc(100vh - #{($menu-height + 0.5em)});
 }
+
+@mixin sim-type-colors($language, $default-text-color) {
+    .sim-type-container-#{$language}, .default {
+        color: $default-text-color;
+    }
+}

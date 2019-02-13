@@ -16,6 +16,7 @@ export class Resume {
 export const ResumePage: IRawPage = {
     pageId: resumePageId,
     iconUrl: "assets/images/pdfIcon.png",
+    language: "n/a",
     simTypes: [{
         simTypeId: "resume",
         sourceText: ""

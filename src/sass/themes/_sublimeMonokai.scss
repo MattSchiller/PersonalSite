@@ -5,6 +5,7 @@
 
     $unspecified-text-color: rgb(250, 250, 250);
     $page-color: rgb(44, 41, 45);
+    $key-color: rgb(85, 156, 214);
 
     @include generate-theme(
         $theme-name: "sublime-monokai",
@@ -19,16 +20,23 @@
         $current-line-color: rgb(197, 197, 197),
         $current-line-background-color: palegoldenrod,
 
-        $comment-color: #9F9F9F,
-        $function-color: orchid,
+        $comment-fade-color: rgb(128, 128, 122),
+        $comment-color: rgb(106, 153, 85),
+        $function-color: rgb(78, 201, 176),
         $link-color: khaki,
         $link-focus-color: #485E6C,
-        $function-name-color: #A6E22E,
-        $key-color: rgb(227, 86, 121),
+        $function-name-color: rgb(220, 220, 170),
+
+        $key-color: $key-color,
         $arg-color: rgb(244, 149, 83),
-        $string-color: #E6DB74,
-        $flat-file-key-color: rgb(34, 134, 58),
-        $flat-file-value-color: rgb(206, 145, 120),
+        $reserved-color: rgb(197, 113, 150),
+        $string-color: rgb(206, 145, 95),
+
+        $default-typescript-color: rgb(104, 205, 254),
+        $default-html-color: rgb(230, 230, 230),
+        $default-yaml-color:  rgb(206, 145, 120),
+
+        $flat-file-key-color: $key-color,
         $symbol-color: white,
     );
 }
