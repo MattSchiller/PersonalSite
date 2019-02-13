@@ -31,6 +31,7 @@
     $default-text-color,
     $menu-unselected-color,
     $menu-selected-color,
+    $menu-selected-background-color,
     $line-number-color,
     $current-line-color,
     $current-line-background-color,
@@ -54,6 +55,7 @@
     @include menu-colors(
         $theme-name: $theme-name,
         $unselected: $menu-unselected-color,
+        $selected-background: $menu-selected-background-color,
         $selected: $menu-selected-color,
         $menu-background-color: rgb(70, 70, 70),
     );
@@ -115,6 +117,7 @@
         }
 
         .line-number {
+            user-select: none;
             font-size: 1em;
             justify-content: flex-start;
             margin-right: .5em;

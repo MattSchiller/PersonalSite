@@ -8,7 +8,7 @@ export const About: IRawPage = {
         simTypeId: "About_1",
         sourceText:
             // tslint:disable:max-line-length
-            "~s~" + "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default~ html~ccomment-fade~>" +
+            "~s~" + "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default-color~ html~ccomment-fade~>" +
             "~l~" +
             "~l~" +
             "~ccomment~<!-- Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +

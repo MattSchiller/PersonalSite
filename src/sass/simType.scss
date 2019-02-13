@@ -1,4 +1,4 @@
-@import "menu";
+@import "variables";
 
 .sim-type-container {
     overflow-y: scroll;
@@ -9,7 +9,7 @@
     .sim-type-container-#{$language} {
         color: $default-text-color;
 
-        .default {
+        .default-color {
             color: $default-text-color;
         }
     }

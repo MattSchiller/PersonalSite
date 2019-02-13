@@ -10,6 +10,7 @@ export const lineBreak: string;
 export const simType: string;
 export const tabsSublimeMonokai: string;
 export const simTypeContainerTypescript: string;
+export const defaultColor: string;
 export const simTypeContainerHtml: string;
 export const simTypeContainerYaml: string;
 export const simTypeCaret: string;
