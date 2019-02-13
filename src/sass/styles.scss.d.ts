@@ -23,5 +23,4 @@ export const flatFileKey: string;
 export const flatFileValue: string;
 export const symbol: string;
 export const title: string;
-export const header: string;
-export const codePages: string;
+export const simTypeContainer: string;

@@ -1,3 +1,5 @@
+$menu-height: 2.5;
+
 .tabs {
     flex-grow: 6;
 
@@ -13,14 +15,16 @@
     display: flex;
     flex-flow: row wrap;
     padding: 0;
-    line-height: 2.5;
+    line-height: $menu-height + 0em;
     list-style: none;
     justify-content: center;
+
+    $border-radius: 0.25em;
+    border-radius: $border-radius $border-radius 0 0;
 
     & li {
         position: relative;
         overflow: hidden;
-        margin: 0 auto;
         width: 100%;
 
         z-index: 1;
@@ -28,7 +32,6 @@
         display: flex;
         justify-content: inherit;
         align-items: center;
-        margin: 0 0.3em;
         text-align: center;
         flex: 1;
 
@@ -50,7 +53,8 @@
 
             &::after{
                 position: absolute;
-                border-radius: 1.25em 1.25em 0 0;
+
+                border-radius: $border-radius $border-radius 0 0;
                 transform: translate3d(0,0,0);
                 height: 100%;
             }
@@ -81,8 +85,10 @@
     }
 }
 
-@mixin menu-colors($theme-name, $unselected, $selected) {
+@mixin menu-colors($theme-name, $unselected, $selected, $menu-background-color) {
     .tabs-#{$theme-name} {
+        background-color: $menu-background-color;
+
         & li {
             &:hover, &:focus {
                 color: $selected;

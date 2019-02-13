@@ -1,0 +1,6 @@
+@import "menu";
+
+.sim-type-container {
+    overflow-y: scroll;
+    height: calc(100vh - #{($menu-height + 0.5em)});
+}

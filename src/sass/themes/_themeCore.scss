@@ -45,7 +45,12 @@
     $flat-file-value-color,
     $symbol-color,
 ) {
-    @include menu-colors($theme-name, $menu-unselected-color, $menu-selected-color);
+    @include menu-colors(
+        $theme-name: $theme-name,
+        $unselected: $menu-unselected-color,
+        $selected: $menu-selected-color,
+        $menu-background-color: rgb(70, 70, 70),
+    );
 
     html {
         background-color: $page-color;
