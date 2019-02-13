@@ -2,11 +2,13 @@ import { SimTypeSegment } from "@Components/SimTypeSegment";
 import CSS from "@Sass/styles.scss";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
+import { ISimTypeStatus } from "@TS/SimType/ISimTypeContent";
 
 interface ISimTypeLineProps {
     textSegments: TextSegment[];
     lineNumber: number;
     isCurrentLine: boolean;
+    status: ISimTypeStatus;
 }
 
 export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
@@ -17,6 +19,7 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
                     { this._getSpacedLineNumber(this.props.lineNumber) }
                 </div>
                 { this._renderTextSegments() }
+                { this._renderCaret() }
             </div>
         )
     }
@@ -32,5 +35,16 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
     private _renderTextSegments(): JSX.Element[] {
         return this.props.textSegments.map((textSegment: TextSegment, index: number) =>
             <SimTypeSegment key={ index } textSegment={ textSegment } />);
+    }
+
+    private _renderCaret(): JSX.Element | null {
+        const caretClass: string = `${CSS.simTypeCaret}
+            ${this.props.status.isQuoting ? CSS.simTypeQuoting : ""}`;
+
+        return (this.props.isCurrentLine ? (
+            <div className={ caretClass }>
+                |
+            </ div>
+        ) : null);
     }
 }

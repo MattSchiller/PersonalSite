@@ -7,10 +7,15 @@ import React from "react";
 export default class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
         return (
-            <div className={ CSS.simTypeContainer }>
+            <div className={ this._getClassName() }>
                 { this._renderSimTypeComponents() }
             </div>
         );
+    }
+
+    private _getClassName(): string {
+        return `${CSS.simTypeContainer}
+            ${CSS.simTypeContainer}-${this.props.language}`;
     }
 
     private _renderSimTypeComponents(): JSX.Element[] {

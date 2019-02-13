@@ -9,7 +9,7 @@ export const Projects: IRawPage = {
         simTypeId: "projects_1",
         sourceText: "~s~" +
             "~ccomment~" + "// A few of the coding projects I've worked on." +
-            "~l~~l~" +
+            "~l~" +
             "import~Creserved~" + "~c~ React" + "~c~ from~Creserved~" + "~cstring~ ~q~react~q~" + "~csymbol~;" +
             "~l~~l~" +
             "export~Creserved~" + "~c~ class~Ckey~" + "~c~ Stypes3DProductConfigurator~Cfunc~" + "~c~ extends~Ckey~" + "~c~ React~Cfunc~" + "~csymbol~." + "~c~Component~Cfunc~" + "~csymbol~ {" +
@@ -24,6 +24,8 @@ export const Projects: IRawPage = {
             "~l~" +
             "~cindent2~return~Creserved~" + " ~csymbol~(" +
             "~l~" +
+            "~s~" +
+
             "~cindent3 string~~q~Strypes's software is used to allow retail fashion brands unprecedented levels of customization for their products through a realistic 3D game-like experience.~q~" +
             "~l~" +
             "~cindent2 symbol~);" +
@@ -31,6 +33,6 @@ export const Projects: IRawPage = {
             "~cindent1 symbol~}" +
             "~l~" +
             "~cindent0 symbol~}" +
-            "~s~"
+            "~l~"
     }]
 }

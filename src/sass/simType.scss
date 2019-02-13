@@ -6,7 +6,11 @@
 }
 
 @mixin sim-type-colors($language, $default-text-color) {
-    .sim-type-container-#{$language}, .default {
+    .sim-type-container-#{$language} {
         color: $default-text-color;
+
+        .default {
+            color: $default-text-color;
+        }
     }
 }

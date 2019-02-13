@@ -68,7 +68,8 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
                 key={ index }
                 lineNumber={ lineNumberStart + index }
                 textSegments={ textSegments }
-                isCurrentLine={ (lines.length - 1) === index } />
+                isCurrentLine={ (lines.length - 1) === index }
+                status={ this.props.status } />
         );
     }
 

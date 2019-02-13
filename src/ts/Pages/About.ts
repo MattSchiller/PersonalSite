@@ -8,7 +8,7 @@ export const About: IRawPage = {
         simTypeId: "About_1",
         sourceText:
             // tslint:disable:max-line-length
-            "~s~" + "~ccomment-fade~<!~ckey~DOCTYPE~c~ html~ccomment-fade~>" +
+            "~s~" + "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default~ html~ccomment-fade~>" +
             "~l~" +
             "~l~" +
             "~ccomment~<!-- Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +
@@ -16,7 +16,7 @@ export const About: IRawPage = {
             "~l~" +
             "~ccomment~(I build out enterprise software capabilities and construct cool things on the internet for fun.) -->" + "~l~" +
             "~l~" +
-            // "~s~" +
+            "~s~" +
 
             "~Cindent0 comment-fade~" + "<" + "~ckey~html" + "~ccomment-fade~>" + "~l~" +
             "~p350~" + "~Cindent1 comment-fade~" + "<" + "~ckey~" + "body" + "~ccomment-fade~>" +

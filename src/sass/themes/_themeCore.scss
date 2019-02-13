@@ -49,6 +49,7 @@
     $string-color,
     $flat-file-key-color,
     $symbol-color,
+    $caret-color,
 ) {
     @include menu-colors(
         $theme-name: $theme-name,
@@ -75,6 +76,23 @@
     html {
         background-color: $page-color;
         color: $default-text-color;
+    }
+
+    .sim-type-caret {
+        animation: blinking 0.7s infinite;
+        margin-left: -0.25em;
+
+        &.sim-type-quoting {
+            margin-left: -0.6em;
+        }
+    }
+
+    @keyframes blinking {
+        0% { color: $caret-color; }
+        // 49% { color: transparent; }
+        50% { color: transparent; }
+        // 99% { color:transparent;  }
+        100% { color: $caret-color; }
     }
 
     .sim-type-#{$theme-name} {
@@ -157,8 +175,8 @@
             color: $symbol-color;
         }
 
-        .title {
-            font-weight: 600;
+        .tint-default {
+            color: $default-typescript-color;
         }
     }
 }
