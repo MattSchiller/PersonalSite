@@ -1,10 +1,17 @@
 @import "utility";
 @import "themes/sublimeMonokai";
 @import "simType";
+@import "mediaQueries";
 
 html {
     font-family: Inconsolata, sans-serif;
     font-weight: 500;
+
+    font-size: 1.4em;
+
+    @include media-tablet-landscape-and-larger {
+        font-size: 1em;
+    }
 }
 
 body {
