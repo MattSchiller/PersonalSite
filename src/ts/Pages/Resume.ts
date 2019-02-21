@@ -8,7 +8,7 @@ export class Resume {
     }
 
     public static getResumeUrl(): string {
-        return "./assets/MattSchillerCV.pdf";
+        return "./assets/MattSchiller_CV.pdf";
     }
 }
 

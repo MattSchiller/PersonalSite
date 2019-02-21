@@ -2,7 +2,7 @@
 
 .sim-type-container {
     overflow-y: auto;
-    height: calc(100vh - #{($menu-height + 0.5em)});
+    height: $content-height;
 }
 
 @mixin sim-type-colors($language, $default-text-color) {

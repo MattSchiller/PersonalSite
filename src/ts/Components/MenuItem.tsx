@@ -28,11 +28,11 @@ export class MenuItem extends React.PureComponent<IMenuItemProps> {
     }
 
     private _onClick = () => {
+        history.push(this.props.pageId);
         // For the resume, open a new tab and don't interact with the store, otherwise, dispatch.
         // if (Resume.isResumeId(this.props.pageId))
         //     window.open(Resume.getResumeUrl(), "_blank");
         // else
-        history.push(this.props.pageId);
         Actions.setActivePage({ pageId: this.props.pageId });
     }
 }
