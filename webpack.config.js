@@ -10,7 +10,7 @@ module.exports = () => {
 
         output: {
             path: __dirname + '/build',
-            filename: 'bundle.js'
+            filename: 'bundle.[hash].js'
         },
 
         // TODO: Slim down the bundle with externals
@@ -95,7 +95,6 @@ module.exports = () => {
             new webpack.HotModuleReplacementPlugin(),
 
             new HtmlWebpackPlugin({
-                hash: true,
                 filename: "index.html",
                 template: __dirname + "/src/html/index.html",
                 favicon: __dirname + "/assets/images/favicon.ico"
