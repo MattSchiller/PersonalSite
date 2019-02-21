@@ -80,28 +80,34 @@
         color: $default-text-color;
     }
 
-    .sim-type-caret {
-        animation: blinking 0.7s infinite;
-        margin-left: -0.25em;
-
-        &.sim-type-quoting {
-            margin-left: -0.6em;
-        }
-    }
-
-    @keyframes blinking {
-        0% { color: $caret-color; }
-        // 49% { color: transparent; }
-        50% { color: transparent; }
-        // 99% { color:transparent;  }
-        100% { color: $caret-color; }
-    }
-
     .sim-type-#{$theme-name} {
         margin-top: 1em;
         & + & {
             margin-top: 0em;
         }
+
+        .sim-type-caret {
+            animation: blinking 0.9s infinite;
+            margin-left: -0.25em;
+
+            &.sim-type-quoting {
+                margin-left: -0.6em;
+            }
+        }
+
+        &.typing {
+            .sim-type-caret {
+                animation: none;
+                color: $caret-color;
+            }
+        }
+
+        @keyframes blinking {
+            0% { color: $caret-color; }
+            50% { color: transparent; }
+            100% { color: $caret-color; }
+        }
+
 
         a {
             color: $link-color;
