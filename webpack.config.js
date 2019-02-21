@@ -13,13 +13,12 @@ module.exports = () => {
             filename: 'bundle.js'
         },
 
-        // TODO: Slim down the bundle with externals
-        // externals: {
-        // react: "React",
-        // "react-dom": "ReactDom",
-        // Provider: ["./react-redux", "Provider"],
-        // connect: ["./react-redux", "connect"],
-        // },
+        externals: {
+            react: "React",
+            'react-dom': "ReactDOM",
+            Provider: ["./react-redux", "Provider"],
+            connect: ["./react-redux", "connect"],
+        },
 
         resolve: {
             extensions: [".tsx", ".ts", ".js", ".css", ".scss"],

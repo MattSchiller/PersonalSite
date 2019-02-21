@@ -4,6 +4,7 @@
     "description": "",
     "scripts": {
         "start": "webpack-dev-server",
+        "prod": "webpack --mode production",
         "lint": "node ./node_modules/tslint/bin/tslint -c tslint.json -p ."
     },
     "author": "Matt Schiller",
