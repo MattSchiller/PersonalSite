@@ -10,7 +10,8 @@ module.exports = () => {
 
         output: {
             path: __dirname + '/build',
-            filename: 'bundle.js'
+            filename: 'bundle.js',
+            publicPath: '/',
         },
 
         externals: {
@@ -87,7 +88,8 @@ module.exports = () => {
             inline: true,
             https: true,
             host: "localhost",
-            port: 8080
+            port: 8080,
+            historyApiFallback: true,
         },
 
         plugins: [

@@ -1,6 +1,6 @@
 import { IRawPage } from "@TS/Redux/Interfaces/IStore";
 
-const resumePageId: string = "resume.pdf";
+const resumePageId: string = "resume";
 
 export class Resume {
     public static isResumeId(pageId: string): boolean {
@@ -15,6 +15,7 @@ export class Resume {
 // A dummy export so other aspects of the page outside of the menu don't know that resume is "different".
 export const ResumePage: IRawPage = {
     pageId: resumePageId,
+    pageTitle: "resume.pdf",
     iconUrl: "assets/images/pdfIcon.png",
     language: "n/a",
     simTypes: [{

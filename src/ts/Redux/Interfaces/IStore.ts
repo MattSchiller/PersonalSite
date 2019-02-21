@@ -7,6 +7,7 @@ export interface IStore {
 
 interface IBasePage {
     pageId: string;
+    pageTitle: string;
     iconUrl: string;
     language: string;
 }

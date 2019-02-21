@@ -11,5 +11,10 @@ export function getActivePageId(): string {
 
 export function getActivePage(): IPage {
     const state: IStore = store.getState();
-    return state.pages.filter((page: IPage) => page.pageId === state.activePageId)[0];
+    return state.pages.filter((page: IPage) => page.pageId === getActivePageId())[0];
+}
+
+export function getValidPageIds(): string[] {
+    const state: IStore = store.getState();
+    return state.pages.map(page => page.pageId);
 }

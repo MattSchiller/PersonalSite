@@ -2,7 +2,8 @@ import { IRawPage } from "@Redux/Interfaces/IStore";
 
 // DO NOT USE (LOL), THIS CONTENT IS YEARS OUT OF DATE.
 export const Projects: IRawPage = {
-    pageId: "projects.tsx",
+    pageId: "projects",
+    pageTitle: "projects.tsx",
     iconUrl: "assets/images/tsxIcon.png",
     language: "typescript",
     simTypes: [{
