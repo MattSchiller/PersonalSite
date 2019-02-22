@@ -19,7 +19,9 @@
     color: transparent;
 }
 
-.sim-type {
+$sim-type-class: "sim-type";
+
+.#{$sim-type-class} {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -29,6 +31,7 @@
     $theme-name,
     $page-color,
     $default-text-color,
+    $menu-background-color,
     $menu-unselected-color,
     $menu-selected-color,
     $menu-selected-background-color,
@@ -57,7 +60,7 @@
         $unselected: $menu-unselected-color,
         $selected-background: $menu-selected-background-color,
         $selected: $menu-selected-color,
-        $menu-background-color: rgb(70, 70, 70),
+        $menu-background-color: $menu-background-color,
     );
 
     @include sim-type-colors(
@@ -80,7 +83,7 @@
         color: $default-text-color;
     }
 
-    .sim-type-#{$theme-name} {
+    .#{$sim-type-class}-#{$theme-name} {
         margin-top: 1em;
         & + & {
             margin-top: 0em;
