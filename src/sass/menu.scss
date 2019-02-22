@@ -105,7 +105,7 @@
             transition: max-height 0.5s;
             transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
 
-            div {
+            & .selected {
                 display: flex;
                 background-color: lime;
             }
@@ -113,9 +113,6 @@
 
         &.selected .theme-options {
             max-height: 10em;
-
-            div {
-            }
         }
     }
 }

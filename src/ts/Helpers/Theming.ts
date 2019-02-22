@@ -13,7 +13,3 @@ export function getThemedClassName(className: string): string {
 export interface IThemedProps {
     activeTheme: IThemeEnum;
 }
-
-export function getActiveThemeProp(): IThemedProps {
-    return { activeTheme: getActiveTheme() };
-}

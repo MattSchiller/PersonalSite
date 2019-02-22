@@ -8,6 +8,8 @@ import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { SimTypeLine } from "@Components/SimTypeLine";
 import { getThemedClassName, IThemedProps } from "@TS/Helpers/Theming";
+import { IStore } from "@TS/Redux/Interfaces/IStore";
+import { connect } from "react-redux";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
@@ -19,7 +21,7 @@ interface ISimTypeComponentState {
 }
 
 // Given a string, this module simulates typing of that string into the div.
-export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimTypeComponentState> {
+class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimTypeComponentState> {
     // This is important to keep from any other updates (like them changes) from kicking off another typing increment.
     private _isDuringTypingTimeout: boolean = false;
 
@@ -177,3 +179,12 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
         lines[lines.length - 1].push(textSegment);
     }
 }
+
+function mapStateToProps(state: IStore) {
+    return {
+        activeTheme: state.activeTheme
+    };
+}
+
+const ConnectedSimTypeComponent = connect(mapStateToProps)(SimTypeComponent);
+export { ConnectedSimTypeComponent as SimTypeComponent };

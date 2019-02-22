@@ -1,11 +1,11 @@
 import { SimTypeComponent } from "@Components/SimTypeComponent";
+import { getThemedClassName } from "@Helpers/Theming";
 import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import React from "react";
-import { getThemedClassName, IThemedProps, getActiveThemeProp } from "@Helpers/Theming";
 
-export default class SimTypeContainer extends React.PureComponent<IPage & IThemedProps> {
+export default class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
         return (
             <div className={ this._getClassName() }>
@@ -28,7 +28,6 @@ export default class SimTypeContainer extends React.PureComponent<IPage & ITheme
                 key={ this.props.pageId + index }
                 pageId={ this.props.pageId }
                 { ...simType }
-                { ...getActiveThemeProp() }
             />
         );
     }

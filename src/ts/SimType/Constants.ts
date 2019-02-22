@@ -1,5 +1,3 @@
-import CSS from "@Sass/styles.scss";
-
 export const Constants = {
     typeTimeoutMs: 50,
     backTimeoutMs: 100,
@@ -30,3 +28,5 @@ export function getMaxLineLengthWithIndent(classList: string) {
 
     return Constants.maxLineLength - deltaMaxLine;
 }
+
+export const renderTargetId = "renderTarget";

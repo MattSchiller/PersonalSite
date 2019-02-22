@@ -1,9 +1,8 @@
-import { Actions } from "@Redux/Actions";
-import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
-import React from "react";
+import { ThemeSelectOption } from "@TS/Components/ThemeSelectOption";
 import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
-import { getActiveTheme } from "@Redux/Store";
+import { renderTargetId } from "@TS/SimType/Constants";
+import React from "react";
 
 const themeIconUrl = "assets/images/paletteIcon.png";
 
@@ -18,14 +17,36 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
             isSelected: false
         };
 
-        // TODO: Add listener for if the user clicks somewhere else to collapse this div.
+        document.getElementById(renderTargetId)!.addEventListener(
+            "click",
+            this._listenForClicksOutsideOfElement
+        );
+    }
+
+    public componentWillUnmount() {
+        document.getElementById(renderTargetId)!.removeEventListener(
+            "click",
+            this._listenForClicksOutsideOfElement
+        );
+    }
+
+    private _listenForClicksOutsideOfElement = (event: MouseEvent) => {
+        if (event.target &&
+            !(event.target! as HTMLElement).closest(`.${this._getThemeSelectorClassName()}`) &&
+            this.state.isSelected
+        )
+            this._setIsSelected(false);
+    }
+
+    private _getThemeSelectorClassName(): string {
+        return CSS.themeSelector;
     }
 
     public render() {
         return [
             <li
-                onClick={ this._toggleSelected }
-                className={ CSS.themeSelector + this._getSelectedClassName() }
+                onClick={ this._toggleIsSelected }
+                className={ this._getThemeSelectorClassName() + this._getSelectedClassName() }
             >
                 <img src={ themeIconUrl } />
                 Theme
@@ -34,40 +55,26 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
         ];
     }
 
-    private _toggleSelected = () => {
-        this.setState({
-            isSelected: !this.state.isSelected
-        });
+    private _toggleIsSelected = () => {
+        this._setIsSelected(!this.state.isSelected);
+    }
+
+    private _setIsSelected = (isSelected: boolean) => {
+        this.setState({ isSelected });
     }
 
     private _renderOptions(): JSX.Element {
         return (
             <div className={ CSS.themeOptions } >
-                { Object.values(IThemeEnum).map(theme => <ThemeOption theme={ theme } />) }
+                { Object.values(IThemeEnum).map(
+                    theme => <ThemeSelectOption
+                        theme={ theme } />)
+                }
             </div>
         );
     }
 
     private _getSelectedClassName(): string {
         return ` ${this.state.isSelected ? CSS.selected : ""}`;
-    }
-}
-
-interface IThemeOptionProps {
-    theme: IThemeEnum;
-}
-
-export class ThemeOption extends React.PureComponent<IThemeOptionProps> {
-    public render() {
-        return (
-            <div onClick={ this._onClick }>
-                { this.props.theme }
-            </div>
-        )
-    }
-
-    private _onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        event.stopPropagation();
-        Actions.setActiveTheme(this.props.theme);
     }
 }
