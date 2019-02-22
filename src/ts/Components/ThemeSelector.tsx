@@ -2,7 +2,7 @@ import { Actions } from "@Redux/Actions";
 import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
-import { IThemesEnum } from "@Helpers/Theming";
+import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 import { getActiveTheme } from "@Redux/Store";
 
 const themeIconUrl = "assets/images/paletteIcon.png";
@@ -43,19 +43,18 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
     private _renderOptions(): JSX.Element {
         return (
             <div className={ CSS.themeOptions } >
-                { Object.values(IThemesEnum).map(theme => <ThemeOption theme={ theme } />) }
+                { Object.values(IThemeEnum).map(theme => <ThemeOption theme={ theme } />) }
             </div>
         );
     }
 
     private _getSelectedClassName(): string {
-        console.log("yoyoyoyoyo")
         return ` ${this.state.isSelected ? CSS.selected : ""}`;
     }
 }
 
 interface IThemeOptionProps {
-    theme: IThemesEnum;
+    theme: IThemeEnum;
 }
 
 export class ThemeOption extends React.PureComponent<IThemeOptionProps> {

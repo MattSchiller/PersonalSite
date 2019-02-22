@@ -2,7 +2,7 @@ import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { rootReducer } from "@Redux/Reducers";
 import { createStore, Store } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import { IThemesEnum } from "@TS/Helpers/Theming";
+import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 
 export const store: Store = createStore(rootReducer, devToolsEnhancer({}));
 
@@ -20,7 +20,7 @@ export function getValidPageIds(): string[] {
     return state.pages.map(page => page.pageId);
 }
 
-export function getActiveTheme(): IThemesEnum {
+export function getActiveTheme(): IThemeEnum {
     const state: IStore = store.getState();
     return state.activeTheme;
 }

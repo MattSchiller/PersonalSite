@@ -3,7 +3,7 @@ import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { ActionTypes } from "@Redux/Actions";
 import { initialState } from "@Redux/InitialState";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
-import { IThemesEnum } from "@Helpers/Theming";
+import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 
 export const rootReducer = (state: IStore = initialState, action: IAction) => {
     const payload = action.payload;
@@ -15,8 +15,8 @@ export const rootReducer = (state: IStore = initialState, action: IAction) => {
 
     switch (action.type) {
         case ActionTypes.SET_ACTIVE_THEME:
-            const activeTheme = payload as IThemesEnum;
-            if (Object.values(IThemesEnum).includes(activeTheme) && activeTheme !== state.activeTheme)
+            const activeTheme = payload as IThemeEnum;
+            if (Object.values(IThemeEnum).includes(activeTheme) && activeTheme !== state.activeTheme)
                 return {
                     ...state,
                     activeTheme

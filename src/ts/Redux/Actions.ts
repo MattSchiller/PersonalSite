@@ -1,6 +1,6 @@
 import { ISetActivePagePayload, ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { store } from "@Redux/Store";
-import { IThemesEnum } from "@Helpers/Theming";
+import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 
 export enum ActionTypes {
     SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE",
@@ -15,7 +15,7 @@ export const Actions = {
             payload
         }),
 
-    setActiveTheme: (payload: IThemesEnum) =>
+    setActiveTheme: (payload: IThemeEnum) =>
         store.dispatch({
             type: ActionTypes.SET_ACTIVE_THEME,
             payload
