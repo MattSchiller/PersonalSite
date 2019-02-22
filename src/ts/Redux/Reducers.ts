@@ -12,7 +12,6 @@ export const rootReducer = (state: IStore = initialState, action: IAction) => {
 
     switch (action.type) {
         case ActionTypes.SET_ACTIVE_PAGE:
-            console.log("current:", state.activePageId)
             if (pageId !== state.activePageId)
                 return {
                     ...state,

@@ -2,12 +2,12 @@ import { Menu } from "@Components/Menu";
 import SimTypeContainer from "@Components/SimTypeContainer";
 import { IStore } from "@Redux/Interfaces/IStore";
 import { getActivePage, getActivePageId, getValidPageIds } from "@Redux/Store";
+import { Resume } from "@TS/Pages/Resume";
+import { Actions } from "@TS/Redux/Actions";
 import React from "react";
 import { connect } from "react-redux";
-import { Router, Route } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import { history } from "../history";
-import { Actions } from "@TS/Redux/Actions";
-import { Resume } from "@TS/Pages/Resume";
 
 class App extends React.PureComponent<IStore> {
     public componentWillMount() {

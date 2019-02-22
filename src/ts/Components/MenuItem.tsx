@@ -1,9 +1,7 @@
-import { IPage } from "@Redux/Interfaces/IStore";
-import { Resume } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
+import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
-import { Link } from "react-router-dom";
 import { history } from "../history";
 
 interface IMenuItemProps extends IPage {
