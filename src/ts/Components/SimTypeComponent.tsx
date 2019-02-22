@@ -49,10 +49,8 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
                 if (this._isUpdatedContentDifferent(updatedContent))
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
-                else {
+                else
                     this.setState({ isFinishedTyping: true });
-                    console.log("Finished typing this page.")
-                }
             })
             .catch(console.log);
     }

@@ -1,5 +1,4 @@
 @import "variables";
-@import "utility";
 
 .tabs {
     flex-grow: 6;
@@ -116,42 +115,6 @@
             max-height: 10em;
 
             div {
-            }
-        }
-    }
-}
-
-@mixin menu-colors(
-    $theme-name,
-    $unselected,
-    $selected-background,
-    $selected,
-    $menu-background-color
-) {
-    .tabs-#{$theme-name} {
-        background-color: $menu-background-color;
-
-        & li {
-            &:hover, &:focus {
-                color: $selected;
-
-                &::after {
-                    background-color: $selected;
-                }
-            }
-
-            &::after {
-                background-color: $unselected;
-            }
-
-            color: $unselected;
-
-            &.selected {
-                color: $selected;
-
-                &::after{
-                    background-color: $selected-background;
-                }
             }
         }
     }
