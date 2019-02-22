@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2016", // Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'.
         "lib": [ // Specify library files to be included in the compilation.
-            "es7",
+            "es2017",
             "dom"
         ],
         "types": [ // Type declaration files to be included in compilation.
@@ -37,6 +37,9 @@
             ],
             "@SimType/*": [
                 "./src/ts/SimType/*"
+            ],
+            "@Helpers/*": [
+                "./src/ts/Helpers/*"
             ],
         },
         // "noUnusedLocals": true, // This is set to true in 'mocha-tests-strict'

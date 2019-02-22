@@ -35,6 +35,7 @@ module.exports = () => {
                 "@Pages": path.resolve(__dirname, "src/ts/Pages/"),
                 "@Components": path.resolve(__dirname, "src/ts/Components/"),
                 "@SimType": path.resolve(__dirname, "src/ts/SimType/"),
+                "@Helpers": path.resolve(__dirname, "src/ts/Helpers/"),
             },
         },
 

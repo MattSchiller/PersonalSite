@@ -1,16 +1,28 @@
-import { IAction, IUpdateTypedContentPayload } from "@Redux/Interfaces/IAction";
+import { IAction, IUpdateTypedContentPayload, ISetActivePagePayload } from "@Redux/Interfaces/IAction";
 import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { ActionTypes } from "@Redux/Actions";
 import { initialState } from "@Redux/InitialState";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
+import { IThemesEnum } from "@Helpers/Theming";
 
 export const rootReducer = (state: IStore = initialState, action: IAction) => {
-    if (!action.payload)
+    const payload = action.payload;
+    if (!payload)
         return state;
 
-    const pageId = action.payload.pageId;
+    // This is helpful for the page-specific actions.
+    const pageId = (payload as ISetActivePagePayload).pageId;
 
     switch (action.type) {
+        case ActionTypes.SET_ACTIVE_THEME:
+            const activeTheme = payload as IThemesEnum;
+            if (Object.values(IThemesEnum).includes(activeTheme) && activeTheme !== state.activeTheme)
+                return {
+                    ...state,
+                    activeTheme
+                };
+            break;
+
         case ActionTypes.SET_ACTIVE_PAGE:
             if (pageId !== state.activePageId)
                 return {
@@ -22,7 +34,7 @@ export const rootReducer = (state: IStore = initialState, action: IAction) => {
         case ActionTypes.UPDATE_SIMTYPE_CONTENT:
             if (pageId === state.activePageId) {
                 const pages = state.pages.map((page: IPage) =>
-                    getUpdatedPage(page, action.payload as IUpdateTypedContentPayload));
+                    getUpdatedPage(page, payload as IUpdateTypedContentPayload));
 
                 return {
                     ...state,

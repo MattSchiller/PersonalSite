@@ -2,7 +2,7 @@ import { SimTypeSegment } from "@Components/SimTypeSegment";
 import CSS from "@Sass/styles.scss";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
-import { ISimTypeStatus } from "@TS/SimType/ISimTypeContent";
+import { ISimTypeStatus } from "@SimType/ISimTypeContent";
 
 interface ISimTypeLineProps {
     textSegments: TextSegment[];

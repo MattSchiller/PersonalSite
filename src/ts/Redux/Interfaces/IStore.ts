@@ -1,8 +1,10 @@
 import { ISimTypeContent, IRawSimTypeContent } from "@SimType/ISimTypeContent";
+import { IThemesEnum } from "@TS/Helpers/Theming";
 
 export interface IStore {
     activePageId: string;
     pages: IPage[];
+    activeTheme: IThemesEnum;
 }
 
 interface IBasePage {

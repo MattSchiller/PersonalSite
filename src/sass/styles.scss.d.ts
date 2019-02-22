@@ -1,6 +1,7 @@
 export const hidden: string;
 export const tabs: string;
 export const selected: string;
+export const themeSelector: string;
 export const simTypeContainer: string;
 export const indent1: string;
 export const indent2: string;

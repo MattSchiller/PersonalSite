@@ -85,6 +85,10 @@
     }
 }
 
+.theme-selector {
+    background-color: orange;
+}
+
 @mixin menu-colors(
     $theme-name,
     $unselected,

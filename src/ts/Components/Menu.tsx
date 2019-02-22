@@ -2,7 +2,8 @@ import { MenuItem } from "@Components/MenuItem";
 import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
-import { getThemedClassName } from "@TS/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
+import { ThemeSelector } from "@TS/Components/ThemeSelector";
 
 interface IMenuProps {
     items: IPage[];
@@ -13,6 +14,7 @@ export class Menu extends React.PureComponent<IMenuProps> {
     public render() {
         return (
             <nav className={ getThemedClassName(CSS.tabs) }>
+                <ThemeSelector key={ "themeSelecter" } />
                 { this.props.items.map(this._renderMenuItem, this) }
             </nav>
         );

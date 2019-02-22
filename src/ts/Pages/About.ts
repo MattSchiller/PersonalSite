@@ -22,7 +22,7 @@ export const About: IRawPage = {
             "~Cindent0 comment-fade~" + "<" + "~ckey~html" + "~ccomment-fade~>" + "~l~" +
             "~p350~" + "~Cindent1 comment-fade~" + "<" + "~ckey~" + "body" + "~ccomment-fade~>" +
             "~l~" +
-            "~p350~" + "~Cindent2~" + "My work experience grows from a SQL & Excel/VBA backgron" + "~p350~" + "~b1~" + "und that became a more comprehensive developer's toolkit (JS, C#). For years I've implemented SaaS for Pharmacuetical" + "~p350~" + "~b7~" + "eutical, Healthcare, and Higher Education systems (like " +
+            "~p350~" + "~Cindent2~" + "My work experience grows from a SQL & Excel/VBA backgron" + "~p350~" + "~b1~" + "und that became a more comprehensive developer's toolkit (JS, C#). For years I'd implemented SaaS for Pharmacuetical" + "~p350~" + "~b7~" + "eutical, Healthcare, and Higher Education systems (like " +
             "~l~" + "~cindent2~Johnson & Johnson" + "~ahttp://www.janssen.com/~" +
             "~c~ and " +
             "~c~Gonzaga University" + "~ahttp://www.gonzaga.org~" + "~c0~)" +

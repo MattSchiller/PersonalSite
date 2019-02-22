@@ -7,7 +7,7 @@ import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { SimTypeLine } from "@Components/SimTypeLine";
-import { getThemedClassName } from "@TS/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent {
