@@ -56,7 +56,12 @@
         $default-yaml-color
     );
 
-    html {
+    .content {
+        // A useless rule so this class compiles into the typings file.
+        display: inherit;
+    }
+
+    .content-#{$theme-name} {
         background-color: $page-color;
         color: $default-text-color;
     }

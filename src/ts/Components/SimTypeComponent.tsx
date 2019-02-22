@@ -15,14 +15,17 @@ interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
 }
 
 interface ISimTypeComponentState {
-    isTyping: boolean;
+    isFinishedTyping: boolean;
 }
 
 // Given a string, this module simulates typing of that string into the div.
 export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimTypeComponentState> {
+    // This is important to keep from any other updates (like them changes) from kicking off another typing increment.
+    private _isDuringTypingTimeout: boolean = false;
+
     constructor(props: ISimTypeComponentProps) {
         super(props);
-        this.state = { isTyping: true }
+        this.state = { isFinishedTyping: false };
     }
 
     public componentDidMount() {
@@ -34,14 +37,20 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
     }
 
     private _simulateTyping() {
+        if (this._isDuringTypingTimeout)
+            return;
+
+        this._isDuringTypingTimeout = true;
         // Asyncronously wait on the newTypedContentPayload promise and then run the update function
         // when the promise resolves (to handle the timeouts that simulate human typing).
         getNextTypedContentPayloadPromise({ ...this.props })
             .then(updatedContent => {
+                this._isDuringTypingTimeout = false;
+
                 if (this._isUpdatedContentDifferent(updatedContent))
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
                 else {
-                    this.setState({ isTyping: false })
+                    this.setState({ isFinishedTyping: true });
                     console.log("Finished typing this page.")
                 }
             })
@@ -73,7 +82,7 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
     private _getClassName(): string {
         return `${getThemedClassName(CSS.simType)}
-            ${this.state.isTyping ? CSS.typing : ""}`;
+            ${this.state.isFinishedTyping ? "" : CSS.typing}`;
     }
 
     private _renderLines(lines: TextSegment[][]): JSX.Element[] {
