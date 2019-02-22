@@ -2,12 +2,12 @@ import { Menu } from "@Components/Menu";
 import SimTypeContainer from "@Components/SimTypeContainer";
 import { IStore } from "@Redux/Interfaces/IStore";
 import { getActivePage, getActivePageId, getValidPageIds } from "@Redux/Store";
+import { history } from "@TS/history";
 import { Resume } from "@TS/Pages/Resume";
 import { Actions } from "@TS/Redux/Actions";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
-import { history } from "../history";
 
 class App extends React.PureComponent<IStore> {
     public componentWillMount() {
@@ -21,13 +21,13 @@ class App extends React.PureComponent<IStore> {
     }
 
     public render() {
-        return (
+        return [
+            <Menu key={ "menu" }
+                items={ this.props.pages }
+                activePageId={ getActivePageId() }
+            />,
             <Router history={ history } >
                 <div>
-                    <Menu key={ "menu" }
-                        items={ this.props.pages }
-                        activePageId={ getActivePageId() }
-                    />
                     <Route key="content"
                         path="/(|index.html|about|contact|projects)"
                         render={ props => <SimTypeContainer
@@ -39,9 +39,8 @@ class App extends React.PureComponent<IStore> {
                         render={ props => <embed src={ Resume.getResumeUrl() } /> }
                     />
                 </div>
-
             </Router >
-        );
+        ];
     }
 }
 

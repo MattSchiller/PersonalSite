@@ -38,9 +38,9 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
         // when the promise resolves (to handle the timeouts that simulate human typing).
         getNextTypedContentPayloadPromise({ ...this.props })
             .then(updatedContent => {
-                if (this._isUpdatedContentDifferent(updatedContent)) {
+                if (this._isUpdatedContentDifferent(updatedContent))
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
-                } else {
+                else {
                     this.setState({ isTyping: false })
                     console.log("Finished typing this page.")
                 }
