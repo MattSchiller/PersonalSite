@@ -5,12 +5,17 @@ export interface IStore {
     pages: IPage[];
 }
 
-export interface IPage {
+interface IBasePage {
     pageId: string;
+    pageTitle: string;
+    iconUrl: string;
+    language: string;
+}
+
+export interface IPage extends IBasePage {
     simTypes?: ISimTypeContent[];
 }
 
-export interface IRawPage {
-    pageId: string;
+export interface IRawPage extends IBasePage {
     simTypes?: IRawSimTypeContent[];
 }

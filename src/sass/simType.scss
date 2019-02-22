@@ -1,0 +1,16 @@
+@import "variables";
+
+.sim-type-container {
+    overflow-y: auto;
+    height: $content-height;
+}
+
+@mixin sim-type-colors($language, $default-text-color) {
+    .sim-type-container-#{$language} {
+        color: $default-text-color;
+
+        .default-color {
+            color: $default-text-color;
+        }
+    }
+}

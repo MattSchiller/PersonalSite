@@ -14,8 +14,17 @@ interface ISimTypeComponentProps extends ISimTypeContent {
     pageId: string,
 }
 
+interface ISimTypeComponentState {
+    isTyping: boolean;
+}
+
 // Given a string, this module simulates typing of that string into the div.
-export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps> {
+export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimTypeComponentState> {
+    constructor(props: ISimTypeComponentProps) {
+        super(props);
+        this.state = { isTyping: true }
+    }
+
     public componentDidMount() {
         this._simulateTyping();
     }
@@ -31,8 +40,10 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
             .then(updatedContent => {
                 if (this._isUpdatedContentDifferent(updatedContent))
                     Actions.updateSimTypeContent(this.props.pageId, this.props.simTypeId, updatedContent);
-                else
-                    console.log("Finished typing.")
+                else {
+                    this.setState({ isTyping: false })
+                    console.log("Finished typing this page.")
+                }
             })
             .catch(console.log);
     }
@@ -54,10 +65,15 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
 
     public render() {
         return (
-            <div className={ getThemedClassName(CSS.simType) } >
+            <div className={ this._getClassName() } >
                 { this._renderLines(this._getTrimmedLines()) }
             </div>
         );
+    }
+
+    private _getClassName(): string {
+        return `${getThemedClassName(CSS.simType)}
+            ${this.state.isTyping ? CSS.typing : ""}`;
     }
 
     private _renderLines(lines: TextSegment[][]): JSX.Element[] {
@@ -68,7 +84,8 @@ export class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps
                 key={ index }
                 lineNumber={ lineNumberStart + index }
                 textSegments={ textSegments }
-                isCurrentLine={ (lines.length - 1) === index } />
+                isCurrentLine={ (lines.length - 1) === index }
+                status={ this.props.status } />
         );
     }
 

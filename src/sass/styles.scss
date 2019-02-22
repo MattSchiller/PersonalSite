@@ -1,35 +1,25 @@
+@import "variables";
 @import "utility";
 @import "themes/sublimeMonokai";
+@import "simType";
+@import "mediaQueries";
 
-// TODO: re-evaluate these rules.
 html {
     font-family: Inconsolata, sans-serif;
     font-weight: 500;
-    font-size: 1.5em;
+
+    font-size: 1.4em;
+
+    @include media-tablet-landscape-and-larger {
+        font-size: 1em;
+    }
 }
 
-h2 {
-    margin-right: 0.5em;
-    margin-left: 3px;
-    cursor: pointer;
-    color: #7db14a;
+body {
+    overflow-y: hidden;
 }
 
-#header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: -5.5em;
-    position: fixed;
-    z-index: 5;
-    width: 95%;
-    overflow: hidden;
-    height: 5em;
-}
-
-#codePages {
-    margin-top: 5em;
-    overflow: auto;
-    max-width: 35em;
-    margin-left: .5em;
+embed {
+    width: 100%;
+    height: $content-height;
 }

@@ -2,13 +2,17 @@ import { IPage, IRawPage, IStore } from "@Redux/Interfaces/IStore";
 import { About } from "@Pages/About";
 import { Contact } from "@Pages/Contact";
 import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";
+import { ResumePage } from "@TS/Pages/Resume";
+import { Projects } from "@TS/Pages/Projects";
 
 export const initialState = getInitialState();
 
 function getInitialState(): IStore {
     const pages: IPage[] = [
         About,
+        Projects,
         Contact,
+        ResumePage,
     ].map(cleanUpRawPage);
 
     const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";

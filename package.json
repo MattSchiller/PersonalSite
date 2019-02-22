@@ -4,14 +4,18 @@
     "description": "",
     "scripts": {
         "start": "webpack-dev-server",
+        "prod": "webpack --mode production",
         "lint": "node ./node_modules/tslint/bin/tslint -c tslint.json -p ."
     },
     "author": "Matt Schiller",
     "license": "ISC",
     "dependencies": {
+        "history": "^4.7.2",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-redux": "^6.0.0",
+        "react-router": "^4.3.1",
+        "react-router-dom": "^4.3.1",
         "redux": "^4.0.1",
         "redux-devtools-extension": "^2.13.7",
         "ts-error": "^1.0.3"
@@ -21,6 +25,7 @@
         "@types/react": "^16.4.18",
         "@types/react-dom": "^16.0.9",
         "@types/react-redux": "^6.0.11",
+        "@types/react-router-dom": "^4.3.1",
         "autoprefixer": "^9.4.6",
         "css-loader": "^1.0.0",
         "fork-ts-checker-notifier-webpack-plugin": "^0.7.0",

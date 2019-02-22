@@ -9,8 +9,18 @@ module.exports = () => {
         entry: path.join(__dirname, "./src/ts/Main.tsx"),
 
         output: {
-            path: __dirname + '/build',
-            filename: 'bundle.js'
+            path: __dirname + "/build",
+            filename: "bundle.js",
+            publicPath: (this.mode === "production") ? "/build" : "/",
+        },
+
+        externals: {
+            react: "React",
+            "react-dom": "ReactDOM",
+            "Router": ["./react-router-dom", "Router"],
+            "Route": ["./react-router-dom", "Route"],
+            Provider: ["./react-redux", "Provider"],
+            connect: ["./react-redux", "connect"],
         },
 
         resolve: {
@@ -80,7 +90,8 @@ module.exports = () => {
             inline: true,
             https: true,
             host: "localhost",
-            port: 8080
+            port: 8080,
+            historyApiFallback: true,
         },
 
         plugins: [

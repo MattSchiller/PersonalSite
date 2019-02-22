@@ -1,11 +1,21 @@
 import { SimTypeComponent } from "@Components/SimTypeComponent";
 import { IPage } from "@Redux/Interfaces/IStore";
+import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import React from "react";
 
 export default class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
-        return this._renderSimTypeComponents();
+        return (
+            <div className={ this._getClassName() }>
+                { this._renderSimTypeComponents() }
+            </div>
+        );
+    }
+
+    private _getClassName(): string {
+        return `${CSS.simTypeContainer}
+            ${CSS.simTypeContainer}-${this.props.language}`;
     }
 
     private _renderSimTypeComponents(): JSX.Element[] {

@@ -1,7 +1,7 @@
-import { IPage } from "@Redux/Interfaces/IStore";
-import Resume from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
+import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
+import { history } from "@TS/history";
 import React from "react";
 
 interface IMenuItemProps extends IPage {
@@ -15,7 +15,8 @@ export class MenuItem extends React.PureComponent<IMenuItemProps> {
                 onClick={ this._onClick }
                 className={ this._getClassName() }
             >
-                { this.props.pageId }
+                <img src={ this.props.iconUrl } />
+                { this.props.pageTitle }
             </li >
         );
     }
@@ -25,10 +26,7 @@ export class MenuItem extends React.PureComponent<IMenuItemProps> {
     }
 
     private _onClick = () => {
-        // For the resume, open a new tab and don't interact with the store, otherwise, dispatch.
-        if (Resume.isResumeId(this.props.pageId))
-            window.open(Resume.getResumeUrl(), "_blank");
-        else
-            Actions.setActivePage({ pageId: this.props.pageId });
+        history.push(this.props.pageId);
+        Actions.setActivePage({ pageId: this.props.pageId });
     }
 }

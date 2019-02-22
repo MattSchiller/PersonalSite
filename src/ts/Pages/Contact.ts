@@ -1,21 +1,28 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
 
 export const Contact: IRawPage = {
-    pageId: "Contact",
+    pageId: "contact",
+    pageTitle: "contact.yaml",
+    iconUrl: "assets/images/yamlIcon.png",
+    language: "yaml",
     simTypes: [{
         simTypeId: "contact",
-        sourceText: "~s~" + "~Cindent0~{~l0~" +
-            "~Cindent1~" + "\"_comment\": \"Looking to stay in touch?\"," + "~l0~" +
-            "~Cindent1~" + "\"contact options\": {" + "~l0~" +
-            "~Cindent2~" + "\"email\":" + "~cspace~    \"" + "~c0~" + "matt.s.schiller(at)gmail(dot)com" +
-            "~amailto:matt.s.schiller@gmail.com~" + "~c0~\"" + "~l0~" +
+        sourceText:
+            // tslint:disable:max-line-length
             "~s~" +
-
-            "~Cindent2~" + "\"linkedIn\": \"" + "~c0~" + "www.linkedIn.com/in/MattSchiller" +
-            "~ahttps://www.linkedIn.com/in/MattSchiller~" + "~c0~\"" + "~l0~" +
-            "~Cindent2~" + "\"gitHub\":" + "~cspace~   \"" + "~c0~" + "www.gitHub.com/MattSSchiller" +
-            "~ahttps://www.gitHub.com/MattSSchiller~" + "~c0~\"" + "~l0~" +
-            "~Cindent1~" + "}" + "~l0~" +
-            "~Cindent0~" + "}"
+            "~ccomment~" + "# Looking to stay in touch?" +
+            "~l~" +
+            "~cflat-file-key~" + "contactOptions" + "~csymbol~:" +
+            "~l~" +
+            "~cindent1 flat-file-key~email" + "~csymbol~: " + "~cstring~matt.s.schiller(at)gmail(dot)com" +
+            "~amailto: matt.s.schiller@gmail.com~" +
+            "~l~" +
+            "~s~" +
+            "~cindent1 flat-file-key~linkedIn" + "~csymbol~: " + "~cstring~www.linkedIn.com/in/MattSchiller" +
+            "~ahttps://www.linkedIn.com/in/MattSchiller~" +
+            "~l~" +
+            "~cindent1 flat-file-key~gitHub" + "~csymbol~: " + "~cstring~www.gitHub.com/MattSSchiller" +
+            "~ahttps://www.gitHub.com/MattSSchiller~" +
+            "~l~"
     }]
 };
