@@ -1,9 +1,35 @@
 @import "../variables";
 
+@mixin getIndentCharacterContent($numChars) {
+    $char: ".";
+    $content: "";
+    @for $i from 0 to $numChars {
+        $content: $content + $char;
+    }
+    content: $content;
+}
+
 @mixin indent-classes($indent-number) {
     @for $i from 1 through $indent-number {
         .indent#{$i} {
-            text-indent: #{$i}em;
+            display: flex;
+            opacity: 0.25;
+            line-height: 0.75em;
+
+            &::after {
+                // @include getIndentCharacterContent(2 * $i);
+                content: "..";
+                color: white;
+            }
+
+            & + & {
+
+
+                &::before {
+                    content: "";
+                    border-left: 1px solid white;
+                }
+            }
         }
     }
 }

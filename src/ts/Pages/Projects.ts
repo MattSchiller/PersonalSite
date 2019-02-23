@@ -15,13 +15,13 @@ export const Projects: IRawPage = {
             "~l~~l~" +
             "export~Creserved~" + "~c~ class~Ckey~" + "~c~ Stypes3DProductConfigurator~Cfunc~" + "~c~ extends~Ckey~" + "~c~ React~Cfunc~" + "~csymbol~." + "~c~Component~Cfunc~" + "~csymbol~ {" +
             "~l~" +
-            "~cindent1~public~Ckey~" + "~c~ render~Cfunction-name~" + "~csymbol~() {" +
+            "~cindent1~~c~public~Ckey~" + "~c~ render~Cfunction-name~" + "~csymbol~() {" +
             "~l~" +
-            "~cindent2~return~Creserved~" + "~csymbol~ <" + "~cdefault-color~LinkToStrypesDemo~ahttps://app.box.com/v/StrypesDemoVideo/~" + "~csymbol~ />" +
+            "~cindent1~~cindent1~~c~return~Creserved~" + "~csymbol~ <" + "~cdefault-color~LinkToStrypesDemo~ahttps://app.box.com/v/StrypesDemoVideo/~" + "~csymbol~ />" +
             "~l~" +
-            "~cindent1 symbol~}" +
+            "~cindent1~~csymbol~}" +
             "~l~~l~" +
-            "~cindent1~private~Ckey~" + "~c~ _description~Cfunction-name~" + "~csymbol~() {" +
+            "~cindent1~~c~private~Ckey~" + "~c~ _description~Cfunction-name~" + "~csymbol~() {" +
             "~l~" +
             "~cindent2~return~Creserved~" + " ~csymbol~(" +
             "~l~" +
