@@ -1,7 +1,7 @@
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/styles.scss";
-import { getMaxLineLengthWithIndent } from "@SimType/Constants";
+import { getMaxLineLengthWithIndent, getIndentCount, Constants } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
@@ -125,6 +125,8 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
         lineLength += text.length;
         const overage = lineLength - effectiveMaxLineLength;
 
+        this._addIndentSegmentsToLine(textSegment, lines);
+
         if (overage > 0) {
             const trimmedOffTextSegment: TextSegment = TextSegment.clone(textSegment);
             [textSegment.text, trimmedOffTextSegment.text] = this._getSplitText(textSegment.text, overage);
@@ -142,6 +144,17 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
             this._addToLine(textSegment, lines);
 
         return lineLength;
+    }
+
+    private _addIndentSegmentsToLine(textSegment: TextSegment, lines: TextSegment[][]) {
+        const textSegments: TextSegment[] = [];
+        const indentCount: number = getIndentCount(textSegment.className);
+        const singleIndentTextSegment = new TextSegment("", Constants.indent);
+
+        for (let i = 0; i < indentCount; i++)
+            this._addToLine(singleIndentTextSegment, lines);
+
+        return textSegments;
     }
 
     private _getSplitText(text: string, overage: number): string[] {

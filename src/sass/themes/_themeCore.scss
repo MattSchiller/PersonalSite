@@ -9,9 +9,9 @@
     content: $content;
 }
 
-@mixin indent-classes($indent-number) {
-    @for $i from 1 through $indent-number {
-        .indent#{$i} {
+// @mixin indent-classes($indent-number) {
+//     @for $i from 1 through $indent-number {
+        .indent {
             display: flex;
             opacity: 0.25;
             line-height: 0.75em;
@@ -31,10 +31,10 @@
                 }
             }
         }
-    }
-}
+    // }
+// }
 
-@include indent-classes(3);
+// @include indent-classes(3);
 
 .whole-line {
     display: inline-flex;

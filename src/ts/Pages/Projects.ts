@@ -17,7 +17,7 @@ export const Projects: IRawPage = {
             "~l~" +
             "~cindent1~~c~public~Ckey~" + "~c~ render~Cfunction-name~" + "~csymbol~() {" +
             "~l~" +
-            "~cindent1~~cindent1~~c~return~Creserved~" + "~csymbol~ <" + "~cdefault-color~LinkToStrypesDemo~ahttps://app.box.com/v/StrypesDemoVideo/~" + "~csymbol~ />" +
+            "~cindent2~~c~return~Creserved~" + "~csymbol~ <" + "~cdefault-color~LinkToStrypesDemo~ahttps://app.box.com/v/StrypesDemoVideo/~" + "~csymbol~ />" +
             "~l~" +
             "~cindent1~~csymbol~}" +
             "~l~~l~" +
