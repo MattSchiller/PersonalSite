@@ -85,7 +85,7 @@
         overflow: visible;
 
         &.selected .theme-options {
-            max-height: 10em;
+            max-height: 6em;    // UPDATE: Based on number of choices for smoothest animation
         }
     }
 }
@@ -96,29 +96,46 @@
     left: 0;
     top: $menu-height + 0em;
 
-    width: 15em;
+    width: auto;
     max-height: 0;
 
     overflow: hidden;
 
-    transition: max-height 0.5s;
+    transition: max-height 0.25s;
     transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
 }
 
 .theme-option {
     display: flex;
     flex-direction: row !important;
-    justify-content: space-between;
+    justify-content: flex-start;
     white-space: pre;
 
     border: 2px solid transparent;
 
     &.#{$sim-type-class} {
-        // Removing any styling as in here for preview.
-        margin: 0 !important;
+        // Removing any styling the regular simType has that conflicts here for preview.
+        margin: 0 ;
+        justify-content: flex-start;
     }
 
     &.selected {
         border-color: red;
+    }
+}
+
+.theme-option-name {
+    width: 5em;
+}
+
+.theme-option-preview {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2em;
+    margin-right: 1em;
+    // border: 1px solid lime;
+
+    span {
+        font-size: 1em;
     }
 }

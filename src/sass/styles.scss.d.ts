@@ -6,6 +6,8 @@ export const themeSelector: string;
 export const themeOptions: string;
 export const themeOption: string;
 export const simType: string;
+export const themeOptionName: string;
+export const themeOptionPreview: string;
 export const indent1: string;
 export const indent2: string;
 export const indent3: string;

@@ -11,6 +11,8 @@ interface IThemeOptionProps extends IThemedProps {
 }
 
 class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
+    private _previewComment = this._getPreviewComment();
+
     public render() {
         return (
             <div className={ this._getClassName() } onClick={ this._onClick }>
@@ -26,16 +28,45 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
             ${getThemedClassName(CSS.simType, this.props.theme)}`;
     }
 
-    private _renderThemeName(): string {
-        return `${this._isSelected() ? ">" : " "} ${this.props.theme}`;
+    private _renderThemeName(): JSX.Element {
+        return (
+            <div className={ CSS.themeOptionName }>
+                { `${this._isSelected() ? ">" : " "} ${this.props.theme}:` }
+            </div>
+        );
     }
 
     private _renderPreview(): JSX.Element {
         return (
-            <div className={ `` }>
-                <span className={ CSS.func }>function</span>
+            <div className={ CSS.themeOptionPreview }>
+                <span className={ CSS.reserved }>export </span>
+                <span className={ CSS.key }>class </span>
+                <span className={ CSS.func }>Example</span>
+                <span className={ CSS.symbol }> = </span>
+                <span className={ CSS.string }>"Also example"</span>
+                <span className={ CSS.symbol }>;</span>
+                <span className={ CSS.comment }>{ "  " + this._previewComment }</span>
             </div>
         );
+    }
+
+    private _getPreviewComment(): string {
+        const comments = [
+            "Cool",
+            "Awesome",
+            "1337",
+            "Gnarly",
+            "Bodacious",
+            "Tubular",
+            "Uh-oh",
+            "Here we go...",
+            "<-- ???",
+            "Help, let me out of your computer!",
+        ];
+
+        return "// " + comments[
+            Math.round(Math.random() * comments.length)
+        ];
     }
 
     private _onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
