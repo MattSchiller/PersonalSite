@@ -72,6 +72,9 @@
             margin-top: 0em;
         }
 
+        background-color: $page-color;
+        color: $default-text-color;
+
         .sim-type-caret {
             animation: blinking 0.9s infinite;
             margin-left: -0.25em;

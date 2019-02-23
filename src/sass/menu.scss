@@ -39,13 +39,6 @@
         transition: color 0.3s;
         transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
 
-        &:hover, &:focus {
-            &::after {
-                transition: background-color 0.3s, height 0.3s;
-                transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
-            }
-        }
-
         &.selected {
             &:hover, &:focus  {
                 color: inherit;
@@ -91,28 +84,41 @@
         padding-right: 0.5em;
         overflow: visible;
 
-        .theme-options {
-            background-color: purple;
-            position: absolute;
-            left: 0;
-            top: $menu-height + 0em;
-
-            width: 15em;
-            max-height: 0;
-
-            overflow: hidden;
-
-            transition: max-height 0.5s;
-            transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
-
-            & .selected {
-                display: flex;
-                background-color: lime;
-            }
-        }
-
         &.selected .theme-options {
             max-height: 10em;
         }
+    }
+}
+
+.theme-options {
+    background-color: purple;
+    position: absolute;
+    left: 0;
+    top: $menu-height + 0em;
+
+    width: 15em;
+    max-height: 0;
+
+    overflow: hidden;
+
+    transition: max-height 0.5s;
+    transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
+}
+
+.theme-option {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    white-space: pre;
+
+    border: 2px solid transparent;
+
+    &.#{$sim-type-class} {
+        // Removing any styling as in here for preview.
+        margin: 0 !important;
+    }
+
+    &.selected {
+        border-color: red;
     }
 }

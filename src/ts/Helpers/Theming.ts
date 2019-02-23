@@ -4,8 +4,8 @@ import { getActiveTheme } from "@Redux/Store";
 export function getInitialTheme(): IThemeEnum {
     return IThemeEnum.DARK_PLUS;
 }
-export function getThemedClassName(className: string): string {
-    const theme = getActiveTheme();
+export function getThemedClassName(className: string, themeParam?: string): string {
+    const theme = themeParam || getActiveTheme();
     return `${className} ${className}-${theme}`;
 }
 

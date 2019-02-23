@@ -1,9 +1,10 @@
 import { Actions } from "@Redux/Actions";
 import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 import React from "react";
-import { IThemedProps } from "@TS/Helpers/Theming";
+import { IThemedProps, getThemedClassName } from "@TS/Helpers/Theming";
 import { IStore } from "@TS/Redux/Interfaces/IStore";
 import { connect } from "react-redux";
+import CSS from "@Sass/styles.scss";
 
 interface IThemeOptionProps extends IThemedProps {
     theme: IThemeEnum;
@@ -11,12 +12,30 @@ interface IThemeOptionProps extends IThemedProps {
 
 class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
     public render() {
-        console.log("renderin:", this.props.activeTheme)
         return (
             <div className={ this._getClassName() } onClick={ this._onClick }>
-                { this.props.theme }
+                { this._renderThemeName() }
+                { this._renderPreview() }
             </div>
         )
+    }
+
+    private _getClassName(): string {
+        return `${CSS.themeOption}
+            ${ this._isSelected() ? "selected" : ""}
+            ${getThemedClassName(CSS.simType, this.props.theme)}`;
+    }
+
+    private _renderThemeName(): string {
+        return `${this._isSelected() ? ">" : " "} ${this.props.theme}`;
+    }
+
+    private _renderPreview(): JSX.Element {
+        return (
+            <div className={ `` }>
+                <span className={ CSS.func }>function</span>
+            </div>
+        );
     }
 
     private _onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -24,8 +43,8 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
         Actions.setActiveTheme(this.props.theme);
     }
 
-    private _getClassName(): string {
-        return this.props.activeTheme === this.props.theme ? "selected" : "";
+    private _isSelected(): boolean {
+        return this.props.activeTheme === this.props.theme;
     }
 }
 
