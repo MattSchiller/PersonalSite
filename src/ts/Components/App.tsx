@@ -1,18 +1,21 @@
 import { Menu } from "@Components/Menu";
 import { SimTypeContainer } from "@Components/SimTypeContainer";
 import { history } from "@Helpers/History";
+import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
 import { Resume } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
-import { IStore } from "@Redux/Interfaces/IStore";
-import { getActivePage, getValidPageIds } from "@Redux/Store";
+import { getActiveTheme, getValidPageIds } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
-import { getThemedClassName } from "@Helpers/Theming";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
 
-class App extends React.PureComponent<IStore> {
+class App extends React.PureComponent<IThemedProps> {
     public componentWillMount() {
+        this._handleIndexReroute();
+    }
+
+    private _handleIndexReroute() {
         const path = history.location.pathname;
         const inboundPageId = path.substr(1, path.length - 1);
 
@@ -50,8 +53,8 @@ class App extends React.PureComponent<IStore> {
 }
 
 // This is needed to trigger updates from theme changes.
-function mapStateToProps(state: IStore) {
-    return ({ ...state });
+function mapStateToProps() {
+    return { activeTheme: getActiveTheme() };
 }
 
 const ConnectedApp = connect(mapStateToProps)(App);

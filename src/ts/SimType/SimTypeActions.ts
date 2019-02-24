@@ -143,7 +143,8 @@ const actions = {
     },
 
     line: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
-        actionParams.content.textSegments.push(new TextSegment("", CSS.lineBreak + actionParams.actionValue));
+        actionParams.content.textSegments.push(
+            new TextSegment("", `${CSS.lineBreak + actionParams.actionValue} ${CSS.lineBreak}`));
 
         actionParams.content.textSegments.push(new TextSegment());  // For the next bunch of text.
 
