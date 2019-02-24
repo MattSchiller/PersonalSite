@@ -40,7 +40,7 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
         return (
             <div className={ CSS.themeOptionPreview }>
                 <span className={ CSS.reserved }>export </span>
-                <span className={ CSS.key }>class </span>
+                <span className={ CSS.key }>const </span>
                 <span className={ CSS.func }>Example</span>
                 <span className={ CSS.symbol }> = </span>
                 <span className={ CSS.string }>"Also example"</span>
@@ -61,6 +61,7 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
             "Uh-oh",
             "Here we go...",
             "<-- ???",
+            "I'm a randomly chosen comment!",
             "Help, let me out of your computer!",
         ];
 

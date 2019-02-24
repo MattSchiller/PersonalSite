@@ -2,16 +2,16 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = () => {
+module.exports = (env, argv) => {
     const config = {
-        mode: "development",
+        mode: getMode(argv),
 
         entry: path.join(__dirname, "./src/ts/Main.tsx"),
 
         output: {
             path: __dirname + "/build",
             filename: "bundle.js",
-            publicPath: (this.mode === "production") ? "/build" : "/",
+            publicPath: (getMode(argv) === "production") ? "/build" : "/",
         },
 
         externals: {
@@ -112,3 +112,10 @@ module.exports = () => {
 
     return config;
 };
+
+function getMode(argv) {
+    let mode = "development";
+    if (argv !== undefined && argv.mode !== undefined)
+        mode = argv.mode;
+    return mode;
+}
