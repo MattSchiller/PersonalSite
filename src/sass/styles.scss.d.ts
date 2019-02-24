@@ -9,6 +9,7 @@ export const simType: string;
 export const themeOptionName: string;
 export const themeOptionPreview: string;
 export const indent: string;
+export const rulerMark: string;
 export const wholeLine: string;
 export const lineBreak: string;
 export const tabsDarkPlus: string;

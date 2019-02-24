@@ -1,7 +1,7 @@
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Actions } from "@Redux/Actions";
 import CSS from "@Sass/styles.scss";
-import { getMaxLineLengthWithIndent, getIndentCount, Constants } from "@SimType/Constants";
+import { getMaxLineLengthWithIndent, getIndentCount, Constants, getLineBreakRulerCount } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
@@ -107,6 +107,7 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
 
             if (this._isTextSegmentNewLine(clonedTextSegment)) {
                 lines.push([]);
+                this._addIndentRulerToLineBreak(clonedTextSegment, lines);
                 lineLength = 0;
             } else
                 lineLength = this._getTrimmedTextSegment(clonedTextSegment, lineLength, lines);
@@ -117,6 +118,12 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
 
     private _isTextSegmentNewLine(textSegment: TextSegment): boolean {
         return textSegment.className.indexOf(CSS.lineBreak) > -1;
+    }
+
+    private _addIndentRulerToLineBreak(textSegment: TextSegment, lines: TextSegment[][]) {
+        const rulerCount: number = getLineBreakRulerCount(textSegment.className);
+        for (let i = 0; i < rulerCount; i++)
+            this._addToLine(new TextSegment("", CSS.rulerMark), lines);
     }
 
     private _getTrimmedTextSegment(textSegment: TextSegment, lineLength: number, lines: TextSegment[][]): number {
@@ -138,8 +145,10 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
 
             if (lineLength > effectiveMaxLineLength)
                 lineLength = this._getTrimmedTextSegment(trimmedOffTextSegment, 0, lines);
-            else
+            else {
+                this._addIndentSegmentsToLine(trimmedOffTextSegment, lines);
                 this._addToLine(trimmedOffTextSegment, lines);
+            }
         } else
             this._addToLine(textSegment, lines);
 

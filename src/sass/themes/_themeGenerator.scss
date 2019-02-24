@@ -66,6 +66,15 @@
         color: $default-text-color;
     }
 
+    .indent, .ruler-mark {
+        .#{$sim-type-class}-#{$theme-name} & + & {
+            &::before {
+                content: "";
+                border-left: 1px solid $default-text-color;
+            }
+        }
+    }
+
     .#{$sim-type-class}-#{$theme-name} {
         margin-top: 1em;
         & + & {

@@ -9,32 +9,24 @@
     content: $content;
 }
 
-// @mixin indent-classes($indent-number) {
-//     @for $i from 1 through $indent-number {
-        .indent {
-            display: flex;
-            opacity: 0.25;
-            line-height: 0.75em;
+.indent {
 
-            &::after {
-                // @include getIndentCharacterContent(2 * $i);
-                content: "..";
-                color: white;
-            }
+    &::after {
+        content: "..";
+    }
+}
 
-            & + & {
+.ruler-mark {
+    &::after {
+        content: "  ";
+    }
+}
 
-
-                &::before {
-                    content: "";
-                    border-left: 1px solid white;
-                }
-            }
-        }
-    // }
-// }
-
-// @include indent-classes(3);
+.indent, .ruler-mark {
+    display: flex;
+    opacity: 0.17;
+    line-height: 0.75em;
+}
 
 .whole-line {
     display: inline-flex;

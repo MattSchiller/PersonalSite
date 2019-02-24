@@ -50,7 +50,7 @@ export const Projects: IRawPage = {
             "~cindent3 string~~q~Built in TypeScript/React+Redux/Sass, I wanted to make my website look as much like my IDE(VSCode) as possible, and that's what you see here.~q~" + "~csymbol~ +" +
             "~s~" +
 
-            "~l~~l~" +
+            "~l3~~l~" +
             "~cindent3 string~~q~I'm constantly adding in new features and tweaks as I think of them/find the time, so feel free to poke around and let me know if there's something you think I should add.~q~" +
             "~l~" +
             "~cindent2 symbol~);" +
