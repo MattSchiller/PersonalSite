@@ -47,7 +47,7 @@ export const Projects: IRawPage = {
             "~l~" +
             "~cindent2~return~Creserved~" + " ~csymbol~(" +
             "~l~" +
-            "~cindent3 string~~q~Built in TypeScript/React+Redux/Sass, I wanted to make my website look as much like my IDE(VSCode) as possible, and that's what you see here.~q~" + "~csymbol~ +" +
+            "~cindent3 string~~q~Built in TypeScript/React+Redux/Sass, I wanted to make my website look as much like my IDE (VSCode) as possible, and that's what you see here.~q~" + "~csymbol~ +" +
             "~s~" +
 
             "~l3~~l~" +
