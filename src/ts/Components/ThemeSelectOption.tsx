@@ -1,10 +1,10 @@
+import { IThemeEnum } from "@Helpers/IThemeEnum";
+import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
 import { Actions } from "@Redux/Actions";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
-import React from "react";
-import { IThemedProps, getThemedClassName } from "@TS/Helpers/Theming";
-import { IStore } from "@TS/Redux/Interfaces/IStore";
-import { connect } from "react-redux";
+import { IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
+import React from "react";
+import { connect } from "react-redux";
 
 interface IThemeOptionProps extends IThemedProps {
     theme: IThemeEnum;
@@ -88,3 +88,4 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedThemeSelectOption = connect(mapStateToProps)(ThemeSelectOption);
 export { ConnectedThemeSelectOption as ThemeSelectOption };
+

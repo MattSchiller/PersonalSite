@@ -1,8 +1,8 @@
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { Constants } from "@SimType/Constants";
 import { ISimTypeContent, ISimTypeContentWithFlags } from "@SimType/ISimTypeContent";
+import { processActionCharacter } from "@SimType/SimTypeActions";
 import { TextSegment } from "@SimType/TextSegment";
-import { processActionCharacter } from "@TS/SimType/SimTypeActions";
 
 export async function getNextTypedContentPayloadPromise(content: ISimTypeContent): Promise<ITypedContentPayload> {
     return new Promise((resolve, reject) => {

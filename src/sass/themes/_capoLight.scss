@@ -3,7 +3,6 @@
 
 @mixin capoLightTheme() {
     // We use this scope to contain any variables we want to define and reuse.
-
     $theme-name: "capoLight";
     $page-color: rgb(240, 240, 240);
     $key-color: rgb(3, 0, 187);

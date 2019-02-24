@@ -1,4 +1,4 @@
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 import { getActiveTheme } from "@Redux/Store";
 
 export function getInitialTheme(): IThemeEnum {

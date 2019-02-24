@@ -2,7 +2,6 @@
 
 @mixin darkPlusTheme() {
     // We use this scope to contain any variables we want to define and reuse.
-
     $theme-name: "darkPlus";
     $page-color: rgb(44, 41, 45);
     $key-color: rgb(85, 156, 214);

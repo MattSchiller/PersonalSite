@@ -1,12 +1,12 @@
 import { Menu } from "@Components/Menu";
-import SimTypeContainer from "@Components/SimTypeContainer";
+import { SimTypeContainer } from "@Components/SimTypeContainer";
 import { history } from "@Helpers/History";
 import { Resume } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
 import { IStore } from "@Redux/Interfaces/IStore";
 import { getActivePage, getValidPageIds } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
-import { getThemedClassName } from "@TS/Helpers/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
@@ -30,9 +30,7 @@ class App extends React.PureComponent<IStore> {
                     <div>
                         <Route key="content"
                             path="/(|index.html|about|contact|projects)"
-                            render={ props => <SimTypeContainer
-                                { ...props }
-                                { ...getActivePage() } /> }
+                            component={ SimTypeContainer }
                         />
                         <Route key="resume"
                             path="/resume"

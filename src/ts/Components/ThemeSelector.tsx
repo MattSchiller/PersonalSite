@@ -1,7 +1,7 @@
+import { ThemeSelectOption } from "@Components/ThemeSelectOption";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 import CSS from "@Sass/styles.scss";
-import { ThemeSelectOption } from "@TS/Components/ThemeSelectOption";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
-import { renderTargetId } from "@TS/SimType/Constants";
+import { renderTargetId } from "@SimType/Constants";
 import React from "react";
 
 const themeIconUrl = "assets/images/paletteIcon.png";

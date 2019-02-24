@@ -1,7 +1,7 @@
 import { ActionTypes } from "@Redux/Actions";
 import { TextSegment } from "@SimType/TextSegment";
 import { ISimTypeStatus } from "@SimType/ISimTypeContent";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export interface IAction {
     type: ActionTypes;

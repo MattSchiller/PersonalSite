@@ -3,7 +3,7 @@ import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { ActionTypes } from "@Redux/Actions";
 import { initialState } from "@Redux/InitialState";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export const rootReducer = (state: IStore = initialState, action: IAction) => {
     const payload = action.payload;

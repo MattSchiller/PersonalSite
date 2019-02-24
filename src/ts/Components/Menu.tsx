@@ -1,10 +1,9 @@
 import { MenuItem } from "@Components/MenuItem";
 import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
+import { ThemeSelector } from "@Components/ThemeSelector";
+import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
 import React from "react";
-import { getThemedClassName, IThemedProps } from "@TS/Helpers/Theming";
-import { ThemeSelector } from "@TS/Components/ThemeSelector";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 import { connect } from "react-redux";
 
 interface IMenuProps extends IThemedProps {
@@ -43,3 +42,4 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedMenu = connect(mapStateToProps)(Menu);
 export { ConnectedMenu as Menu };
+

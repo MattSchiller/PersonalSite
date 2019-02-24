@@ -1,8 +1,8 @@
 import CSS from "@Sass/styles.scss";
 import { Constants } from "@SimType/Constants";
 import { ISimTypeContentWithFlags } from "@SimType/ISimTypeContent";
+import { CannotSimulateTypingError, getNextTypedContentPayload, isContentIndexSafe } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
-import { CannotSimulateTypingError, getNextTypedContentPayload, isContentIndexSafe } from "@TS/SimType/SimType";
 
 export function processActionCharacter(actionCharacter: string, content: ISimTypeContentWithFlags): ISimTypeContentWithFlags {
     const actionValue = getActionValue(content.sourceText, content.contentIndex);

@@ -1,6 +1,6 @@
 import { ISetActivePagePayload, ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { store } from "@Redux/Store";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export enum ActionTypes {
     SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE",

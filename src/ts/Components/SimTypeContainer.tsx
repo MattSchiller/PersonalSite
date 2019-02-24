@@ -1,11 +1,13 @@
 import { SimTypeComponent } from "@Components/SimTypeComponent";
 import { getThemedClassName } from "@Helpers/Theming";
-import { IPage } from "@Redux/Interfaces/IStore";
+import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import React from "react";
+import { getActivePage } from "@Redux/Store";
+import { connect } from "react-redux";
 
-export default class SimTypeContainer extends React.PureComponent<IPage> {
+class SimTypeContainer extends React.PureComponent<IPage> {
     public render() {
         return (
             <div className={ this._getClassName() }>
@@ -32,3 +34,10 @@ export default class SimTypeContainer extends React.PureComponent<IPage> {
         );
     }
 }
+
+function mapStateToProps(state: IStore) {
+    return { ...getActivePage() }
+}
+
+const ConnectedSimTypeContainer = connect(mapStateToProps)(SimTypeContainer);
+export { ConnectedSimTypeContainer as SimTypeContainer };

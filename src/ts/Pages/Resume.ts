@@ -1,4 +1,4 @@
-import { IRawPage } from "@TS/Redux/Interfaces/IStore";
+import { IRawPage } from "@Redux/Interfaces/IStore";
 
 const resumePageId: string = "resume";
 

@@ -1,8 +1,8 @@
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { rootReducer } from "@Redux/Reducers";
 import { createStore, Store } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import { IThemeEnum } from "@TS/Helpers/IThemeEnum";
 
 export const store: Store = createStore(rootReducer, devToolsEnhancer({}));
 

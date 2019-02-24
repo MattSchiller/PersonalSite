@@ -1,14 +1,14 @@
-import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
+import { SimTypeLine } from "@Components/SimTypeLine";
+import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
 import { Actions } from "@Redux/Actions";
+import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
+import { IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
-import { getMaxLineLengthWithIndent, getIndentCount, Constants, getLineBreakRulerCount } from "@SimType/Constants";
+import { Constants, getIndentCount, getLineBreakRulerCount, getMaxLineLengthWithIndent } from "@SimType/Constants";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
-import { SimTypeLine } from "@Components/SimTypeLine";
-import { getThemedClassName, IThemedProps } from "@TS/Helpers/Theming";
-import { IStore } from "@TS/Redux/Interfaces/IStore";
 import { connect } from "react-redux";
 
 // This is supplied by the container.

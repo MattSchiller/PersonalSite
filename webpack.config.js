@@ -28,7 +28,6 @@ module.exports = (env, argv) => {
 
             // NOTE: You should make an entry in tsconfig.json as well for each of these entries.
             alias: {
-                "@TS": path.resolve(__dirname, "src/ts/"),
                 "@Sass": path.resolve(__dirname, "src/sass/"),
                 "@HTML": path.resolve(__dirname, "src/html/"),
                 "@Redux": path.resolve(__dirname, "src/ts/Redux/"),
