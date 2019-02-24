@@ -1,8 +1,8 @@
 import { MenuItem } from "@Components/MenuItem";
+import { ThemeSelector } from "@Components/ThemeSelector";
+import { IThemedProps } from "@Helpers/Theming";
 import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
-import { ThemeSelector } from "@Components/ThemeSelector";
-import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
 import React from "react";
 import { connect } from "react-redux";
 
@@ -14,7 +14,7 @@ interface IMenuProps extends IThemedProps {
 class Menu extends React.PureComponent<IMenuProps> {
     public render() {
         return (
-            <nav className={ getThemedClassName(CSS.tabs) }>
+            <nav className={ CSS.tabs }>
                 <ThemeSelector key={ "themeSelecter" } />
                 { this.props.items.map(this._renderMenuItem, this) }
             </nav>
@@ -42,3 +42,4 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedMenu = connect(mapStateToProps)(Menu);
 export { ConnectedMenu as Menu };
+

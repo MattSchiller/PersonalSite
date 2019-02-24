@@ -31,32 +31,6 @@
     $symbol-color,
     $caret-color,
 ) {
-    @include menu-colors(
-        $theme-name: $theme-name,
-        $unselected: $menu-unselected-color,
-        $selected-background: $menu-selected-background-color,
-        $selected: $menu-selected-color,
-        $menu-background-color: $menu-background-color,
-    );
-
-    @include sim-type-colors(
-        $theme-name,
-        "typescript",
-        $default-typescript-color
-    );
-
-    @include sim-type-colors(
-        $theme-name,
-        "html",
-        $default-html-color
-    );
-
-    @include sim-type-colors(
-        $theme-name,
-        "yaml",
-        $default-yaml-color
-    );
-
     .content {
         @include dummy-rule();
     }
@@ -64,10 +38,32 @@
     .content-#{$theme-name} {
         background-color: $page-color;
         color: $default-text-color;
+
+        @include menu-colors(
+            $unselected: $menu-unselected-color,
+            $selected-background: $menu-selected-background-color,
+            $selected: $menu-selected-color,
+            $menu-background-color: $menu-background-color,
+        );
+
+        @include sim-type-colors(
+            "typescript",
+            $default-typescript-color
+        );
+
+        @include sim-type-colors(
+            "html",
+            $default-html-color
+        );
+
+        @include sim-type-colors(
+            "yaml",
+            $default-yaml-color
+        );
     }
 
     .indent, .ruler-mark {
-        .#{$sim-type-class}-#{$theme-name} & + & {
+        @at-root .#{$sim-type-class}-#{$theme-name} & + & {
             &::before {
                 content: "";
                 border-left: 1px solid $default-text-color;
