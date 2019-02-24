@@ -85,7 +85,7 @@
         color: $default-text-color;
 
         .sim-type-caret {
-            animation: blinking 0.9s infinite;
+            animation: blinking-#{$theme-name} 0.9s infinite;
             margin-left: -0.25em;
 
             &.sim-type-quoting {
@@ -100,7 +100,7 @@
             }
         }
 
-        @keyframes blinking {
+        @keyframes blinking-#{$theme-name} {
             0% { color: $caret-color; }
             50% { color: transparent; }
             100% { color: $caret-color; }
