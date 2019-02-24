@@ -71,7 +71,7 @@ function appendNextCharacterToTextSegments(
     textSegments: TextSegment[],
     isQuoting: boolean
 ): TextSegment[] {
-    let nextTextSegment: TextSegment = TextSegment.clone(getMostRecentTextSegment(textSegments));
+    const nextTextSegment: TextSegment = TextSegment.clone(getMostRecentTextSegment(textSegments));
     let nextText = nextTextSegment.text;
 
     if (isQuoting) {

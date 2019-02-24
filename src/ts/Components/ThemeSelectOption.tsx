@@ -19,7 +19,7 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
                 { this._renderThemeName() }
                 { this._renderPreview() }
             </div>
-        )
+        );
     }
 
     private _getClassName(): string {
@@ -88,4 +88,3 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedThemeSelectOption = connect(mapStateToProps)(ThemeSelectOption);
 export { ConnectedThemeSelectOption as ThemeSelectOption };
-

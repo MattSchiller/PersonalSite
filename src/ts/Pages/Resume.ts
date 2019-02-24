@@ -22,4 +22,4 @@ export const ResumePage: IRawPage = {
         simTypeId: "resume",
         sourceText: ""
     }]
-}
+};

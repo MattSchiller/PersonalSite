@@ -28,25 +28,30 @@ class App extends React.PureComponent<IStore> {
                 <Menu key={ "menu" } />
                 <Router history={ history } >
                     <div>
-                        <Route key={ "content" }
+                        <Route
+                            key={ "content" }
                             path={ "/(|index.html|about|contact|projects)" }
                             component={ SimTypeContainer }
                         />
-                        <Route key={ "resume" }
+                        <Route
+                            key={ "resume" }
                             path={ "/resume" }
-                            render={ props => <embed src={ Resume.getResumeUrl() } /> }
+                            render={ this._renderResume() }
                         />
                     </div>
                 </Router >
             </div>
-
         );
+    }
+
+    private _renderResume(): () => JSX.Element {
+        return () => <embed src={ Resume.getResumeUrl() } />;
     }
 }
 
 // This is needed to trigger updates from theme changes.
 function mapStateToProps(state: IStore) {
-    return (state: IStore) => ({ ...state });
+    return ({ ...state });
 }
 
 const ConnectedApp = connect(mapStateToProps)(App);

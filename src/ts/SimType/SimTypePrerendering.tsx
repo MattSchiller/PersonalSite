@@ -75,15 +75,16 @@ function addIndentSegmentsToLine(textSegment: TextSegment) {
 function getSplitText(text: string, overage: number): string[] {
     const defaultSplitIndex: number = text.length - overage;
     const lastSpaceIndex: number = text.substr(0, defaultSplitIndex).lastIndexOf(" ");
-    let splitIndex: number;
 
     const charBeforeSplit: string = text[defaultSplitIndex - 1];
     const charAfterSplit: string = text[defaultSplitIndex];
 
-    if (charBeforeSplit === " " || charAfterSplit === " " || lastSpaceIndex === -1)
-        splitIndex = defaultSplitIndex
-    else
-        splitIndex = lastSpaceIndex;
+    const splitIndex = (
+        charBeforeSplit === " " ||
+        charAfterSplit === " " ||
+        lastSpaceIndex === -1
+    ) ? defaultSplitIndex
+        : lastSpaceIndex;
 
     return [
         trimTrailingSpaces(text.substr(0, splitIndex)),

@@ -37,9 +37,8 @@ function mapStateToProps(state: IStore) {
         items: state.pages,
         activePageId: state.activePageId,
         activeTheme: state.activeTheme,
-    }
+    };
 }
 
 const ConnectedMenu = connect(mapStateToProps)(Menu);
 export { ConnectedMenu as Menu };
-

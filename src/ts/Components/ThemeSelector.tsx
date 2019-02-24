@@ -43,7 +43,7 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
     }
 
     public render() {
-        return [
+        return (
             <li
                 onClick={ this._toggleIsSelected }
                 className={ this._getThemeSelectorClassName() + this._getSelectedClassName() }
@@ -51,8 +51,8 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
                 <img src={ themeIconUrl } />
                 Theme
                 { this._renderOptions() }
-            </li >,
-        ];
+            </li >
+        );
     }
 
     private _toggleIsSelected = () => {
@@ -66,10 +66,7 @@ export class ThemeSelector extends React.PureComponent<any, IThemeSelectorState>
     private _renderOptions(): JSX.Element {
         return (
             <div className={ CSS.themeOptions } >
-                { Object.values(IThemeEnum).map(
-                    theme => <ThemeSelectOption
-                        theme={ theme } />)
-                }
+                { Object.values(IThemeEnum).map(theme => <ThemeSelectOption key={ theme } theme={ theme } />) }
             </div>
         );
     }

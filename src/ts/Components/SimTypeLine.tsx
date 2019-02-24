@@ -21,7 +21,7 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
                 { this._renderTextSegments() }
                 { this._renderCaret() }
             </div>
-        )
+        );
     }
 
     private _getClassName(): string {

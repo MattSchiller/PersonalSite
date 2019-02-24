@@ -1,6 +1,5 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
 
-// DO NOT USE (LOL), THIS CONTENT IS YEARS OUT OF DATE.
 export const Projects: IRawPage = {
     pageId: "projects",
     pageTitle: "projects.tsx",
@@ -8,7 +7,9 @@ export const Projects: IRawPage = {
     language: "typescript",
     simTypes: [{
         simTypeId: "projects_1",
-        sourceText: "~s~" +
+        sourceText:
+            // tslint:disable:max-line-length
+            "~s~" +
             "~ccomment~" + "// A few of the coding projects I've worked on." +
             "~l~" +
             "import~Creserved~" + "~c~ React" + "~c~ from~Creserved~" + "~cstring~ ~q~react~q~" + "~csymbol~;" +
@@ -60,4 +61,4 @@ export const Projects: IRawPage = {
             "~cindent0 symbol~}" +
             "~l~"
     }]
-}
+};

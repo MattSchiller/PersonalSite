@@ -1,3 +1,6 @@
+
+// TODO: UPDATE THIS
+// tslint:disable:max-line-length
 export default
     "~s~" +
     "~Cindent0~" + "~ccomment~/* So you're interested to know what sort of things I like to get up to in my free time, eh?" + "~l0~" +

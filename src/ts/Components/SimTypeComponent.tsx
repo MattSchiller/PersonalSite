@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
-    pageId: string,
+    pageId: string;
 }
 
 interface ISimTypeComponentState {
@@ -88,13 +88,16 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
     private _renderLines(lines: TextSegment[][]): JSX.Element[] {
         const lineNumberStart = this.props.lineNumberStart || 1;
 
-        return lines.map((textSegments: TextSegment[], index: number) =>
-            <SimTypeLine
-                key={ index }
-                lineNumber={ lineNumberStart + index }
-                textSegments={ textSegments }
-                isCurrentLine={ (lines.length - 1) === index }
-                status={ this.props.status } />
+        return lines.map(
+            (textSegments: TextSegment[], index: number) => (
+                <SimTypeLine
+                    key={ index }
+                    lineNumber={ lineNumberStart + index }
+                    textSegments={ textSegments }
+                    isCurrentLine={ (lines.length - 1) === index }
+                    status={ this.props.status }
+                />
+            )
         );
     }
 }
@@ -107,4 +110,3 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedSimTypeComponent = connect(mapStateToProps)(SimTypeComponent);
 export { ConnectedSimTypeComponent as SimTypeComponent };
-

@@ -25,12 +25,14 @@ class SimTypeContainer extends React.PureComponent<IPage> {
         if (!this.props.simTypes)
             return [];
 
-        return this.props.simTypes.map((simType: ISimTypeContent, index: number) =>
-            <SimTypeComponent
-                key={ this.props.pageId + index }
-                pageId={ this.props.pageId }
-                { ...simType }
-            />
+        return this.props.simTypes.map(
+            (simType: ISimTypeContent, index: number) => (
+                <SimTypeComponent
+                    key={ this.props.pageId + index }
+                    pageId={ this.props.pageId }
+                    { ...simType }
+                />
+            )
         );
     }
 }

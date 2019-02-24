@@ -5,7 +5,7 @@ import { initialState } from "@Redux/InitialState";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { IThemeEnum } from "@Helpers/IThemeEnum";
 
-export const rootReducer = (state: IStore = initialState, action: IAction) => {
+export function rootReducer(state: IStore = initialState, action: IAction) {
     const payload = action.payload;
     if (!payload)
         return state;
@@ -45,7 +45,7 @@ export const rootReducer = (state: IStore = initialState, action: IAction) => {
     }
 
     return state;
-};
+}
 
 function getUpdatedPage(page: IPage, payload: IUpdateTypedContentPayload): IPage {
     return (page.pageId !== payload.pageId ? page :
@@ -70,7 +70,7 @@ function getUpdatedSimTypes(
                 contentIndex: payload.contentIndex,
                 textSegments: payload.textSegments,
                 status: { ...payload.status }
-            }
+            };
         } else
             return simType;
     });
