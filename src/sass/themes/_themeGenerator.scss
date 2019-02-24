@@ -78,6 +78,7 @@
         }
 
         background-color: $page-color;
+        // TODO: investigate the need for this rule.
         color: $default-text-color;
 
         .sim-type-caret {

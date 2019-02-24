@@ -10,7 +10,7 @@ export const About: IRawPage = {
         sourceText:
             // tslint:disable:max-line-length
             "~s~" +
-            "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default-color~ html~ccomment-fade~>" +
+            "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default~ html~ccomment-fade~>" +
             "~l~" +
             "~l~" +
             "~ccomment~<!-- Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +
