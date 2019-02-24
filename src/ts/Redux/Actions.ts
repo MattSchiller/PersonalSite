@@ -1,18 +1,25 @@
 import { ISetActivePagePayload, ITypedContentPayload } from "@Redux/Interfaces/IAction";
 import { store } from "@Redux/Store";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export enum ActionTypes {
     SET_ACTIVE_PAGE = "SET_ACTIVE_PAGE",
-    UPDATE_SIMTYPE_CONTENT = "UPDATED_SIMTYPE_CONTENT"
+    SET_ACTIVE_THEME = "SET_ACTIVE_THEME",
+    UPDATE_SIMTYPE_CONTENT = "UPDATED_SIMTYPE_CONTENT",
 }
 
 export const Actions = {
-    setActivePage: (payload: ISetActivePagePayload) => {
+    setActivePage: (payload: ISetActivePagePayload) =>
         store.dispatch({
             type: ActionTypes.SET_ACTIVE_PAGE,
-            payload: payload
-        })
-    },
+            payload
+        }),
+
+    setActiveTheme: (payload: IThemeEnum) =>
+        store.dispatch({
+            type: ActionTypes.SET_ACTIVE_THEME,
+            payload
+        }),
 
     updateSimTypeContent: (
         pageId: string,
@@ -25,5 +32,5 @@ export const Actions = {
             simTypeId,
             ...updatedContent
         }
-    })
-}
+    }),
+};

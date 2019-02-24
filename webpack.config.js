@@ -2,16 +2,16 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = () => {
+module.exports = (env, argv) => {
     const config = {
-        mode: "development",
+        mode: getMode(argv),
 
         entry: path.join(__dirname, "./src/ts/Main.tsx"),
 
         output: {
             path: __dirname + "/build",
             filename: "bundle.js",
-            publicPath: (this.mode === "production") ? "/build" : "/",
+            publicPath: (getMode(argv) === "production") ? "/build" : "/",
         },
 
         externals: {
@@ -28,13 +28,13 @@ module.exports = () => {
 
             // NOTE: You should make an entry in tsconfig.json as well for each of these entries.
             alias: {
-                "@TS": path.resolve(__dirname, "src/ts/"),
                 "@Sass": path.resolve(__dirname, "src/sass/"),
                 "@HTML": path.resolve(__dirname, "src/html/"),
                 "@Redux": path.resolve(__dirname, "src/ts/Redux/"),
                 "@Pages": path.resolve(__dirname, "src/ts/Pages/"),
                 "@Components": path.resolve(__dirname, "src/ts/Components/"),
                 "@SimType": path.resolve(__dirname, "src/ts/SimType/"),
+                "@Helpers": path.resolve(__dirname, "src/ts/Helpers/"),
             },
         },
 
@@ -111,3 +111,10 @@ module.exports = () => {
 
     return config;
 };
+
+function getMode(argv) {
+    let mode = "development";
+    if (argv !== undefined && argv.mode !== undefined)
+        mode = argv.mode;
+    return mode;
+}

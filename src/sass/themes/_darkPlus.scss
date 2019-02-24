@@ -1,18 +1,19 @@
-@import "themeCore";
+@import "themeGenerator";
 
-@mixin sublimeMonokaiTheme() {
+@mixin darkPlusTheme() {
     // We use this scope to contain any variables we want to define and reuse.
-
+    $theme-name: "darkPlus";
     $page-color: rgb(44, 41, 45);
     $key-color: rgb(85, 156, 214);
     $white: rgb(212, 212, 212);
 
     @include generate-theme(
-        $theme-name: "sublime-monokai",
+        $theme-name: $theme-name,
 
         $page-color: $page-color,
         $default-text-color: $white,
 
+        $menu-background-color: rgb(70, 70, 70),
         $menu-unselected-color: rgb(135, 135, 135),
         $menu-selected-color: white,
         $menu-selected-background-color: $page-color,
@@ -44,4 +45,4 @@
     );
 }
 
-@include sublimeMonokaiTheme();
+@include darkPlusTheme();

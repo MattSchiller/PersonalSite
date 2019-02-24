@@ -1,8 +1,11 @@
 @import "variables";
 @import "utility";
-@import "themes/sublimeMonokai";
-@import "simType";
 @import "mediaQueries";
+@import "simType";
+@import "menu";
+@import "themes/themeCore";
+@import "themes/darkPlus";
+@import "themes/capoLight";
 
 html {
     font-family: Inconsolata, sans-serif;
@@ -17,6 +20,11 @@ html {
 
 body {
     overflow-y: hidden;
+    margin: 0 !important;
+}
+
+#content {
+    background: lime;
 }
 
 embed {

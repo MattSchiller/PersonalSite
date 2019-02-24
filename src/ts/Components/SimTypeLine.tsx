@@ -2,7 +2,7 @@ import { SimTypeSegment } from "@Components/SimTypeSegment";
 import CSS from "@Sass/styles.scss";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
-import { ISimTypeStatus } from "@TS/SimType/ISimTypeContent";
+import { ISimTypeStatus } from "@SimType/ISimTypeContent";
 
 interface ISimTypeLineProps {
     textSegments: TextSegment[];
@@ -21,7 +21,7 @@ export class SimTypeLine extends React.PureComponent<ISimTypeLineProps> {
                 { this._renderTextSegments() }
                 { this._renderCaret() }
             </div>
-        )
+        );
     }
 
     private _getClassName(): string {

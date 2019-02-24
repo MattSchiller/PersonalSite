@@ -1,16 +1,21 @@
 import { Menu } from "@Components/Menu";
-import SimTypeContainer from "@Components/SimTypeContainer";
-import { IStore } from "@Redux/Interfaces/IStore";
-import { getActivePage, getActivePageId, getValidPageIds } from "@Redux/Store";
-import { history } from "@TS/history";
-import { Resume } from "@TS/Pages/Resume";
-import { Actions } from "@TS/Redux/Actions";
+import { SimTypeContainer } from "@Components/SimTypeContainer";
+import { history } from "@Helpers/History";
+import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
+import { Resume } from "@Pages/Resume";
+import { Actions } from "@Redux/Actions";
+import { getActiveTheme, getValidPageIds } from "@Redux/Store";
+import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
 
-class App extends React.PureComponent<IStore> {
+class App extends React.PureComponent<IThemedProps> {
     public componentWillMount() {
+        this._handleIndexReroute();
+    }
+
+    private _handleIndexReroute() {
         const path = history.location.pathname;
         const inboundPageId = path.substr(1, path.length - 1);
 
@@ -21,31 +26,36 @@ class App extends React.PureComponent<IStore> {
     }
 
     public render() {
-        return [
-            <Menu key={ "menu" }
-                items={ this.props.pages }
-                activePageId={ getActivePageId() }
-            />,
-            <Router history={ history } >
-                <div>
-                    <Route key="content"
-                        path="/(|index.html|about|contact|projects)"
-                        render={ props => <SimTypeContainer
-                            { ...props }
-                            { ...getActivePage() } /> }
-                    />
-                    <Route key="resume"
-                        path="/resume"
-                        render={ props => <embed src={ Resume.getResumeUrl() } /> }
-                    />
-                </div>
-            </Router >
-        ];
+        return (
+            <div className={ getThemedClassName(CSS.content) }>
+                <Menu key={ "menu" } />
+                <Router history={ history } >
+                    <div>
+                        <Route
+                            key={ "content" }
+                            path={ "/(|index.html|about|contact|projects)" }
+                            component={ SimTypeContainer }
+                        />
+                        <Route
+                            key={ "resume" }
+                            path={ "/resume" }
+                            render={ this._renderResume() }
+                        />
+                    </div>
+                </Router >
+            </div>
+        );
+    }
+
+    private _renderResume(): () => JSX.Element {
+        return () => <embed src={ Resume.getResumeUrl() } />;
     }
 }
 
-const mapStateToProps = (state: IStore) => ({ ...state });
+// This is needed to trigger updates from theme changes.
+function mapStateToProps() {
+    return { activeTheme: getActiveTheme() };
+}
 
-export const AppContainer = connect(
-    mapStateToProps
-)(App);
+const ConnectedApp = connect(mapStateToProps)(App);
+export { ConnectedApp as App };

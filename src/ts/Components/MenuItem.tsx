@@ -1,7 +1,7 @@
 import { Actions } from "@Redux/Actions";
 import { IPage } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
-import { history } from "@TS/history";
+import { history } from "@Helpers/History";
 import React from "react";
 
 interface IMenuItemProps extends IPage {

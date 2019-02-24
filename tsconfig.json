@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2016", // Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'.
         "lib": [ // Specify library files to be included in the compilation.
-            "es7",
+            "es2017",
             "dom"
         ],
         "types": [ // Type declaration files to be included in compilation.
@@ -17,9 +17,6 @@
         "emitDecoratorMetadata": true,
         "jsx": "react", // Specify JSX code generation: 'preserve', 'react-native', or 'react'.
         "paths": { // A series of entries which re-map imports to lookup locations relative to the 'baseUrl'.
-            "@TS/*": [
-                "./src/ts/*"
-            ],
             "@Sass/*": [
                 "./src/sass/*"
             ],
@@ -37,6 +34,9 @@
             ],
             "@SimType/*": [
                 "./src/ts/SimType/*"
+            ],
+            "@Helpers/*": [
+                "./src/ts/Helpers/*"
             ],
         },
         // "noUnusedLocals": true, // This is set to true in 'mocha-tests-strict'

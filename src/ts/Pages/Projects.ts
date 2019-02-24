@@ -1,6 +1,5 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
 
-// DO NOT USE (LOL), THIS CONTENT IS YEARS OUT OF DATE.
 export const Projects: IRawPage = {
     pageId: "projects",
     pageTitle: "projects.tsx",
@@ -8,7 +7,9 @@ export const Projects: IRawPage = {
     language: "typescript",
     simTypes: [{
         simTypeId: "projects_1",
-        sourceText: "~s~" +
+        sourceText:
+            // tslint:disable:max-line-length
+            "~s~" +
             "~ccomment~" + "// A few of the coding projects I've worked on." +
             "~l~" +
             "import~Creserved~" + "~c~ React" + "~c~ from~Creserved~" + "~cstring~ ~q~react~q~" + "~csymbol~;" +
@@ -47,10 +48,10 @@ export const Projects: IRawPage = {
             "~l~" +
             "~cindent2~return~Creserved~" + " ~csymbol~(" +
             "~l~" +
-            "~cindent3 string~~q~Built in TypeScript/React+Redux/Sass, I wanted to make my website look as much like my IDE(VSCode) as possible, and that's what you see here.~q~" + "~csymbol~ +" +
+            "~cindent3 string~~q~Built in TypeScript/React+Redux/Sass, I wanted to make my website look as much like my IDE (VSCode) as possible, and that's what you see here.~q~" + "~csymbol~ +" +
             "~s~" +
 
-            "~l~~l~" +
+            "~l3~~l~" +
             "~cindent3 string~~q~I'm constantly adding in new features and tweaks as I think of them/find the time, so feel free to poke around and let me know if there's something you think I should add.~q~" +
             "~l~" +
             "~cindent2 symbol~);" +
@@ -60,4 +61,4 @@ export const Projects: IRawPage = {
             "~cindent0 symbol~}" +
             "~l~"
     }]
-}
+};

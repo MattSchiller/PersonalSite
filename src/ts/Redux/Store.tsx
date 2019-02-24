@@ -1,3 +1,4 @@
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { rootReducer } from "@Redux/Reducers";
 import { createStore, Store } from "redux";
@@ -17,4 +18,9 @@ export function getActivePage(): IPage {
 export function getValidPageIds(): string[] {
     const state: IStore = store.getState();
     return state.pages.map(page => page.pageId);
+}
+
+export function getActiveTheme(): IThemeEnum {
+    const state: IStore = store.getState();
+    return state.activeTheme;
 }

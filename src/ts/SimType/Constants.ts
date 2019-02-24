@@ -7,7 +7,6 @@ export const Constants = {
     escapeCharacter: "~",
     quoteCharacter: "\"",
     indent: "indent",
-    str: "str",
     actionCharacters: {
         startingStub: "s",
         pause: "p",
@@ -21,12 +20,22 @@ export const Constants = {
 };
 
 export function getMaxLineLengthWithIndent(classList: string) {
-    let deltaMaxLine: number = 0;
     const indentWidth: number = 2;
-    const indentIndex: number = classList.indexOf(Constants.indent);
-
-    if (indentIndex !== -1)
-        deltaMaxLine = Number(classList[indentIndex + Constants.indent.length]) * indentWidth;
-
+    const deltaMaxLine: number = getIndentCount(classList) * indentWidth;
     return Constants.maxLineLength - deltaMaxLine;
 }
+
+export function getIndentCount(classList: string): number {
+    return getFindStringCount(classList, Constants.indent);
+}
+
+export function getLineBreakRulerCount(classList: string): number {
+    return getFindStringCount(classList, CSS.lineBreak);
+}
+
+function getFindStringCount(classList: string, findString: string): number {
+    const indentIndex: number = classList.indexOf(findString);
+    return (indentIndex !== -1) ? Number(classList[indentIndex + findString.length]) : 0;
+}
+
+export const renderTargetId = "renderTarget";

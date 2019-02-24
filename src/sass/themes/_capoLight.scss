@@ -1,0 +1,57 @@
+@import "themeGenerator";
+@import "../variables";
+
+@mixin capoLightTheme() {
+    // We use this scope to contain any variables we want to define and reuse.
+    $theme-name: "capoLight";
+    $page-color: rgb(240, 240, 240);
+    $key-color: rgb(3, 0, 187);
+    $function-color: rgb(3, 102, 205);
+    $white: rgb(212, 212, 212);
+    $text: rgb(43, 43, 43);
+
+    .#{$sim-type-class}-#{$theme-name} {
+        .key, .symbol, .reserved {
+            font-weight: bold;
+        }
+    }
+
+    @include generate-theme(
+        $theme-name: $theme-name,
+
+        $page-color: $page-color,
+        $default-text-color: $text,
+
+        $menu-background-color: rgb(236, 236, 236),
+        $menu-unselected-color: rgb(137, 137, 137),
+        $menu-selected-color: rgb(75, 75, 75),
+        $menu-selected-background-color: $page-color,
+
+        $line-number-color: rgb(36, 120, 147),
+        $current-line-color: rgb(11, 34, 111),
+        $current-line-background-color: rgb(231, 221, 185),
+
+        $comment-fade-color: $function-color,
+        $comment-color: rgb(133, 139, 124),
+        $function-color: $function-color,
+        $link-color: blue,
+        $link-focus-color: rgb(139, 139, 254),
+        $function-name-color: rgb(0, 118, 0),
+
+        $key-color: $key-color,
+        $arg-color: rgb(145, 40, 177),
+        $reserved-color: $key-color,
+        $string-color: rgb(175, 19, 18),
+
+        $default-typescript-color: $function-color,
+        $default-html-color: $text,
+        $default-yaml-color:  rgb(175, 19, 18),
+
+        $flat-file-key-color: $function-color,
+        $symbol-color: $text,
+
+        $caret-color: black,
+    );
+}
+
+@include capoLightTheme();

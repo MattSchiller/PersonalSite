@@ -1,10 +1,11 @@
 import { ActionTypes } from "@Redux/Actions";
 import { TextSegment } from "@SimType/TextSegment";
 import { ISimTypeStatus } from "@SimType/ISimTypeContent";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export interface IAction {
     type: ActionTypes;
-    payload: ISetActivePagePayload | IUpdateTypedContentPayload;
+    payload: ISetActivePagePayload | IUpdateTypedContentPayload | IThemeEnum;
 }
 
 export interface ISetActivePagePayload {

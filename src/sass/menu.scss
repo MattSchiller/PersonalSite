@@ -39,13 +39,6 @@
         transition: color 0.3s;
         transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
 
-        &:hover, &:focus {
-            &::after {
-                transition: background-color 0.3s, height 0.3s;
-                transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
-            }
-        }
-
         &.selected {
             &:hover, &:focus  {
                 color: inherit;
@@ -83,39 +76,65 @@
             margin-right: 0.3em;
         }
     }
+
+    .theme-selector {
+        flex: 0 0 4em;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0.5em;
+        overflow: visible;
+
+        &.selected .theme-options {
+            max-height: 6em;    // UPDATE: Based on number of choices for smoothest animation
+        }
+    }
 }
 
-@mixin menu-colors(
-    $theme-name,
-    $unselected,
-    $selected-background,
-    $selected,
-    $menu-background-color) {
-    .tabs-#{$theme-name} {
-        background-color: $menu-background-color;
+.theme-options {
+    background-color: purple;
+    position: absolute;
+    left: 0;
+    top: $menu-height + 0em;
 
-        & li {
-            &:hover, &:focus {
-                color: $selected;
+    width: auto;
+    max-height: 0;
 
-                &::after {
-                    background-color: $selected;
-                }
-            }
+    overflow: hidden;
 
-            &::after {
-                background-color: $unselected;
-            }
+    transition: max-height 0.25s;
+    transition-timing-function: ease, cubic-bezier(0.7,0,0.3,1);
+}
 
-            color: $unselected;
+.theme-option {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: flex-start;
+    white-space: pre;
 
-            &.selected {
-                color: $selected;
+    border: 2px solid transparent;
 
-                &::after{
-                    background-color: $selected-background;
-                }
-            }
-        }
+    &.#{$sim-type-class} {
+        // Removing any styling the regular simType has that conflicts here for preview.
+        margin: 0 ;
+        justify-content: flex-start;
+    }
+
+    &.selected {
+        border-color: red;
+    }
+}
+
+.theme-option-name {
+    width: 5em;
+}
+
+.theme-option-preview {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2em;
+    margin-right: 1em;
+
+    span {
+        font-size: 1em;
     }
 }

@@ -1,0 +1,189 @@
+@import "themedMenu";
+@import "../variables";
+@import "../utility";
+@import "../simType";
+
+@mixin generate-theme(
+    $theme-name,
+    $page-color,
+    $default-text-color,
+    $menu-background-color,
+    $menu-unselected-color,
+    $menu-selected-color,
+    $menu-selected-background-color,
+    $line-number-color,
+    $current-line-color,
+    $current-line-background-color,
+    $comment-fade-color,
+    $comment-color,
+    $function-color,
+    $link-color,
+    $link-focus-color,
+    $function-name-color,
+    $arg-color,
+    $reserved-color,
+    $key-color,
+    $default-typescript-color,
+    $default-html-color,
+    $default-yaml-color,
+    $string-color,
+    $flat-file-key-color,
+    $symbol-color,
+    $caret-color,
+) {
+    @include menu-colors(
+        $theme-name: $theme-name,
+        $unselected: $menu-unselected-color,
+        $selected-background: $menu-selected-background-color,
+        $selected: $menu-selected-color,
+        $menu-background-color: $menu-background-color,
+    );
+
+    @include sim-type-colors(
+        $theme-name,
+        "typescript",
+        $default-typescript-color
+    );
+
+    @include sim-type-colors(
+        $theme-name,
+        "html",
+        $default-html-color
+    );
+
+    @include sim-type-colors(
+        $theme-name,
+        "yaml",
+        $default-yaml-color
+    );
+
+    .content {
+        @include dummy-rule();
+    }
+
+    .content-#{$theme-name} {
+        background-color: $page-color;
+        color: $default-text-color;
+    }
+
+    .indent, .ruler-mark {
+        .#{$sim-type-class}-#{$theme-name} & + & {
+            &::before {
+                content: "";
+                border-left: 1px solid $default-text-color;
+            }
+        }
+    }
+
+    .#{$sim-type-class}-#{$theme-name} {
+        margin-top: 1em;
+        & + & {
+            margin-top: 0em;
+        }
+
+        background-color: $page-color;
+        color: $default-text-color;
+
+        .sim-type-caret {
+            animation: blinking-#{$theme-name} 0.9s infinite;
+            margin-left: -0.25em;
+
+            &.sim-type-quoting {
+                margin-left: -0.6em;
+            }
+        }
+
+        &.typing {
+            .sim-type-caret {
+                animation: none;
+                color: $caret-color;
+            }
+        }
+
+        @keyframes blinking-#{$theme-name} {
+            0% { color: $caret-color; }
+            50% { color: transparent; }
+            100% { color: $caret-color; }
+        }
+
+        a {
+            color: $link-color;
+            font-weight: bold;
+
+            &:focus {
+                color: $link-focus-color
+            }
+        }
+
+        a, span {
+            white-space: pre;
+        }
+
+        .line-number {
+            user-select: none;
+            font-size: 1em;
+            justify-content: flex-start;
+            margin-right: .5em;
+            white-space: pre;
+            color: $line-number-color;
+        }
+
+        .curr-line {
+            // TODO: Consider adding current line theming:
+                // color: $current-line-color;
+                // background-color: $current-line-background-color;
+
+            .line-number {
+                color: $current-line-color;
+            }
+        }
+
+        .func {
+            color: $function-color;
+        }
+
+        .function-name {
+            color: $function-name-color;
+        }
+
+        .arg {
+            color: $arg-color;
+        }
+
+        .key {
+            color: $key-color;
+        }
+
+        .reserved {
+            color: $reserved-color;
+        }
+
+        .string {
+            color: $string-color;
+        }
+
+        .comment-fade {
+            color: $comment-fade-color;
+        }
+
+        .comment {
+            color: $comment-color;
+
+            &.flat-file {
+                font-style: italic;
+            }
+        }
+
+        .flat-file-key {
+            color: $flat-file-key-color;
+        }
+
+        .symbol {
+            color: $symbol-color;
+        }
+
+        .tint-default {
+            color: $default-typescript-color;
+        }
+    }
+}

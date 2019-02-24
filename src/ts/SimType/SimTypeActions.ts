@@ -1,10 +1,13 @@
 import CSS from "@Sass/styles.scss";
 import { Constants } from "@SimType/Constants";
 import { ISimTypeContentWithFlags } from "@SimType/ISimTypeContent";
+import { CannotSimulateTypingError, getNextTypedContentPayload, isContentIndexSafe } from "@SimType/SimType";
 import { TextSegment } from "@SimType/TextSegment";
-import { CannotSimulateTypingError, getNextTypedContentPayload, isContentIndexSafe } from "@TS/SimType/SimType";
 
-export function processActionCharacter(actionCharacter: string, content: ISimTypeContentWithFlags): ISimTypeContentWithFlags {
+export function processActionCharacter(
+    actionCharacter: string,
+    content: ISimTypeContentWithFlags
+): ISimTypeContentWithFlags {
     const actionValue = getActionValue(content.sourceText, content.contentIndex);
 
     let actionMethod: (actionParams: IEscapedActionParams) => ISimTypeContentWithFlags;
@@ -56,7 +59,9 @@ function getActionValue(sourceText: string, contentIndex: number): string | numb
 
     if (endOfActionValueRegExMatches.length === 0)
         throw new CannotSimulateTypingError(
-            "Failed to parse any actionValue contents from sourceText!", contentIndex, sourceText)
+            "Failed to parse any actionValue contents from sourceText!",
+            contentIndex,
+            sourceText);
 
     return endOfActionValueRegExMatches[0];
 }
@@ -96,7 +101,7 @@ const actions = {
             ...actionParams.content,
             pausing: true,
             pausedMs: actionParams.actionValue as number
-        }
+        };
 
         return getPostActionContentWithUpdatedContentIndex(actionParams);
     },
@@ -138,7 +143,8 @@ const actions = {
     },
 
     line: (actionParams: IEscapedActionParams): ISimTypeContentWithFlags => {
-        actionParams.content.textSegments.push(new TextSegment("", CSS.lineBreak));
+        actionParams.content.textSegments.push(
+            new TextSegment("", `${CSS.lineBreak + actionParams.actionValue} ${CSS.lineBreak}`));
 
         actionParams.content.textSegments.push(new TextSegment());  // For the next bunch of text.
 

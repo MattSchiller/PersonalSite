@@ -2,8 +2,9 @@ import { IPage, IRawPage, IStore } from "@Redux/Interfaces/IStore";
 import { About } from "@Pages/About";
 import { Contact } from "@Pages/Contact";
 import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";
-import { ResumePage } from "@TS/Pages/Resume";
-import { Projects } from "@TS/Pages/Projects";
+import { ResumePage } from "@Pages/Resume";
+import { Projects } from "@Pages/Projects";
+import { getInitialTheme } from "@Helpers/Theming";
 
 export const initialState = getInitialState();
 
@@ -16,10 +17,12 @@ function getInitialState(): IStore {
     ].map(cleanUpRawPage);
 
     const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
+    const activeTheme = getInitialTheme();
 
     return {
         activePageId,
-        pages
+        pages,
+        activeTheme,
     };
 }
 
