@@ -1,4 +1,4 @@
-import { AppContainer } from "@Components/App";
+import { App } from "@Components/App";
 import { store } from "@Redux/Store";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -7,7 +7,7 @@ import { renderTargetId } from "@SimType/Constants";
 
 ReactDOM.render(
     <Provider store={ store }>
-        <AppContainer />
+        <App />
     </Provider>,
     document.getElementById(renderTargetId)
 );

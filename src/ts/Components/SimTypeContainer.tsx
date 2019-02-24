@@ -4,7 +4,7 @@ import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import React from "react";
-import { getActivePage } from "@Redux/Store";
+import { getActivePage, getActiveTheme } from "@Redux/Store";
 import { connect } from "react-redux";
 
 class SimTypeContainer extends React.PureComponent<IPage> {
@@ -36,7 +36,10 @@ class SimTypeContainer extends React.PureComponent<IPage> {
 }
 
 function mapStateToProps(state: IStore) {
-    return { ...getActivePage() }
+    return {
+        ...getActivePage(),
+        activeTheme: getActiveTheme()
+    };
 }
 
 const ConnectedSimTypeContainer = connect(mapStateToProps)(SimTypeContainer);

@@ -28,12 +28,12 @@ class App extends React.PureComponent<IStore> {
                 <Menu key={ "menu" } />
                 <Router history={ history } >
                     <div>
-                        <Route key="content"
-                            path="/(|index.html|about|contact|projects)"
+                        <Route key={ "content" }
+                            path={ "/(|index.html|about|contact|projects)" }
                             component={ SimTypeContainer }
                         />
-                        <Route key="resume"
-                            path="/resume"
+                        <Route key={ "resume" }
+                            path={ "/resume" }
                             render={ props => <embed src={ Resume.getResumeUrl() } /> }
                         />
                     </div>
@@ -44,6 +44,10 @@ class App extends React.PureComponent<IStore> {
     }
 }
 
-const mapStateToProps = (state: IStore) => ({ ...state });
+// This is needed to trigger updates from theme changes.
+function mapStateToProps(state: IStore) {
+    return (state: IStore) => ({ ...state });
+}
 
-export const AppContainer = connect(mapStateToProps)(App);
+const ConnectedApp = connect(mapStateToProps)(App);
+export { ConnectedApp as App };
