@@ -18,11 +18,11 @@ export const Contact: IRawPage = {
             "~amailto: matt.s.schiller@gmail.com~" +
             "~l~" +
             "~s~" +
-            "~cindent1 flat-file-key~linkedIn" + "~csymbol~: " + "~cstring~www.linkedIn.com/in/MattSchiller" +
-            "~ahttps://www.linkedIn.com/in/MattSchiller~" +
+            "~cindent1 flat-file-key~linkedIn" + "~csymbol~: " + "~cstring~www.linkedIn.com/in/MattSSchiller" +
+            "~ahttps://www.linkedIn.com/in/MattSSchiller~" +
             "~l~" +
-            "~cindent1 flat-file-key~gitHub" + "~csymbol~: " + "~cstring~www.gitHub.com/MattSSchiller" +
-            "~ahttps://www.gitHub.com/MattSSchiller~" +
+            "~cindent1 flat-file-key~gitHub" + "~csymbol~: " + "~cstring~www.gitHub.com/MattSchiller" +
+            "~ahttps://www.gitHub.com/MattSchiller~" +
             "~l~"
     }]
 };
