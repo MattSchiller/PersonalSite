@@ -2,7 +2,7 @@ import { Menu } from "@Components/Menu";
 import { SimTypeContainer } from "@Components/SimTypeContainer";
 import { history } from "@Helpers/History";
 import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
-import { Resume } from "@Pages/Resume";
+import { getResumeUrl } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
 import { getActiveTheme, getValidPageIds } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
@@ -48,7 +48,7 @@ class App extends React.PureComponent<IThemedProps> {
     }
 
     private _renderResume(): () => JSX.Element {
-        return () => <embed src={ Resume.getResumeUrl() } />;
+        return () => <embed src={ "https://drive.google.com/viewerng/viewer?embedded=true&url=" + getResumeUrl() } />;
     }
 }
 
