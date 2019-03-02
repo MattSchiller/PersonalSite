@@ -9,6 +9,7 @@ import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
+import { RotateMobile, renderRotateMobile } from "@Components/RotateMobile";
 
 class App extends React.PureComponent<IThemedProps> {
     public componentWillMount() {
@@ -31,6 +32,7 @@ class App extends React.PureComponent<IThemedProps> {
                 <Menu key={ "menu" } />
                 <Router history={ history } >
                     <div>
+                        { renderRotateMobile() }
                         <Route
                             key={ "content" }
                             path={ "/(|index.html|about|contact|projects)" }

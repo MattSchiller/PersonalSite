@@ -40,3 +40,5 @@ export const tintDefault: string;
 export const simTypeCapoLight: string;
 export const contentCapoLight: string;
 export const blinkingCapoLight: string;
+export const rotateMobile: string;
+export const blinkingRotateMobile: string;
