@@ -1,15 +1,16 @@
 import { Menu } from "@Components/Menu";
+import { RotateMobile } from "@Components/RotateMobile";
 import { SimTypeContainer } from "@Components/SimTypeContainer";
 import { history } from "@Helpers/History";
 import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
-import { getResumeUrl } from "@Pages/Resume";
+import { renderFunFactFriday, fffPageId } from "@Pages/FunFactFriday";
+import { renderResume, resumePageId } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
 import { getActiveTheme, getValidPageIds } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Router } from "react-router-dom";
-import { RotateMobile, shouldRenderRotateMobile } from "@Components/RotateMobile";
 
 class App extends React.PureComponent<IThemedProps> {
     public componentWillMount() {
@@ -27,6 +28,7 @@ class App extends React.PureComponent<IThemedProps> {
     }
 
     public render() {
+        const simTypeUrls = "/(|index.html|about|contact|projects)";
         return (
             <div className={ getThemedClassName(CSS.content) }>
                 <Menu key={ "menu" } />
@@ -34,18 +36,23 @@ class App extends React.PureComponent<IThemedProps> {
                     <div>
                         <Route
                             key={ "rotateMobile" }
-                            path={ "/(|index.html|about|contact|projects)" }
+                            path={ simTypeUrls }
                             component={ RotateMobile }
                         />
                         <Route
                             key={ "content" }
-                            path={ "/(|index.html|about|contact|projects)" }
+                            path={ simTypeUrls }
                             component={ SimTypeContainer }
                         />
                         <Route
                             key={ "resume" }
-                            path={ "/resume" }
-                            render={ this._renderResume() }
+                            path={ `/${resumePageId}` }
+                            render={ renderResume() }
+                        />
+                        <Route
+                            key={ "fff" }
+                            path={ `/${fffPageId}` }
+                            render={ renderFunFactFriday() }
                         />
                     </div>
                 </Router >
@@ -53,9 +60,9 @@ class App extends React.PureComponent<IThemedProps> {
         );
     }
 
-    private _renderResume(): () => JSX.Element {
-        return () => <embed src={ "https://drive.google.com/viewerng/viewer?embedded=true&url=" + getResumeUrl() } />;
-    }
+
+
+
 }
 
 // This is needed to trigger updates from theme changes.
@@ -65,3 +72,4 @@ function mapStateToProps() {
 
 const ConnectedApp = connect(mapStateToProps)(App);
 export { ConnectedApp as App };
+

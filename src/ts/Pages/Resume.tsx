@@ -1,8 +1,9 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
+import React from "react";
 
-const resumePageId: string = "resume";
+export const resumePageId: string = "resume";
 
-export function getResumeUrl(): string {
+function getResumeUrl(): string {
     return "http://MatthewSchiller.com/assets/MattSchiller_CV.pdf";
 }
 
@@ -13,7 +14,12 @@ export const Resume: IRawPage = {
     iconUrl: "assets/images/pdfIcon.png",
     language: "n/a",
     simTypes: [{
-        simTypeId: "resume",
+        simTypeId: resumePageId,
         sourceText: ""
     }]
 };
+
+export function renderResume(): () => JSX.Element {
+    // We use this google drive link to render in some mobile browsers.
+    return () => <embed src={ "https://drive.google.com/viewerng/viewer?embedded=true&url=" + getResumeUrl() } />;
+}

@@ -1,0 +1,43 @@
+@import "mediaQueries";
+
+.rotate-mobile {
+    visibility: hidden;
+    @include media-phone-portrait {
+        visibility: visible;
+    }
+
+    background-color: darkgrey;
+    height: 60vh;
+    width: 80vw;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 2em;
+    text-align: center;
+    color: black;
+
+    img {
+        margin-top: -25%;
+        width: 50%;
+    }
+
+    border-radius: 0.5em;
+
+    animation: blinking-rotate-mobile 2s;
+    animation-iteration-count: 3;
+    opacity: 0;
+}
+
+@keyframes blinking-rotate-mobile {
+    0% { opacity: 0.15; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0.15; }
+}

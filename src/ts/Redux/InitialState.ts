@@ -5,6 +5,7 @@ import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/IS
 import { Resume } from "@Pages/Resume";
 import { Projects } from "@Pages/Projects";
 import { getInitialTheme } from "@Helpers/Theming";
+import { FunFactFriday } from "@Pages/FunFactFriday";
 
 export const initialState = getInitialState();
 
@@ -14,6 +15,7 @@ function getInitialState(): IStore {
         Projects,
         Contact,
         Resume,
+        FunFactFriday,
     ].map(cleanUpRawPage);
 
     const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
