@@ -16,12 +16,9 @@ export class RotateMobile extends React.PureComponent {
     }
 }
 
-function shouldRenderRotateMobile(): boolean {
-    return true;
-}
+export function shouldRenderRotateMobile(): boolean {
+    const width: number = window.innerWidth;
+    const height: number = window.innerHeight;
 
-export function renderRotateMobile(): JSX.Element | null {
-    if (shouldRenderRotateMobile)
-        return <RotateMobile />
-    return null;
+    return height > width;
 }

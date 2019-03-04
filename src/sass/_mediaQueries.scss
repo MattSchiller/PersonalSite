@@ -9,9 +9,9 @@ $desktop-width: 1200px;
 }
 
 @mixin media-phone-portrait {
-    @media only screen and
+    @media
         (min-width: 320px) and
-        (max-width: #{$tablet-width - 100px}) and
+        (max-width: #{$tablet-width - 20px}) and
         (orientation: portrait) and
         (min-resolution: 120dpi) {
         @content;
