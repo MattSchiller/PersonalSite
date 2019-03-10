@@ -42,4 +42,3 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedMenu = connect(mapStateToProps)(Menu);
 export { ConnectedMenu as Menu };
-

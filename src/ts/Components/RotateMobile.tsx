@@ -12,7 +12,7 @@ export class RotateMobile extends React.PureComponent {
     }
 
     private _getRotateUrl() {
-        return "./assets/images/rotateToLandscape.png"
+        return "./assets/images/rotateToLandscape.png";
     }
 }
 

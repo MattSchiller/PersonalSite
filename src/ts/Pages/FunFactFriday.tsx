@@ -28,7 +28,6 @@ interface IFunFactFridayComponentState {
 export class FunFactFridayComponent extends React.PureComponent<{}, IFunFactFridayComponentState> {
     constructor(props: any) {
         super(props);
-        console.log("RECONSTRXUTING")
         this.state = { hidden: true };
     }
 
@@ -38,14 +37,16 @@ export class FunFactFridayComponent extends React.PureComponent<{}, IFunFactFrid
 
         return [
             <Spinner key="spinner" className={ spinnerClassName } />,
-            <iframe
-                key="fff"
-                className={ iFrameClassName }
-                src={ getFFFUrl() }
-                onLoad={ this._showComponent }
-                frameBorder={ "0" }
-                sandbox="allow-scripts"
-            />
+            (
+                <iframe
+                    key="fff"
+                    className={ iFrameClassName }
+                    src={ getFFFUrl() }
+                    onLoad={ this._showComponent }
+                    frameBorder={ "0" }
+                    sandbox="allow-scripts"
+                />
+            )
         ];
     }
 

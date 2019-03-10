@@ -45,4 +45,3 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedSimTypeContainer = connect(mapStateToProps)(SimTypeContainer);
 export { ConnectedSimTypeContainer as SimTypeContainer };
-
