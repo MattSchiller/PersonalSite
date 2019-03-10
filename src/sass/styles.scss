@@ -7,6 +7,7 @@
 @import "themes/darkPlus";
 @import "themes/capoLight";
 @import "rotateMobile";
+@import "loading";
 
 html {
     font-family: Inconsolata, sans-serif;
@@ -31,4 +32,8 @@ body {
 embed, iframe {
     width: 100%;
     height: $content-height;
+}
+
+.hidden {
+    display: none !important;
 }

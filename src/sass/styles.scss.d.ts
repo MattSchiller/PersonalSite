@@ -42,3 +42,8 @@ export const contentCapoLight: string;
 export const blinkingCapoLight: string;
 export const rotateMobile: string;
 export const blinkingRotateMobile: string;
+export const ldsEllipsis: string;
+export const ldsEllipsis1: string;
+export const ldsEllipsis2: string;
+export const ldsEllipsis3: string;
+export const spinner: string;

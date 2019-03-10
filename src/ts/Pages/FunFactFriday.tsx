@@ -1,5 +1,7 @@
 import { IRawPage } from "@Redux/Interfaces/IStore";
+import CSS from "@Sass/styles.scss";
 import React from "react";
+import { Spinner } from "@Components/Spinner";
 
 export const fffPageId: string = "fff";
 
@@ -19,10 +21,35 @@ export const FunFactFriday: IRawPage = {
     }]
 };
 
-export function renderFunFactFriday(): () => JSX.Element {
-    return () => <iframe
-        src={ getFFFUrl() }
-        frameBorder={ "0" }
-        sandbox="allow-scripts"
-    />
+interface IFunFactFridayComponentState {
+    hidden: boolean;
+}
+
+export class FunFactFridayComponent extends React.PureComponent<{}, IFunFactFridayComponentState> {
+    constructor(props: any) {
+        super(props);
+        console.log("RECONSTRXUTING")
+        this.state = { hidden: true };
+    }
+
+    public render() {
+        const iFrameClassName: string = this.state.hidden ? CSS.hidden : "";
+        const spinnerClassName: string = this.state.hidden ? "" : CSS.hidden;
+
+        return [
+            <Spinner key="spinner" className={ spinnerClassName } />,
+            <iframe
+                key="fff"
+                className={ iFrameClassName }
+                src={ getFFFUrl() }
+                onLoad={ this._showComponent }
+                frameBorder={ "0" }
+                sandbox="allow-scripts"
+            />
+        ];
+    }
+
+    private _showComponent = () => {
+        this.setState({ hidden: false });
+    }
 }

@@ -19,7 +19,6 @@ export const Resume: IRawPage = {
     }]
 };
 
-export function renderResume(): () => JSX.Element {
-    // We use this google drive link to render in some mobile browsers.
-    return () => <embed src={ "https://drive.google.com/viewerng/viewer?embedded=true&url=" + getResumeUrl() } />;
-}
+// We use this google drive link to render in some mobile browsers.
+export const ResumeComponent = () =>
+    <embed src={ "https://drive.google.com/viewerng/viewer?embedded=true&url=" + getResumeUrl() } />;

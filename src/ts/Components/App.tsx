@@ -3,8 +3,8 @@ import { RotateMobile } from "@Components/RotateMobile";
 import { SimTypeContainer } from "@Components/SimTypeContainer";
 import { history } from "@Helpers/History";
 import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
-import { renderFunFactFriday, fffPageId } from "@Pages/FunFactFriday";
-import { renderResume, resumePageId } from "@Pages/Resume";
+import { fffPageId, FunFactFridayComponent } from "@Pages/FunFactFriday";
+import { ResumeComponent, resumePageId } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
 import { getActiveTheme, getValidPageIds } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
@@ -47,22 +47,18 @@ class App extends React.PureComponent<IThemedProps> {
                         <Route
                             key={ "resume" }
                             path={ `/${resumePageId}` }
-                            render={ renderResume() }
+                            component={ ResumeComponent }
                         />
                         <Route
                             key={ "fff" }
                             path={ `/${fffPageId}` }
-                            render={ renderFunFactFriday() }
+                            component={ FunFactFridayComponent }
                         />
                     </div>
                 </Router >
             </div>
         );
     }
-
-
-
-
 }
 
 // This is needed to trigger updates from theme changes.
