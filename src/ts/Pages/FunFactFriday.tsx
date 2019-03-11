@@ -1,7 +1,8 @@
-import { IRawPage } from "@Redux/Interfaces/IStore";
+import { IRawPage, IStore, IActivePageProps } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { Spinner } from "@Components/Spinner";
+import { connect } from "react-redux";
 
 export const fffPageId: string = "fff";
 
@@ -22,35 +23,62 @@ export const FunFactFriday: IRawPage = {
 };
 
 interface IFunFactFridayComponentState {
-    hidden: boolean;
+    iFrameLoaded: boolean;
 }
 
-export class FunFactFridayComponent extends React.PureComponent<{}, IFunFactFridayComponentState> {
+class FunFactFridayComponent extends React.PureComponent<IActivePageProps, IFunFactFridayComponentState> {
     constructor(props: any) {
         super(props);
-        this.state = { hidden: true };
+        this.state = { iFrameLoaded: false };
+    }
+
+    private _iFrame: JSX.Element | null = null;
+
+    private _initializeIFrame(): JSX.Element {
+        return <iframe
+            key="fff"
+            src={ getFFFUrl() }
+            onLoad={ this._showComponent }
+            frameBorder={ "0" }
+            sandbox="allow-scripts"
+        />
     }
 
     public render() {
-        const iFrameClassName: string = this.state.hidden ? CSS.hidden : "";
-        const spinnerClassName: string = this.state.hidden ? "" : CSS.hidden;
+        const shouldRender: boolean = this.props.activePageId === fffPageId;
+        if (shouldRender && !this._iFrame)
+            this._iFrame = this._initializeIFrame();
 
-        return [
-            <Spinner key="spinner" className={ spinnerClassName } />,
-            (
-                <iframe
-                    key="fff"
-                    className={ iFrameClassName }
-                    src={ getFFFUrl() }
-                    onLoad={ this._showComponent }
-                    frameBorder={ "0" }
-                    sandbox="allow-scripts"
-                />
-            )
-        ];
+        const funFactFridayComponentClassName: string = shouldRender ? "" : CSS.hidden;
+        const spinnerClassName: string = this.state.iFrameLoaded ? CSS.hidden : "";
+
+        return (
+            <div className={ funFactFridayComponentClassName }>
+                <Spinner key="spinner" className={ spinnerClassName } />
+                { this._renderIFrame() }
+            </div>
+        );
+    }
+
+    private _renderIFrame() {
+        const iFrameClassName: string = this.state.iFrameLoaded ? "" : CSS.hidden;
+        return (
+            <div className={ iFrameClassName }>
+                { this._iFrame }
+            </div>
+        );
     }
 
     private _showComponent = () => {
-        this.setState({ hidden: false });
+        this.setState({ iFrameLoaded: true });
     }
 }
+
+function mapStateToProps(state: IStore) {
+    return {
+        activePageId: state.activePageId,
+    }
+}
+
+const ConnectedFunFactFridayComponent = connect(mapStateToProps)(FunFactFridayComponent);
+export { ConnectedFunFactFridayComponent as FunFactFridayComponent };

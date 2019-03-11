@@ -1,10 +1,12 @@
 import { ISimTypeContent, IRawSimTypeContent } from "@SimType/ISimTypeContent";
-import { IThemeEnum } from "@Helpers/IThemeEnum";
+import { IThemedProps } from "@Helpers/Theming";
 
-export interface IStore {
+export interface IActivePageProps {
     activePageId: string;
+}
+
+export interface IStore extends IThemedProps, IActivePageProps {
     pages: IPage[];
-    activeTheme: IThemeEnum;
 }
 
 interface IBasePage {

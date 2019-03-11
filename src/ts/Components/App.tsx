@@ -49,13 +49,9 @@ class App extends React.PureComponent<IThemedProps> {
                             path={ `/${resumePageId}` }
                             component={ ResumeComponent }
                         />
-                        <Route
-                            key={ "fff" }
-                            path={ `/${fffPageId}` }
-                            component={ FunFactFridayComponent }
-                        />
                     </div>
                 </Router >
+                <FunFactFridayComponent />
             </div>
         );
     }

@@ -1,14 +1,13 @@
 import { MenuItem } from "@Components/MenuItem";
 import { ThemeSelector } from "@Components/ThemeSelector";
 import { IThemedProps } from "@Helpers/Theming";
-import { IPage, IStore } from "@Redux/Interfaces/IStore";
+import { IPage, IStore, IActivePageProps } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
 
-interface IMenuProps extends IThemedProps {
+interface IMenuProps extends IThemedProps, IActivePageProps {
     items: IPage[];
-    activePageId: string;
 }
 
 class Menu extends React.PureComponent<IMenuProps> {
