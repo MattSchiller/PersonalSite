@@ -1,8 +1,9 @@
-import { IRawPage, IStore, IActivePageProps } from "@Redux/Interfaces/IStore";
+import { Spinner } from "@Components/Spinner";
+import { IActivePageProps, IRawPage, IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
-import { Spinner } from "@Components/Spinner";
 import { connect } from "react-redux";
+import { } from "react-router";
 
 export const fffPageId: string = "fff";
 
@@ -26,29 +27,17 @@ interface IFunFactFridayComponentState {
     iFrameLoaded: boolean;
 }
 
-class FunFactFridayComponent extends React.PureComponent<IActivePageProps, IFunFactFridayComponentState> {
+class FunFactFridayComponent extends React.Component<IActivePageProps, IFunFactFridayComponentState> {
     constructor(props: any) {
         super(props);
+
+        // TODO: Include check for "first" time hitting the fff route to create the iFrame.
+
         this.state = { iFrameLoaded: false };
-    }
-
-    private _iFrame: JSX.Element | null = null;
-
-    private _initializeIFrame(): JSX.Element {
-        return <iframe
-            key="fff"
-            src={ getFFFUrl() }
-            onLoad={ this._showComponent }
-            frameBorder={ "0" }
-            sandbox="allow-scripts"
-        />
     }
 
     public render() {
         const shouldRender: boolean = this.props.activePageId === fffPageId;
-        if (shouldRender && !this._iFrame)
-            this._iFrame = this._initializeIFrame();
-
         const funFactFridayComponentClassName: string = shouldRender ? "" : CSS.hidden;
         const spinnerClassName: string = this.state.iFrameLoaded ? CSS.hidden : "";
 
@@ -63,9 +52,14 @@ class FunFactFridayComponent extends React.PureComponent<IActivePageProps, IFunF
     private _renderIFrame() {
         const iFrameClassName: string = this.state.iFrameLoaded ? "" : CSS.hidden;
         return (
-            <div className={ iFrameClassName }>
-                { this._iFrame }
-            </div>
+            <iframe
+                key="fff"
+                src={ getFFFUrl() }
+                className={ iFrameClassName }
+                onLoad={ this._showComponent }
+                frameBorder={ "0" }
+                sandbox="allow-scripts"
+            />
         );
     }
 
@@ -82,3 +76,4 @@ function mapStateToProps(state: IStore) {
 
 const ConnectedFunFactFridayComponent = connect(mapStateToProps)(FunFactFridayComponent);
 export { ConnectedFunFactFridayComponent as FunFactFridayComponent };
+
