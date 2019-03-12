@@ -34,10 +34,10 @@ class App extends React.PureComponent<IThemedProps> {
                 <Menu key={ "menu" } />
                 <Router history={ history } >
                     <div>
-                        <Route
+                        {/* <Route
                             key={ "fff" }
                             component={ FunFactFridayComponent }
-                        />
+                        /> */}
                         <Route
                             key={ "rotateMobile" }
                             path={ simTypeUrls }

@@ -5,8 +5,13 @@ export interface IActivePageProps {
     activePageId: string;
 }
 
-export interface IStore extends IThemedProps, IActivePageProps {
+export interface IStoreContent extends IActivePageProps {
     pages: IPage[];
+}
+
+export interface IStore {
+    theme: IThemedProps;
+    content: IStoreContent
 }
 
 interface IBasePage {

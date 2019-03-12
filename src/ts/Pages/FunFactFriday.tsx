@@ -70,7 +70,7 @@ class FunFactFridayComponent extends React.Component<IActivePageProps, IFunFactF
 
 function mapStateToProps(state: IStore) {
     return {
-        activePageId: state.activePageId,
+        activePageId: state.content.activePageId,
     }
 }
 

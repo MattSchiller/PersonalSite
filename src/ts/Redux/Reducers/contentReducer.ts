@@ -1,50 +1,39 @@
-import { IAction, IUpdateTypedContentPayload, ISetActivePagePayload } from "@Redux/Interfaces/IAction";
-import { IPage, IStore } from "@Redux/Interfaces/IStore";
 import { ActionTypes } from "@Redux/Actions";
 import { initialState } from "@Redux/InitialState";
+import { IContentAction, IUpdateTypedContentPayload } from "@Redux/Interfaces/IAction";
+import { IPage, IStoreContent } from "@Redux/Interfaces/IStore";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
-import { IThemeEnum } from "@Helpers/IThemeEnum";
 
-export function rootReducer(state: IStore = initialState, action: IAction) {
+export function contentReducer(content: IStoreContent = initialState.content, action: IContentAction) {
     const payload = action.payload;
     if (!payload)
-        return state;
+        return content;
 
-    // This is helpful for the page-specific actions.
-    const pageId = (payload as ISetActivePagePayload).pageId;
+    const pageId = payload.pageId;
 
     switch (action.type) {
-        case ActionTypes.SET_ACTIVE_THEME:
-            const activeTheme = payload as IThemeEnum;
-            if (Object.values(IThemeEnum).includes(activeTheme) && activeTheme !== state.activeTheme)
-                return {
-                    ...state,
-                    activeTheme
-                };
-            break;
-
         case ActionTypes.SET_ACTIVE_PAGE:
-            if (pageId !== state.activePageId)
+            if (pageId !== content.activePageId)
                 return {
-                    ...state,
+                    ...content,
                     activePageId: pageId
                 };
             break;
 
         case ActionTypes.UPDATE_SIMTYPE_CONTENT:
-            if (pageId === state.activePageId) {
-                const pages = state.pages.map((page: IPage) =>
-                    getUpdatedPage(page, payload as IUpdateTypedContentPayload));
+            if (pageId === content.activePageId) {
+                const pages = content.pages.map((page: IPage) =>
+                    getUpdatedPage(page, payload));
 
                 return {
-                    ...state,
+                    ...content,
                     pages: [...pages]
                 };
             }
             break;
     }
 
-    return state;
+    return content;
 }
 
 function getUpdatedPage(page: IPage, payload: IUpdateTypedContentPayload): IPage {

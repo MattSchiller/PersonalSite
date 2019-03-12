@@ -33,9 +33,9 @@ class Menu extends React.PureComponent<IMenuProps> {
 
 function mapStateToProps(state: IStore) {
     return {
-        items: state.pages,
-        activePageId: state.activePageId,
-        activeTheme: state.activeTheme,
+        items: state.content.pages,
+        activePageId: state.content.activePageId,
+        activeTheme: state.theme.activeTheme,
     };
 }
 

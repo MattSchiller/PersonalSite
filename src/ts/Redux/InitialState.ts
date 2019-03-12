@@ -22,9 +22,13 @@ function getInitialState(): IStore {
     const activeTheme = getInitialTheme();
 
     return {
-        activePageId,
-        pages,
-        activeTheme,
+        content: {
+            activePageId,
+            pages,
+        },
+        theme: {
+            activeTheme,
+        }
     };
 }
 

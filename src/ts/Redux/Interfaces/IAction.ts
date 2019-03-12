@@ -3,11 +3,6 @@ import { TextSegment } from "@SimType/TextSegment";
 import { ISimTypeStatus } from "@SimType/ISimTypeContent";
 import { IThemeEnum } from "@Helpers/IThemeEnum";
 
-export interface IAction {
-    type: ActionTypes;
-    payload: ISetActivePagePayload | IUpdateTypedContentPayload | IThemeEnum;
-}
-
 export interface ISetActivePagePayload {
     pageId: string;
 }
@@ -19,6 +14,19 @@ export interface ITypedContentPayload {
     status: ISimTypeStatus;
 }
 
-export interface IUpdateTypedContentPayload extends ISetActivePagePayload, ITypedContentPayload {
+export interface IUpdateTypedContentPayload
+    extends ISetActivePagePayload, ITypedContentPayload {
     simTypeId: string;
+}
+
+interface IBaseAction {
+    type: ActionTypes;
+}
+
+export interface IContentAction extends IBaseAction {
+    payload: IUpdateTypedContentPayload;
+}
+
+export interface IThemeAction extends IBaseAction {
+    payload: IThemeEnum;
 }
