@@ -1,7 +1,19 @@
 import { TextSegment } from "@SimType/TextSegment";
 import { ISimTypeStatus } from "@SimType/ISimTypeContent";
 import { IThemeEnum } from "@Helpers/IThemeEnum";
-import { ActionTypeEnum, ActionType } from "@Redux/ActionTypes";
+import { ActionTypes } from "@Redux/ActionTypes";
+
+interface IBaseAction {
+    type: ActionTypes;
+}
+
+export interface IContentAction extends IBaseAction {
+    payload: IContentPayload;
+}
+
+export interface IThemeAction extends IBaseAction {
+    payload: IThemeEnum;
+}
 
 export interface ISetActivePagePayload {
     pageId: string;
@@ -14,19 +26,7 @@ export interface ITypedContentPayload {
     status: ISimTypeStatus;
 }
 
-export interface IUpdateTypedContentPayload
+export interface IContentPayload
     extends ISetActivePagePayload, ITypedContentPayload {
     simTypeId: string;
-}
-
-interface IBaseAction {
-    type: ActionType;
-}
-
-export interface IContentAction extends IBaseAction {
-    payload: IUpdateTypedContentPayload;
-}
-
-export interface IThemeAction extends IBaseAction {
-    payload: IThemeEnum;
 }

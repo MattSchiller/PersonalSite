@@ -30,32 +30,38 @@ interface IFunFactFridayComponentState {
 class FunFactFridayComponent extends React.Component<IActivePageProps, IFunFactFridayComponentState> {
     constructor(props: any) {
         super(props);
-
-        // TODO: Include check for "first" time hitting the fff route to create the iFrame.
-
         this.state = { iFrameLoaded: false };
     }
 
+    private _iFrame: JSX.Element | undefined;
+
     public render() {
         const shouldRender: boolean = this.props.activePageId === fffPageId;
+
+        // Since we want these components to persist in the DOM, but be hidden (wrapped in a spinner), we juggle hidden
         const funFactFridayComponentClassName: string = shouldRender ? "" : CSS.hidden;
         const spinnerClassName: string = this.state.iFrameLoaded ? CSS.hidden : "";
+        const iFrameClassName: string = this.state.iFrameLoaded ? "" : CSS.hidden;
+
+        // This limits the page from inserting the iFrame into the DOM until the user shows interest in the page.
+        if (shouldRender && !this._iFrame)
+            this._initializeIFrame();
 
         return (
             <div className={ funFactFridayComponentClassName }>
                 <Spinner key="spinner" className={ spinnerClassName } />
-                { this._renderIFrame() }
+                <div className={ iFrameClassName }>
+                    { this._iFrame }
+                </div>
             </div>
         );
     }
 
-    private _renderIFrame() {
-        const iFrameClassName: string = this.state.iFrameLoaded ? "" : CSS.hidden;
-        return (
+    private _initializeIFrame() {
+        this._iFrame = (
             <iframe
                 key="fff"
                 src={ getFFFUrl() }
-                className={ iFrameClassName }
                 onLoad={ this._showComponent }
                 frameBorder={ "0" }
                 sandbox="allow-scripts"
@@ -71,9 +77,8 @@ class FunFactFridayComponent extends React.Component<IActivePageProps, IFunFactF
 function mapStateToProps(state: IStore) {
     return {
         activePageId: state.content.activePageId,
-    }
+    };
 }
 
 const ConnectedFunFactFridayComponent = connect(mapStateToProps)(FunFactFridayComponent);
 export { ConnectedFunFactFridayComponent as FunFactFridayComponent };
-

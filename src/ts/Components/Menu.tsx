@@ -1,13 +1,12 @@
 import { MenuItem } from "@Components/MenuItem";
 import { ThemeSelector } from "@Components/ThemeSelector";
-import { IThemedProps } from "@Helpers/Theming";
-import { IPage, IStore, IActivePageProps } from "@Redux/Interfaces/IStore";
+import { IPage, IStore, IActivePageProps, IStoreTheme } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
 import { getActiveTheme, getActivePageId, getPages } from "@Redux/Store";
 
-interface IMenuProps extends IThemedProps, IActivePageProps {
+interface IMenuProps extends IStoreTheme, IActivePageProps {
     items: IPage[];
 }
 

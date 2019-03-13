@@ -1,8 +1,9 @@
 import { SimTypeLine } from "@Components/SimTypeLine";
-import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
 import { Actions } from "@Redux/Actions";
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
-import { IStore } from "@Redux/Interfaces/IStore";
+import { IStore, IStoreTheme } from "@Redux/Interfaces/IStore";
+import { getActiveTheme } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
@@ -10,10 +11,9 @@ import { getTrimmedLines } from "@SimType/SimTypePrerendering";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { connect } from "react-redux";
-import { getActiveTheme } from "@Redux/Store";
 
 // This is supplied by the container.
-interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
+interface ISimTypeComponentProps extends ISimTypeContent, IStoreTheme {
     pageId: string;
 }
 

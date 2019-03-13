@@ -1,30 +1,40 @@
 import { Menu } from "@Components/Menu";
 import { RotateMobile } from "@Components/RotateMobile";
 import { SimTypeContainer } from "@Components/SimTypeContainer";
-import { history } from "@Helpers/History";
-import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
-import { FunFactFridayComponent, fffPageId } from "@Pages/FunFactFriday";
+import { getTrimmedPath as getPageIdFromPath, history } from "@Helpers/History";
+import { getThemedClassName } from "@Helpers/Theming";
+import { FunFactFridayComponent } from "@Pages/FunFactFriday";
 import { ResumeComponent, resumePageId } from "@Pages/Resume";
 import { Actions } from "@Redux/Actions";
-import { getActiveTheme, getValidPageIds } from "@Redux/Store";
+import { IStoreTheme } from "@Redux/Interfaces/IStore";
+import { getActiveTheme, isValidPageId } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
+import { Location } from "history";
 import React from "react";
 import { connect } from "react-redux";
-import { Route, Router, withRouter, RouteComponentProps } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 
-class App extends React.PureComponent<IThemedProps> {
+class App extends React.PureComponent<IStoreTheme> {
     public componentWillMount() {
-        this._handleIndexReroute();
+        this._initializeHistoryListener();
     }
 
-    private _handleIndexReroute() {
-        const path = history.location.pathname;
-        const inboundPageId = path.substr(1, path.length - 1);
+    private _initializeHistoryListener() {
+        history.listen((location: Location) => {
+            const _inboundPageId = getPageIdFromPath(location);
+            if (isValidPageId(_inboundPageId))
+                Actions.setActivePage({ pageId: _inboundPageId });
+            else
+                history.block();
+        });
 
-        if (getValidPageIds().includes(inboundPageId))
+        // Initial re-route upon entry to site.
+        const inboundPageId = getPageIdFromPath(history.location);
+
+        if (isValidPageId(inboundPageId))
             Actions.setActivePage({ pageId: inboundPageId });
         else
-            history.replace("");
+            history.replace("/about");
     }
 
     public render() {
@@ -34,10 +44,10 @@ class App extends React.PureComponent<IThemedProps> {
                 <Menu key={ "menu" } />
                 <Router history={ history } >
                     <div>
-                        {/* <Route
+                        <Route
                             key={ "fff" }
                             component={ FunFactFridayComponent }
-                        /> */}
+                        />
                         <Route
                             key={ "rotateMobile" }
                             path={ simTypeUrls }
@@ -63,7 +73,7 @@ class App extends React.PureComponent<IThemedProps> {
 // This is needed to trigger updates from theme changes.
 function mapStateToProps() {
     return {
-        activeTheme: getActiveTheme()
+        activeTheme: getActiveTheme(),
     };
 }
 

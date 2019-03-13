@@ -1,13 +1,13 @@
 import { IThemeEnum } from "@Helpers/IThemeEnum";
-import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
 import { Actions } from "@Redux/Actions";
-import { IStore } from "@Redux/Interfaces/IStore";
+import { IStore, IStoreTheme } from "@Redux/Interfaces/IStore";
+import { getActiveTheme } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
-import { getActiveTheme } from "@Redux/Store";
 
-interface IThemeOptionProps extends IThemedProps {
+interface IThemeOptionProps extends IStoreTheme {
     theme: IThemeEnum;
 }
 

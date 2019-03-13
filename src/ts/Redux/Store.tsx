@@ -26,9 +26,9 @@ export function getActivePage(): IPage {
     return state.content.pages.filter((page: IPage) => page.pageId === getActivePageId())[0];
 }
 
-export function getValidPageIds(): string[] {
+export function isValidPageId(pageId: string): boolean {
     const state: IStore = store.getState();
-    return state.content.pages.map(page => page.pageId);
+    return state.content.pages.map(page => page.pageId).includes(pageId);
 }
 
 export function getActiveTheme(): IThemeEnum {
