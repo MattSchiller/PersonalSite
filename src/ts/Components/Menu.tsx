@@ -5,6 +5,7 @@ import { IPage, IStore, IActivePageProps } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
+import { getActiveTheme, getActivePageId, getPages } from "@Redux/Store";
 
 interface IMenuProps extends IThemedProps, IActivePageProps {
     items: IPage[];
@@ -33,9 +34,9 @@ class Menu extends React.PureComponent<IMenuProps> {
 
 function mapStateToProps(state: IStore) {
     return {
-        items: state.content.pages,
-        activePageId: state.content.activePageId,
-        activeTheme: state.theme.activeTheme,
+        items: getPages(),
+        activePageId: getActivePageId(),
+        activeTheme: getActiveTheme(),
     };
 }
 

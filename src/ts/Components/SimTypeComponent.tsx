@@ -10,6 +10,7 @@ import { getTrimmedLines } from "@SimType/SimTypePrerendering";
 import { TextSegment } from "@SimType/TextSegment";
 import React from "react";
 import { connect } from "react-redux";
+import { getActiveTheme } from "@Redux/Store";
 
 // This is supplied by the container.
 interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
@@ -104,7 +105,7 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
 
 function mapStateToProps(state: IStore) {
     return {
-        activeTheme: state.activeTheme
+        activeTheme: getActiveTheme()
     };
 }
 

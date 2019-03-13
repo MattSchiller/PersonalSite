@@ -62,7 +62,9 @@ class App extends React.PureComponent<IThemedProps> {
 
 // This is needed to trigger updates from theme changes.
 function mapStateToProps() {
-    return { activeTheme: getActiveTheme() };
+    return {
+        activeTheme: getActiveTheme()
+    };
 }
 
 const ConnectedApp = connect(mapStateToProps)(App);

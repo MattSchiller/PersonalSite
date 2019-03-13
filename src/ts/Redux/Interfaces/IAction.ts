@@ -1,7 +1,7 @@
-import { ActionTypes } from "@Redux/Actions";
 import { TextSegment } from "@SimType/TextSegment";
 import { ISimTypeStatus } from "@SimType/ISimTypeContent";
 import { IThemeEnum } from "@Helpers/IThemeEnum";
+import { ActionTypeEnum, ActionType } from "@Redux/ActionTypes";
 
 export interface ISetActivePagePayload {
     pageId: string;
@@ -20,7 +20,7 @@ export interface IUpdateTypedContentPayload
 }
 
 interface IBaseAction {
-    type: ActionTypes;
+    type: ActionType;
 }
 
 export interface IContentAction extends IBaseAction {

@@ -5,6 +5,7 @@ import { IStore } from "@Redux/Interfaces/IStore";
 import CSS from "@Sass/styles.scss";
 import React from "react";
 import { connect } from "react-redux";
+import { getActiveTheme } from "@Redux/Store";
 
 interface IThemeOptionProps extends IThemedProps {
     theme: IThemeEnum;
@@ -82,7 +83,7 @@ class ThemeSelectOption extends React.PureComponent<IThemeOptionProps> {
 
 function mapStateToProps(state: IStore) {
     return {
-        activeTheme: state.activeTheme
+        activeTheme: getActiveTheme(),
     };
 }
 
