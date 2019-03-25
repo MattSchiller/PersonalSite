@@ -27,7 +27,7 @@ export function contentReducer(content: IStoreContent = initialState.content, ac
 
                 return {
                     ...content,
-                    pages: [...pages]
+                    pages,
                 };
             }
             break;

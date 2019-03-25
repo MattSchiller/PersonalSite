@@ -79,4 +79,3 @@ function mapStateToProps() {
 
 const ConnectedApp = connect(mapStateToProps)(App);
 export { ConnectedApp as App };
-

@@ -11,7 +11,6 @@ function getFFFUrl(): string {
     return "https://funfactfridaysite.wordpress.com";
 }
 
-// A dummy export so other aspects of the page outside of the menu don't know that resume is "different".
 export const FunFactFriday: IRawPage = {
     pageId: fffPageId,
     pageTitle: "trivia.rss",
@@ -69,9 +68,7 @@ class FunFactFridayComponent extends React.Component<IActivePageProps, IFunFactF
         );
     }
 
-    private _showComponent = () => {
-        this.setState({ iFrameLoaded: true });
-    }
+    private _showComponent = () => this.setState({ iFrameLoaded: true });
 }
 
 function mapStateToProps(state: IStore) {
