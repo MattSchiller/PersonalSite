@@ -22,13 +22,11 @@ export function getActivePageId(): string {
 }
 
 export function getActivePage(): IPage {
-    const state: IStore = store.getState();
-    return state.content.pages.filter((page: IPage) => page.pageId === getActivePageId())[0];
+    return getPages().filter((page: IPage) => page.pageId === getActivePageId())[0];
 }
 
 export function isValidPageId(pageId: string): boolean {
-    const state: IStore = store.getState();
-    return state.content.pages.map(page => page.pageId).includes(pageId);
+    return getPages().map(page => page.pageId).includes(pageId);
 }
 
 export function getActiveTheme(): IThemeEnum {
