@@ -10,7 +10,7 @@ export const About: IRawPage = {
         sourceText:
             // tslint:disable:max-line-length
             "~s~" +
-            "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default-color~ html~ccomment-fade~>" +
+            "~ccomment-fade~<!~ckey~DOCTYPE~ctint-default~ html~ccomment-fade~>" +
             "~l~" +
             "~l~" +
             "~ccomment~<!-- Hi, I'm Matt Schiller, a Web Developer and freelance Technical Consultant." +
@@ -37,7 +37,7 @@ export const About: IRawPage = {
 
             "~Cindent2~" + "And a good day's work is great, going to bed at night feeling like you've really SPENT " +
             "the day well is one of my favorite things, but there's more to life than a good work ethic. I believe in " +
-            "building fun and and interesting things all the time, separate from my day job. For instance, I'm an avid folder of " +
+            "building fun and interesting things all the time, separate from my day job. For instance, I'm an avid folder of " +
             "origami as well as a determined writer (both of which will be on this site shortly)." +
             "~l2~~l~" +
 

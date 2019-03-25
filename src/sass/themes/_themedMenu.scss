@@ -1,13 +1,12 @@
 @import "variables";
 
 @mixin menu-colors(
-    $theme-name,
     $unselected,
     $selected-background,
     $selected,
     $menu-background-color
 ) {
-    .tabs-#{$theme-name} {
+    .tabs {
         background-color: $menu-background-color;
 
         & li {

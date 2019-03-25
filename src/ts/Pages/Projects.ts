@@ -12,7 +12,7 @@ export const Projects: IRawPage = {
             "~s~" +
             "~ccomment~" + "// A few of the coding projects I've worked on." +
             "~l~" +
-            "import~Creserved~" + "~c~ React" + "~c~ from~Creserved~" + "~cstring~ ~q~react~q~" + "~csymbol~;" +
+            "import~Creserved~" + "~ctint-default~ React" + "~c~ from~Creserved~" + "~cstring~ ~q~react~q~" + "~csymbol~;" +
             "~l~~l~" +
             "export~Creserved~" + "~c~ class~Ckey~" + "~c~ Stypes3DProductConfigurator~Cfunc~" + "~c~ extends~Ckey~" + "~c~ React~Cfunc~" + "~csymbol~." + "~c~Component~Cfunc~" + "~csymbol~ {" +
             "~l~" +

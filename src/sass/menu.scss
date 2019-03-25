@@ -115,7 +115,7 @@
 
     &.#{$sim-type-class} {
         // Removing any styling the regular simType has that conflicts here for preview.
-        margin: 0 ;
+        margin-top: 0;
         justify-content: flex-start;
     }
 

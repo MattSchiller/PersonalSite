@@ -2,9 +2,20 @@ import { ISimTypeContent, IRawSimTypeContent } from "@SimType/ISimTypeContent";
 import { IThemeEnum } from "@Helpers/IThemeEnum";
 
 export interface IStore {
-    activePageId: string;
+    theme: IStoreTheme;
+    content: IStoreContent;
+}
+
+export interface IStoreContent extends IActivePageProps {
     pages: IPage[];
+}
+
+export interface IStoreTheme {
     activeTheme: IThemeEnum;
+}
+
+export interface IActivePageProps {
+    activePageId: string;
 }
 
 interface IBasePage {

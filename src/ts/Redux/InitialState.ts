@@ -1,10 +1,11 @@
-import { IPage, IRawPage, IStore } from "@Redux/Interfaces/IStore";
+import { IThemeEnum } from "@Helpers/IThemeEnum";
 import { About } from "@Pages/About";
 import { Contact } from "@Pages/Contact";
-import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";
-import { ResumePage } from "@Pages/Resume";
+import { FunFactFriday } from "@Pages/FunFactFriday";
 import { Projects } from "@Pages/Projects";
-import { getInitialTheme } from "@Helpers/Theming";
+import { Resume } from "@Pages/Resume";
+import { IPage, IRawPage, IStore, IStoreContent, IStoreTheme } from "@Redux/Interfaces/IStore";
+import { IRawSimTypeContent, ISimTypeContent, ISimTypeStatus } from "@SimType/ISimTypeContent";
 
 export const initialState = getInitialState();
 
@@ -13,16 +14,22 @@ function getInitialState(): IStore {
         About,
         Projects,
         Contact,
-        ResumePage,
+        Resume,
+        FunFactFriday,
     ].map(cleanUpRawPage);
 
-    const activePageId = pages.length > 0 ? pages[0].pageId : "NULL";
-    const activeTheme = getInitialTheme();
+    const content: IStoreContent = {
+        activePageId: pages.length > 0 ? pages[0].pageId : "NULL",
+        pages,
+    };
+
+    const theme: IStoreTheme = {
+        activeTheme: IThemeEnum.DARK_PLUS,
+    };
 
     return {
-        activePageId,
-        pages,
-        activeTheme,
+        content,
+        theme,
     };
 }
 

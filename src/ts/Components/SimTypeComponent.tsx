@@ -1,8 +1,9 @@
 import { SimTypeLine } from "@Components/SimTypeLine";
-import { getThemedClassName, IThemedProps } from "@Helpers/Theming";
+import { getThemedClassName } from "@Helpers/Theming";
 import { Actions } from "@Redux/Actions";
 import { ITypedContentPayload } from "@Redux/Interfaces/IAction";
-import { IStore } from "@Redux/Interfaces/IStore";
+import { IStore, IStoreTheme } from "@Redux/Interfaces/IStore";
+import { getActiveTheme } from "@Redux/Store";
 import CSS from "@Sass/styles.scss";
 import { ISimTypeContent } from "@SimType/ISimTypeContent";
 import { getNextTypedContentPayloadPromise } from "@SimType/SimType";
@@ -12,7 +13,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 // This is supplied by the container.
-interface ISimTypeComponentProps extends ISimTypeContent, IThemedProps {
+interface ISimTypeComponentProps extends ISimTypeContent, IStoreTheme {
     pageId: string;
 }
 
@@ -104,7 +105,7 @@ class SimTypeComponent extends React.PureComponent<ISimTypeComponentProps, ISimT
 
 function mapStateToProps(state: IStore) {
     return {
-        activeTheme: state.activeTheme
+        activeTheme: getActiveTheme()
     };
 }
 

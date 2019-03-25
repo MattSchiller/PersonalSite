@@ -5,8 +5,8 @@
     height: $content-height;
 }
 
-@mixin sim-type-colors($theme, $language, $default-text-color) {
-    .sim-type-container-#{$language}-#{theme} {
+@mixin sim-type-colors($language, $default-text-color) {
+    .sim-type-container-#{$language} {
         color: $default-text-color;
 
         .default-color {

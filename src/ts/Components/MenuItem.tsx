@@ -25,8 +25,5 @@ export class MenuItem extends React.PureComponent<IMenuItemProps> {
         return this.props.isSelected ? CSS.selected : "";
     }
 
-    private _onClick = () => {
-        history.push(this.props.pageId);
-        Actions.setActivePage({ pageId: this.props.pageId });
-    }
+    private _onClick = () => history.push(this.props.pageId);
 }

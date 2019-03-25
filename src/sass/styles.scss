@@ -6,12 +6,14 @@
 @import "themes/themeCore";
 @import "themes/darkPlus";
 @import "themes/capoLight";
+@import "rotateMobile";
+@import "loading";
 
 html {
     font-family: Inconsolata, sans-serif;
     font-weight: 500;
 
-    font-size: 1.4em;
+    font-size: 2vw;
 
     @include media-tablet-landscape-and-larger {
         font-size: 1em;
@@ -27,7 +29,11 @@ body {
     background: lime;
 }
 
-embed {
+embed, iframe {
     width: 100%;
     height: $content-height;
+}
+
+.hidden {
+    display: none !important;
 }

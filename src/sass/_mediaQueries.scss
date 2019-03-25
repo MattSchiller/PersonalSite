@@ -8,8 +8,18 @@ $desktop-width: 1200px;
     }
 }
 
+@mixin media-phone-portrait {
+    @media
+        (min-width: 320px) and
+        (max-width: #{$tablet-width - 20px}) and
+        (orientation: portrait) and
+        (min-resolution: 120dpi) {
+        @content;
+    }
+}
+
 @mixin media-tablet-portrait {
-    @media (min-width: #{tablet-width}) and (orientation : portrait){
+    @media (min-width: #{tablet-width}) and (orientation : portrait) {
         @content;
     }
 }
