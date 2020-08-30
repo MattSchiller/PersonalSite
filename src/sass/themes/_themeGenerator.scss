@@ -77,6 +77,10 @@
             margin-top: 0em;
         }
 
+        &:not(.theme-option):last-child {
+            margin-bottom: 2em;
+        }
+
         background-color: $page-color;
         // TODO: investigate the need for this rule.
         color: $default-text-color;

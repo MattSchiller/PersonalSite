@@ -1,4 +1,4 @@
 $menu-height: 2.5;
-$content-height: calc(100vh - #{($menu-height + 0.5em)});
+$content-height: calc(100vh - #{($menu-height - 0.1em)});
 
 $sim-type-class: "sim-type";
