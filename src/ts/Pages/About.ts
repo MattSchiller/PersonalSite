@@ -48,7 +48,7 @@ export const About: IRawPage = {
         "~c0~). Sometimes it" +
         "~l~" +
         "~cindent2~means learning how 3D modeling and rendering works, to code while managing artists as co-founder/COO of a 3D platform-for-fashion startup, ~c~Strypes" +
-        "~ahttps://app.box.com/v/StrypesDemoVideo/~" +
+        "~ahttps://app.box.com/s/4od1gwcqfdymo8nt1u5lm912tr9jjmjz~" +
         "~c~." +
         "~l2~~l~" +
         "~Cindent2~" +
